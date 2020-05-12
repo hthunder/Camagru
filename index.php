@@ -12,6 +12,7 @@ session_start();
 // 2. Подключение файлов системы
 
 define('ROOT', dirname(__FILE__));
+// echo ROOT;
 require_once(ROOT . '/components/Autoload.php');
 
 // 3. Вызов Router

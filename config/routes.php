@@ -1,6 +1,8 @@
 <?php
 
 return array(
-	'Camagru' => 'Camagru/site/index',
+	'Camagru/user/register' => 'user/register',
+	'Camagru/user/login' => 'user/login',
+	'Camagru' => 'site/index',
 	'news/([a-z]+)/([0-9]+)' => 'news/view/$1/$2',
 );

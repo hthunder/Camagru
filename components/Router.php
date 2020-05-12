@@ -41,7 +41,6 @@ class Router
 				// Определить контроллер, action, параметры
 				$segments = explode('/', $internalRoute);
 
-				array_shift($segments);
 				$controllerName = array_shift($segments) . 'Controller';
 				$controllerName = ucfirst($controllerName);
 				
@@ -58,7 +57,6 @@ class Router
 
 				// Создать объект, вызвать метод (т.е. action)
 				$controllerObject = new $controllerName;
-				
 
 				$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 				
