@@ -39,7 +39,6 @@ class Router
 				$internalRoute = preg_replace("@$uriPattern@", $path, $uri);
 
 				// Определить контроллер, action, параметры
-
 				$segments = explode('/', $internalRoute);
 
 				array_shift($segments);
@@ -58,8 +57,8 @@ class Router
 				}
 
 				// Создать объект, вызвать метод (т.е. action)
-
 				$controllerObject = new $controllerName;
+				
 
 				$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 				
