@@ -1,0 +1,104 @@
+// .cabinet {
+
+	
+
+// 	&__label {
+// 		&_block {
+// 			display: block;
+// 		}
+// 	}
+// 	&__logout {
+// 		flex-basis: 100%;
+// 		padding: 20px 0;
+// 	}
+// 	&__form {
+// 		flex-basis: 100%;
+// 		margin-bottom: 25px;
+// 	}
+// 	&__legend {
+// 		text-align:left;
+// 		color:#ccc;
+// 		font-size:18px;
+// 		padding:0px 4px 0px 4px;
+// 		margin-left:20px;
+// 	}
+// 	&__input {
+// 		margin: 10px 0;
+// 	}
+// 	&__input-sex {
+// 		margin: 10px 10px;
+// 	}
+// 	&__fieldset {
+// 		border-top:1px solid #ccc;
+// 		border-left:0;
+// 		border-bottom:0;
+// 		border-right:0;
+// 		padding:6px;
+// 		margin:0px 30px 0px 0px;
+// 	}
+// 	&__text-sex {
+// 		margin: 10px 10px 0;
+// 	}
+// }
+
+.burger {
+	height: 70px;
+	background-color: $accent;
+	&__bar {
+		display: block;
+		height: 2px;
+		background-color: #fff;
+		margin: 5px 0 0;
+		transition: all .1s linear .23s;
+		position: relative;
+	}
+	&__bar_mt_0 {
+		margin-top: 0;
+	}
+	&__hidden-list {
+		display: block;
+		position: fixed;
+		list-style:none;
+		padding: 10px;
+		margin: 0;
+		box-sizing: border-box;
+		min-width: 50%;
+		background-color: #fff;
+		height: 100%;
+		top: 0;
+		right: -50%;
+		transition: right .2s;
+		z-index: 2;
+	}
+	&__hidden-checkbox {
+		display: none;
+	}
+	&__btn {
+		color: #fff;
+		padding: 5px;
+		position: fixed;
+		top: 18px;
+		right: 25px;
+		cursor: pointer;
+		transition: right .23s;
+		z-index: 3;
+		width: 38px;
+	}
+	&__hidden-checkbox:checked ~ &__hidden-list {
+		right: 0;
+	}
+	&__hidden-checkbox:checked ~ &__btn &__bar {
+		background-color: $accent;
+	}
+	&__list-link {
+		display: inline-block;
+		width: 75%;
+		border-bottom: 1px solid $accent;
+		border-image: linear-gradient(to right, $accent 0%, #fff 100%);
+		border-image-slice: 1;
+		color: #000;
+		letter-spacing: 0.2em;
+		font-size: 11px;
+		font-weight: normal;
+	}
+}

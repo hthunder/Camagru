@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Login form</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="/Camagru/template/css/main.min.css">
-</head>
-<body>
-	
-	<!-- <div class=""> -->
+	<?php include(ROOT . "/views/layouts/_head.php"); ?>
+	<body class="body body_bg_accent">
 		<div class="login">
-			<div class="login__container">
-				<form class="login__form">
-					<span class="login__title">
-						Account Login
-					</span>
-					<input class="login__input" type="text" name="email" placeholder="Email">
-					<input class="login__input login__input_border-top_none" type="password" name="pass" placeholder="Password">
-					<button class="login__button">
-						Sign in
+				<div class="logo login__logo">
+					<img class="logo__img" src="/Camagru/public/images/mdi-light_camera.png" alt="">
+					<span class="logo__text">Camagru</span>
+				</div>
+				<form class="login__form" method="POST" action="/Camagru/user/login">
+					<input class="input-1 login__form-login" type="text" name="email_username" placeholder="Логин или эл. адрес">
+					<input class="input-1 login__form-password" type="password" name="password" placeholder="Пароль">
+					<a href="#" class="link link_underline">
+						Забыли пароль?	
+					</a>
+					<button class="button-2 login__form-button" type="submit" name="login">
+						Войти
 					</button>
-					<div class="login__wrapper login__forget-wrapper">
-						<span class="login__text">
-							Forgot
-						</span>
-						<a class="login__link" href="#">
-							Username / Password?
-						</a>
-					</div>
-
-					<div class="login__wrapper">
-						<span class="login__text">
-							Create an account?
-						</span>
-
-						<a class="login__link" href="#">
-							Sign up
-						</a>
-					</div>
+					<span class="login__text">
+						У вас еще нет аккаунта?
+					</span>
+					<a class="link link_underline" href="/Camagru/user/register">
+						Зарегистрироваться!
+					</a>
 				</form>
-			</div>
 		</div>
-	<!-- </div> -->
-
-</body>
+	</body>
 </html>

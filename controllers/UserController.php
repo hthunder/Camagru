@@ -17,10 +17,10 @@ class UserController
         $result = false;
 
         // Обработка формы
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['signup'])) {
             // Если форма отправлена 
             // Получаем данные из формы
-            $name = $_POST['name'];
+            $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
 
@@ -28,8 +28,11 @@ class UserController
             $errors = false;
 
             // Валидация полей
-            if (!User::checkName($name)) {
+            if (!User::checkUsername($username)) {
                 $errors[] = 'Имя не должно быть короче 2-х символов';
+            }
+            if (User::checkUsernameExists($username)) {
+                $errors[] = 'Такое имя пользователя уже используется';
             }
             if (!User::checkEmail($email)) {
                 $errors[] = 'Неправильный email';
@@ -40,17 +43,28 @@ class UserController
             if (User::checkEmailExists($email)) {
                 $errors[] = 'Такой email уже используется';
             }
-            
             if ($errors == false) {
                 // Если ошибок нет
                 // Регистрируем пользователя
-                $result = User::register($name, $email, $password);
+                $activation_code = md5($email . time());
+                $result = User::register($username, $email, $password, $activation_code);
+                header('Location: /Camagru');
             }
         }
 
         // Подключаем вид
+        $title = 'Форма регистрации';
         require_once(ROOT . '/views/user/register.php');
         return true;
+    }
+
+    /*
+    ** Action для активация профиля пользователя
+    **
+    */
+
+    public function actionActivation() {
+
     }
     
     /**
@@ -63,39 +77,34 @@ class UserController
         $password = false;
         
         // Обработка формы
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['login'])) {
             // Если форма отправлена 
             // Получаем данные из формы
-            $email = $_POST['email'];
+            $email_username = $_POST['email_username'];
             $password = $_POST['password'];
 
             // Флаг ошибок
             $errors = false;
 
-            // Валидация полей
-            if (!User::checkEmail($email)) {
-                $errors[] = 'Неправильный email';
-            }
-            if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
-            }
-
             // Проверяем существует ли пользователь
-            $userId = User::checkUserData($email, $password);
+            $userId = User::checkUserData($email_username, $password);
 
             if ($userId == false) {
                 // Если данные неправильные - показываем ошибку
                 $errors[] = 'Неправильные данные для входа на сайт';
+                // var_dump($errors);
             } else {
                 // Если данные правильные, запоминаем пользователя (сессия)
                 User::auth($userId);
 
                 // Перенаправляем пользователя в закрытую часть - кабинет 
-                header("Location: /cabinet");
+                // echo("Все ок");
+                header("Location: /Camagru/cabinet");
             }
         }
 
         // Подключаем вид
+        $title = 'Форма логина';
         require_once(ROOT . '/views/user/login.php');
         return true;
     }
@@ -106,13 +115,13 @@ class UserController
     public function actionLogout()
     {
         // Стартуем сессию
-        session_start();
+        // session_start();
         
         // Удаляем информацию о пользователе из сессии
         unset($_SESSION["user"]);
         
         // Перенаправляем пользователя на главную страницу
-        header("Location: /");
+        header("Location: /Camagru");
     }
 
 }

@@ -1,0 +1,28 @@
+.index-container {
+	width: 320px;
+	min-height: 100vh;
+	margin: 0 auto;
+	position: relative;
+	display: flex;
+	align-items: center;
+	&__inner {
+		margin: 0 auto;	
+	}
+	&::before {
+		content: "";
+		width: 100%;
+		min-height: 100%;
+		opacity: 0.3;
+		z-index: -1; 
+		position: absolute;
+		background: url('/Camagru/public/images/background-1.jpg') no-repeat center center fixed;
+		background-size: cover;
+	}
+	&__button {
+		display: block;
+		margin: 0 auto 40px;
+	}
+	&__logo {
+		margin-bottom: 143px;
+	}
+}

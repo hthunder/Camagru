@@ -40,7 +40,7 @@ class Router
 
 				// Определить контроллер, action, параметры
 				$segments = explode('/', $internalRoute);
-
+				// var_dump($segments);
 				$controllerName = array_shift($segments) . 'Controller';
 				$controllerName = ucfirst($controllerName);
 				
