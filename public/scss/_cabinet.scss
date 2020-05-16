@@ -59,7 +59,7 @@
 		display: block;
 		position: fixed;
 		list-style:none;
-		padding: 10px;
+		padding: 87px 10px 10px;
 		margin: 0;
 		box-sizing: border-box;
 		min-width: 50%;
@@ -92,13 +92,100 @@
 	}
 	&__list-link {
 		display: inline-block;
-		width: 75%;
-		border-bottom: 1px solid $accent;
+		width: calc(100% - 18px);
+		border-width: 0px;
+		border-bottom-width: 1px;
+		border-style: solid;
 		border-image: linear-gradient(to right, $accent 0%, #fff 100%);
 		border-image-slice: 1;
 		color: #000;
 		letter-spacing: 0.2em;
 		font-size: 11px;
 		font-weight: normal;
+	}
+	&__list-link_button {
+		background-color: transparent;
+		text-align: start;
+		font-family: inherit;
+	}
+	&__list-link_button:focus {
+		outline: none;
+	}
+	&__icon {
+		float: right;
+		width: 20px;
+		height: 20px;
+	}
+}
+
+.checkbox {
+	&__input {
+		display: none;	
+	}
+	&__custom-element {
+		right: 25px;
+    	bottom: 8px;
+		display: inline-block;
+		// height: 30px;
+		position: relative;
+		cursor: pointer;	
+	}
+	&__custom-element:before {
+		box-sizing: border-box;
+		content: '';
+		position: absolute;
+		top: -2px;
+		width: 21px;
+		height: 13px;
+		border: 1px solid $accent-2;
+		border-radius: 13px;
+		background: #fff;
+		transition: .2s;	
+	}
+	&__custom-element:after {
+		box-sizing: border-box;
+		content: '';
+		position: absolute;
+		top: -2px;
+		left: 0px;
+		width: 13px;
+		height: 13px;
+		border-radius: 10px;
+		border: 1px solid $accent-2;
+		background: #fff;
+		transition: .2s;	
+	}
+	&__input:checked + &__custom-element:before {
+		background: $accent-2;	
+	}
+	&__input:checked + &__custom-element:after {
+		left: 8px;	
+	}
+}
+
+.close {
+	display: block;
+	position: relative;
+	border: 2px solid $accent-2;
+	border-radius: 16px;
+	float: right;
+	width: 20px;
+	height: 20px;
+	&::before,
+	&::after {
+		position: absolute;
+		left: 7px;
+		top: 5px;
+		content: ' ';
+		height: 7px;
+		width: 2px;
+		border-radius: 1px;
+		background-color: $accent-2;
+	}
+	&::before {
+		transform: rotate(45deg);
+	}
+	&::after {
+		transform: rotate(-45deg);
 	}
 }

@@ -11,13 +11,48 @@
 					<span class="burger__bar"></span>
 				</label>
 				<ul class="burger__hidden-list">
-					<li class="burger__list-item"><a class="link burger__list-link" href="">Галерея</a></li>  
-					<li class="burger__list-item"><a class="link burger__list-link" href="">Сделать фото</a></li>
-					<li class="burger__list-item"><a class="link burger__list-link" href="">Уведомления</a></li> 
-					<li class="burger__list-item"><a class="link burger__list-link" href="">Личный кабинет</a></li>
-					<li class="burger__list-item"><a class="link burger__list-link" href="">Сменить пароль</a></li> 
+					<li class="burger__list-item">
+						<a class="link burger__list-link" href="">
+							Галерея<img class="burger__icon" src="/Camagru/public/images/icons/picture.svg" alt="">
+						</a>
+					</li>  
+					<li class="burger__list-item">
+						<a class="link burger__list-link" href="">
+							Сделать фото<img class="burger__icon" src="/Camagru/public/images/icons/camera.svg" alt="">
+						</a>
+					</li>
+					<li class="burget__list-item">
+						<label class="checkbox">
+							<span class="link burger__list-link">Уведомления</span>
+							<input class="checkbox__input" type="checkbox">
+							<div class="checkbox__custom-element"></div>
+						</label>
+					</li>
+					<li class="burger__list-item">
+						<a class="link burger__list-link" href="">
+							Личный кабинет<img class="burger__icon" src="/Camagru/public/images/icons/avatar.svg" alt="">
+						</a>
+					</li>
+					<li class="burger__list-item">
+						<a class="link burger__list-link" href="">
+							Сменить пароль<img class="burger__icon" src="/Camagru/public/images/icons/key.svg" alt="">
+						</a>
+					</li> 
+					<li class="burger__list-item">
+						<button type="submit" class="link burger__list-link burger__list-link_button" href="">
+							Выйти<span class="close"></span>
+						</button>
+					</li> 
 				</ul>
 			</div>
+			<!-- <div style="height: 100px;">
+
+			</div>
+			<label class="checkbox">
+				<a href="" class="link burger__list-link">Уведомления</a>
+				<input class="checkbox__input" type="checkbox">
+				<div class="checkbox__custom-element"></div>
+			</label> -->
 		</div>
 		
 			<!-- <section class="cabinet">
