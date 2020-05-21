@@ -131,10 +131,11 @@ class UserController
         return true;
     }
 
-    public function actionCreatePhoto()
-    {
-        User::createPhoto();
-        echo "I tried";
-        return true;
-    }
+
+    // public function actionCreatePhoto()
+    // {
+    //     User::createPhoto();
+    //     echo "I tried";
+    //     return true;
+    // }
 }

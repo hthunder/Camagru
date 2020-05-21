@@ -244,69 +244,76 @@ class User
         return $result->fetch();
     }
 
-    public static function createPhoto()
-    {
-        /*
-        $base_image = imagecreatetruecolor(1000, 1000);
+    // public static function getUserPhoto() {
 
-        imagealphablending($base_image, false);
-        $col = imagecolorallocatealpha($base_image, 255, 255, 255, 127);
-        imagefilledrectangle($base_image, 0, 0, 90, 135, $col);
-        imagealphablending($base_image,true);
-        imagesavealpha($base_image, true);
-        $photo = imagecreatefromjpeg(ROOT . '/public/images/back.jpg');
-        $top_image = imagecreatefrompng(ROOT . '/public/images/masks/heart.png');
+    // }
 
-        imagecopy($base_image, $photo, 20, 23, 0, 0, 1000, 1000);
-        imagecopy($base_image, $top_image, 0, 0, 0, 0, 1000, 1000);
-        */
+    // public static function createUserPhoto()
+    // {
+    //     // getPhoto();
+    //     /*
+    //     $base_image = imagecreatetruecolor(1000, 1000);
 
-        // create base image
-        $photo = imagecreatefromjpeg(ROOT . "/public/images/work-copy.jpg");
-        $frame = imagecreatefrompng(ROOT . "/public/images/masks/heart.png");
+    //     imagealphablending($base_image, false);
+    //     $col = imagecolorallocatealpha($base_image, 255, 255, 255, 127);
+    //     imagefilledrectangle($base_image, 0, 0, 90, 135, $col);
+    //     imagealphablending($base_image,true);
+    //     imagesavealpha($base_image, true);
+    //     $photo = imagecreatefromjpeg(ROOT . '/public/images/back.jpg');
+    //     $top_image = imagecreatefrompng(ROOT . '/public/images/masks/heart.png');
 
-        // get frame dimentions
-        $frame_width = imagesx($frame);
-        $frame_height = imagesy($frame);
+    //     imagecopy($base_image, $photo, 20, 23, 0, 0, 1000, 1000);
+    //     imagecopy($base_image, $top_image, 0, 0, 0, 0, 1000, 1000);
+    //     */
 
-        // get photo dimentions
-        $photo_width = imagesx($photo);
-        $photo_height = imagesy($photo);
+    //     // create base image
+    //     $photo = imagecreatefromjpeg(ROOT . "/public/images/work-copy.jpg");
+    //     $frame = imagecreatefrompng(ROOT . "/public/images/masks/heart.png");
 
-        // creating canvas of the same dimentions as of frame
-        $canvas = imagecreatetruecolor($frame_width,$frame_height);
+    //     // get frame dimentions
+    //     $frame_width = imagesx($frame);
+    //     $frame_height = imagesy($frame);
 
-        // make $canvas transparent
-        imagealphablending($canvas, false);
-        $col = imagecolorallocatealpha($canvas,255,255,255,127);
-        imagefilledrectangle($canvas,0,0,$frame_width,$frame_height,$col);
-        imagealphablending($canvas,true);    
-        imagesavealpha($canvas, true);
+    //     // get photo dimentions
+    //     $photo_width = imagesx($photo);
+    //     $photo_height = imagesy($photo);
 
-        // merge photo with frame and paste on canvas
-        imagecopyresized($canvas, $photo, 0, 0, 0, 0, $frame_width, $frame_height,$photo_width, $photo_height); // resize photo to fit in frame
-        imagecopy($canvas, $frame, 0, 0, 0, 0, $frame_width, $frame_height);
+    //     // creating canvas of the same dimentions as of frame
+    //     // $canvas = imagecreatetruecolor($frame_width,$frame_height);
+    //     $canvas = imagecreatetruecolor($photo_width, $photo_height);
 
-        // return file
-        header('Content-Type: image/png');
-        imagepng($canvas);
+    //     // make $canvas transparent
+    //     // imagealphablending($canvas, false);
+    //     // $col = imagecolorallocatealpha($canvas,255,255,255,127);
+    //     // imagefilledrectangle($canvas,0,0,$frame_width,$frame_height,$col);
+    //     imagealphablending($canvas,true);    
+    //     // imagesavealpha($canvas, true);
 
-        // destroy images to free alocated memory
-        imagedestroy($photo);
-        imagedestroy($frame);
-        imagedestroy($canvas);
+    //     // merge photo with frame and paste on canvas 
+    //     imagecopy($canvas, $photo, 0, 0, 0, 0, $photo_width, $photo_height);
+    //     imagecopy($canvas, $frame, 0, 0, 0, 0, $frame_width, $frame_height);
+    //     // imagecopyresized($canvas, $frame, 0, 0, 0, 0, $photo_width, $photo_height, $frame_width, $frame_height); // resize png to fit in canvas
+
+    //     // return file
+    //     header('Content-Type: image/jpeg');
+    //     imagejpeg($canvas);
+
+    //     // destroy images to free alocated memory
+    //     imagedestroy($photo);
+    //     imagedestroy($frame);
+    //     imagedestroy($canvas);
 
 
         
-        // imagecopymergegray($dest, $src1, 0, 0, 100, 100, 1000, 1000, 100);
-        header('Content-Type: image/png');
-        // imagepng($base_image);
-        // imagepng($src1);
-        // imagejpeg($dest);
-        // imagepng($dest);
-        // imagejpeg($src);
-        // imagedestroy($dest);
-        // imagedestroy($src1);
-    }
+    //     // imagecopymergegray($dest, $src1, 0, 0, 100, 100, 1000, 1000, 100);
+    //     header('Content-Type: image/png');
+    //     // imagepng($base_image);
+    //     // imagepng($src1);
+    //     // imagejpeg($dest);
+    //     // imagepng($dest);
+    //     // imagejpeg($src);
+    //     // imagedestroy($dest);
+    //     // imagedestroy($src1);
+    // }
 
 }

@@ -7,13 +7,22 @@
 			<div class="top-line">	
 			</div>
 			<div class="container">
-        <?php include(ROOT . '/views/layouts/_burger.php'); ?>
+		<?php include(ROOT . '/views/layouts/_burger.php'); ?>
+		<form action="/Camagru/photo/create" method="POST" enctype="multipart/form-data">
+			<input type="file" name="uploadfile">
+			<input type="submit" value="Загрузить">
+		</form>
+		<?php if(isset($_SESSION['errors'])) echo($_SESSION['errors']); ?>
         <div class="photo__container">
-          <video class="photo__video" id="video">Video stream not available.</video>
-          <button class="button-4 photo__button" id="startbutton"><img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt=""></button>
+        	<video class="photo__video" id="video">Video stream not available.</video>
+        	<form action="/Camagru/photo/create">
+        		<button class="button-4 photo__button" id="startbutton"><img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt=""></button>
+        	</form>
+          <!-- <button class="button-4 photo__button" id="startbutton"><img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt=""></button> -->
         </div>
         <?php include(ROOT . '/views/layouts/_slider.php'); ?>
         <a class="link link_underline photo__link" href="">Выбрать из моб. галереи</a>
+
         <input class="button-2 button-2_inverse" type="button" value="Опубликовать">
 			</div>
 
