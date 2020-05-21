@@ -124,4 +124,17 @@ class UserController
         header("Location: /Camagru");
     }
 
+    public function actionPhoto()
+    {
+        $title = 'Сделать фото';
+        require_once(ROOT . '/views/user/photo.php');
+        return true;
+    }
+
+    public function actionCreatePhoto()
+    {
+        User::createPhoto();
+        echo "I tried";
+        return true;
+    }
 }

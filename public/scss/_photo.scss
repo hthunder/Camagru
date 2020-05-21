@@ -1,0 +1,44 @@
+.photo {
+	&__video {
+		min-height: 196px;
+		border: 2px solid $accent;
+		border-radius: 10px;
+		width: 100%;
+		height: auto;
+	}
+	&__container {
+		display: flex;
+		margin-top: 21px;
+		position: relative;
+		margin-bottom: 22px;
+	}
+	&__button {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 18px;
+	}
+	&__mask {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		border: 1px solid $accent-10;
+		border-radius: 10px;
+	}
+	&__mask-img {
+		width: 100%;
+		max-height: 100%;
+	}
+	&__slider-container {
+		position: relative;
+		margin-bottom: 15px;
+	}
+	&__link {
+		display: block;
+		font-size: 12px;
+		line-height: 23px;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+	}
+}
