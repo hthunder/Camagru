@@ -244,6 +244,17 @@ class User
         return $result->fetch();
     }
 
+    /**
+     * Получить все маски
+     * @return array Возвращает массив путей
+    */
+
+    public static function getMasks()
+    {
+        $masks = scandir(ROOT . "/public/images/masks/");
+        return $masks;
+    }
+
     // public static function getUserPhoto() {
 
     // }

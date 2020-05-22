@@ -26,6 +26,9 @@
 		border: 1px solid $accent-10;
 		border-radius: 10px;
 	}
+	&__mask_active {
+		background-color: rgb(255, 133, 133);
+	}
 	&__mask-img {
 		width: 100%;
 		max-height: 100%;
@@ -41,4 +44,48 @@
 		letter-spacing: 0.1em;
 		margin-bottom: 10px;
 	}
+	&__nav-container {
+		width:20%; 
+		z-index: 1000; 
+		top:5px; 
+		left: 5px; 
+		position: absolute; 
+		display:flex; 
+		flex-direction: column; 
+		justify-content: center; 
+		align-items: center;
+	}
+	&__scale-container {
+		width:10%; 
+		z-index: 1000; 
+		top:10px; 
+		right: 10px; 
+		position: absolute; 
+		display:flex; 
+		flex-direction: column; 
+		justify-content: center; 
+		align-items: center;
+	}
+	&__nav-center {
+		display: flex;
+		width: 100%;
+	}
+	&__nav-button {
+		background-color: $accent-10;
+		opacity: 50%;
+		width: 50%;
+		border: 1px solid rgba(211, 211, 211, 0.4);
+	}
+	&__scale-button {
+		background-color: $accent-10;
+		opacity: 50%;
+		width: 100%;
+		border: 1px solid rgba(211, 211, 211, 0.4);
+	}
+	// &__nav-button_top {
+	// 	width: 25%;
+	// }
+	// &__nav-button_bottom {
+	// 	width: 25%;
+	// }
 }

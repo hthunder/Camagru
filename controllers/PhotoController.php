@@ -10,7 +10,8 @@ class PhotoController
 		/**
 		 * 
 		 * Сделать генерацию названий файлов
-		 * 
+		 * Сделать обработку масок
+		 * Добавить отображение фото при ручном добавлении на фронте
 		 * 
 		 */
 		$pieces = explode("/", $_FILES['uploadfile']['type']);
@@ -19,14 +20,11 @@ class PhotoController
 			header("Location: /Camagru/user/photo");
 			return false;
 		} else {
-			copy($_FILES['uploadfile']['tmp_name'], ROOT . '/public/images/gallery/' . basename($_FILES['uploadfile']['name']));
+			copy($_FILES['uploadfile']['tmp_name'], Photo::getUniqueName(ROOT . '/public/images/gallery/', 'jpg'));
 			$title = 'Сделать фото';
-			require_once(ROOT . '/views/user/photo.php');
 			header("Location: /Camagru/user/photo");
 			return true;
 		}
-		// Photo::createPhoto($_FILES['uploadfile']['name'], $_FILES['uploadfile']['size'], $_FILES['uploadfile']['type'], 
-		// $_FILES['uploadfile']['tmp_name'], $_FILES['uploadfile']['error']);
 		
 	}
 }

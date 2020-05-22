@@ -127,6 +127,7 @@ class UserController
     public function actionPhoto()
     {
         $title = 'Сделать фото';
+        $masks = User::getMasks();
         require_once(ROOT . '/views/user/photo.php');
         return true;
     }
