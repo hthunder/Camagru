@@ -31,21 +31,26 @@
 						<button class="photo__scale-button photo__scale_down">-</button>
 					</div>
 					<video class="photo__video" id="video">Video stream not available.</video>
-					<form action="/Camagru/photo/create">
-						<button class="button-4 photo__button" id="startbutton">
-							<img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt="">
+					<form class="photo__form" action="/Camagru/photo/create" method="POST">
+						<input class="photo__hidden" type="hidden" name="hidden">
+						<input class="photo__hidden-info" type="hidden" name="info">
+						<button type="button" class="button-4 photo__button" id="startbutton">
+							<div class="photo__button-wrapper">
+								<img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt="">
+							</div>			
 						</button>
 					</form>
 				</div>
 				<?php include(ROOT . '/views/layouts/_slider.php'); ?>
 				<a class="link link_underline photo__link" href="">Выбрать из моб. галереи</a>
 				<input class="button-2 button-2_inverse" type="button" value="Опубликовать">
+				<canvas id="canvas" style="display: none">
+				</canvas>
+				<div class="output">
+					<img style="width: 100%" id="photo" alt="The screen capture will appear in this box.">
+				</div>
 			</div>
-			<canvas id="canvas">
-			</canvas>
-			<div class="output">
-				<img id="photo" alt="The screen capture will appear in this box.">
-			</div>
+			
 		</div>
 		<script src="/Camagru/public/js/main.js"></script>
 		<script src="/Camagru/public/js/video.js"></script>

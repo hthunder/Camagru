@@ -185,13 +185,11 @@ html {
 }
 
 .button-4 {
-	display: flex;
-	justify-content: center;
 	margin: 0 auto;
-	align-items: center;
 	border-radius: 50%;
-	min-width: 15.625vw;
-	min-height: 15.625vw;
+	width: 20%;
+	height: 0;
+	padding-bottom: 20%;
 	color: #fff;
 	background-color: $accent-8;
 	border: none;

@@ -3,7 +3,7 @@
 	// width to the value defined here, but the height will be
 	// calculated based on the aspect ratio of the input stream.
 
-	var width = 320;    // We will scale the photo width to this
+	var width = 1920;    // We will scale the photo width to this
 	var height = 0;     // This will be computed based on the input stream
 
 	// |streaming| indicates whether or not we're currently streaming
@@ -69,7 +69,7 @@
 		context.fillStyle = "#AAA";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 
-		var data = canvas.toDataURL('image/png');
+		var data = canvas.toDataURL('image/jpeg', 1);
 		photo.setAttribute('src', data);
 	}
 	
@@ -82,15 +82,35 @@
 	function takepicture() {
 		var context = canvas.getContext('2d');
 		if (width && height) {
-		canvas.width = width;
-		canvas.height = height;
-		context.drawImage(video, 0, 0, width, height);
-		context.drawImage(document.getElementById('russia'), 30, 0);
-		
-		var data = canvas.toDataURL('image/png');
-		photo.setAttribute('src', data);
+			canvas.width = width;
+			canvas.height = height;
+			context.drawImage(video, 0, 0, width, height);
+			
+			var data = canvas.toDataURL('image/jpeg', 1);
+			let mask = document.querySelector('.photo__container .photo__mask-img');
+			let maskWindow = document.querySelector('.photo__video');
+			let styles = window.getComputedStyle(mask, null);
+			let windowStyles = window.getComputedStyle(maskWindow, null);
+			// console.log(data);
+			
+			document.querySelector(".photo__hidden").value = data;
+			let info = {};
+			info.src = mask.src;
+			info.width = styles.getPropertyValue("width");
+			info.height = styles.getPropertyValue("height");
+			info.top = styles.getPropertyValue("top");
+			info.left = styles.getPropertyValue("left");
+			info.windowWidth = windowStyles.getPropertyValue("width");
+			info.windowHeight = windowStyles.getPropertyValue("height");
+			// console.log(info);
+			// console.dir(document.querySelector(".photo__hidden-info"));
+			document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
+			document.querySelector(".photo__form").submit();
+			
+			// console.dir(document.querySelector(".photo__hidden"));
+			// photo.setAttribute('src', data);
 		} else {
-		clearphoto();
+			clearphoto();
 		}
 	}
 

@@ -54,10 +54,12 @@ function drawMask(element) {
 	copyimg.style.height = "auto";
 	copyimg.style.top = "0%";
 	copyimg.style.left = "50%";
+	copyimg.style.zIndex = "1001";
 	copyimg.style.transform = "translateX(-50%)";
 
 	let video = document.querySelector('.photo__container');
-	video.appendChild(copyimg);
+	// video.appendChild(copyimg);
+	video.insertBefore(copyimg, video.firstChild);
 }
 
 function getUpMask() {
