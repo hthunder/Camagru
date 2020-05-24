@@ -55,7 +55,9 @@ class Photo {
 
 			/* Создаем изображение из файла и накладываем маску*/
             $image = imagecreatefromjpeg($uniquePath);
-			$image = Photo::mergePhoto($image, $info);
+            if($info->width != null && $info->height != null && $info->left != null && $info->top != null) {
+                $image = Photo::mergePhoto($image, $info);    
+            }
 
 			/* Размещаем фото в постоянной галерее */
 			$finalPath = preg_replace("/tmp_gallery/", "gallery", $uniquePath);

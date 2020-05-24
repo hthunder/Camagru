@@ -1,0 +1,37 @@
+<div class="photo__nav-container">
+	
+	<button class="photo__nav-button photo__nav-button_up">
+		<div class="photo__button-wrapper">
+			<img class="photo__nav-img photo__nav-img_rot-90" src="/Camagru/public/images/icons/pointer.svg" alt="">		
+		</div>
+	</button>
+	<div class="photo__nav-center" >
+		<button class="photo__nav-button photo__nav-button_left">
+			<div class="photo__button-wrapper">	
+				<img class="photo__nav-img" src="/Camagru/public/images/icons/pointer.svg" alt="">	
+			</div>
+		</button>
+		<button class="photo__nav-button photo__nav-button_right">
+			<div class="photo__button-wrapper">
+				<img class="photo__nav-img photo__nav-img_rot-180" src="/Camagru/public/images/icons/pointer.svg" alt="">	
+			</div>
+		</button>	
+	</div>
+	<button class="photo__nav-button photo__nav-button_down">
+		<div class="photo__button-wrapper">
+			<img class="photo__nav-img photo__nav-img_rot-270" src="/Camagru/public/images/icons/pointer.svg" alt="">		
+		</div>
+	</button>
+</div>
+<div class="photo__scale-container">
+	<button class="photo__scale-button photo__scale_up">
+		<div class="photo__button-wrapper">
+			<img class="photo__scale-img" src="/Camagru/public/images/icons/plus.svg" alt="">
+		</div>
+	</button>
+	<button class="photo__scale-button photo__scale_down">
+		<div class="photo__button-wrapper">
+			<img class="photo__scale-img" src="/Camagru/public/images/icons/minus.svg" alt="">
+		</div>
+	</button>
+</div>

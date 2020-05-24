@@ -58,20 +58,20 @@
 		ev.preventDefault();
 		}, false);
 		
-		clearphoto();
+		// clearphoto();
 	}
 
 	// Fill the photo with an indication that none has been
 	// captured.
 
-	function clearphoto() {
-		var context = canvas.getContext('2d');
-		context.fillStyle = "#AAA";
-		context.fillRect(0, 0, canvas.width, canvas.height);
+	// function clearphoto() {
+	// 	var context = canvas.getContext('2d');
+	// 	context.fillStyle = "#AAA";
+	// 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-		var data = canvas.toDataURL('image/jpeg', 1);
-		photo.setAttribute('src', data);
-	}
+	// 	var data = canvas.toDataURL('image/jpeg', 1);
+	// 	photo.setAttribute('src', data);
+	// }
 	
 	// Capture a photo by fetching the current contents of the video
 	// and drawing it into a canvas, then converting that to a PNG
@@ -80,34 +80,56 @@
 	// other changes before drawing it.
 
 	function takepicture() {
-		var context = canvas.getContext('2d');
+		let context = canvas.getContext('2d');
 		if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
 			
-			var data = canvas.toDataURL('image/jpeg', 1);
+			let data = canvas.toDataURL('image/jpeg', 1);
 			let mask = document.querySelector('.photo__container .photo__mask-img');
 			let maskWindow = document.querySelector('.photo__video');
-			let styles = window.getComputedStyle(mask, null);
+			let styles = null;
+
+			if (mask != null) {
+				console.log("hi");
+				styles = window.getComputedStyle(mask, null);	
+			}
 			let windowStyles = window.getComputedStyle(maskWindow, null);
-			// console.log(data);
 			
 			document.querySelector(".photo__hidden").value = data;
-			let info = {};
-			info.src = mask.src;
-			info.width = styles.getPropertyValue("width");
-			info.height = styles.getPropertyValue("height");
-			info.top = styles.getPropertyValue("top");
-			info.left = styles.getPropertyValue("left");
+			let info = {
+				src: null,
+				width: null,
+				height: null,
+				top: null,
+				left: null,
+			};
+			if (mask != null && styles != null) {
+				info.src = mask.src;
+				info.width = styles.getPropertyValue("width");
+				info.height = styles.getPropertyValue("height");
+				info.top = styles.getPropertyValue("top");
+				info.left = styles.getPropertyValue("left");	
+			}
 			info.windowWidth = windowStyles.getPropertyValue("width");
 			info.windowHeight = windowStyles.getPropertyValue("height");
-			// console.log(info);
-			// console.dir(document.querySelector(".photo__hidden-info"));
 			document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
-			document.querySelector(".photo__form").submit();
 			
-			// console.dir(document.querySelector(".photo__hidden"));
+			/* Включить */
+			// document.querySelector(".photo__form").submit();
+			
+			console.dir(document.querySelector(".photo__hidden"));
+			// document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
+			let preview = document.querySelector('.photo__preview');
+			// if (preview) {
+			// 	preview.parentNode.remove();
+			// }
+			document.querySelector('.photo__video').style.display = "none";
+			let div = document.createElement('div');
+			div.classList.add("photo__output");
+            div.innerHTML = ['<img class="photo__preview"', ' src="', data, '" />'].join('');
+			document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
 			// photo.setAttribute('src', data);
 		} else {
 			clearphoto();
