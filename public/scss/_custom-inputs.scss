@@ -1,0 +1,36 @@
+/* don't change this code, it will work only like this */
+.custom-input {
+    &__file {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;  
+    }
+    &__label {
+        letter-spacing: 0.1em;
+        max-width: 80%;
+        font-size: 0.85rem;
+        color: $accent-10;
+        text-decoration: underline;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+        padding: 0 1.25rem;
+    }
+    &__file:focus + &__label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;    
+    }
+    &__file:focus + &__label,
+    &__label:hover {
+        color: #722040;    
+    }
+    &__submit {
+        display: hidden;
+    }
+}

@@ -7,10 +7,11 @@
 			</div>
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
-				<form action="/Camagru/photo/create" method="POST" enctype="multipart/form-data">
-					<input type="file" name="uploadfile" required>
+				<!-- <form action="/Camagru/photo/create" method="POST" enctype="multipart/form-data">
+					<input id="file" type="file" name="uploadfile" required>
 					<input type="submit" value="Загрузить">
-				</form>
+					
+				</form> -->
 				<?php 
 					if(isset($_SESSION['errors'])) {
 						echo($_SESSION['errors']);
@@ -18,6 +19,7 @@
 					} 
 				?>
 				<div class="photo__container">
+					<!-- <span id="output" style="width: 100%; height: auto;"></span> -->
 					<div class="photo__nav-container">
 						<button class="photo__nav-button photo__nav-button_up">&#708;</button>
 						<div class="photo__nav-center">
@@ -42,7 +44,20 @@
 					</form>
 				</div>
 				<?php include(ROOT . '/views/layouts/_slider.php'); ?>
-				<a class="link link_underline photo__link" href="">Выбрать из моб. галереи</a>
+
+
+				<form class="photo__custom-input custom-input">
+					<input class="custom-input__file" type="file" name="uploadfile" id="custom-file" required>
+					<label class="custom-input__label" for="custom-file">
+						<span class="custom-input__span">Выбрать файл&hellip;</span>
+					</label>
+				</form>
+
+				<!-- <form action="/Camagru/photo/create" method="POST" enctype="multipart/form-data">
+					<input id="file" type="file" name="uploadfile" required>
+					
+					
+				</form> -->
 				<input class="button-2 button-2_inverse" type="button" value="Опубликовать">
 				<canvas id="canvas" style="display: none">
 				</canvas>
@@ -54,6 +69,8 @@
 		</div>
 		<script src="/Camagru/public/js/main.js"></script>
 		<script src="/Camagru/public/js/video.js"></script>
-    	<script src="/Camagru/public/js/slider.js"></script>
+		<script src="/Camagru/public/js/slider.js"></script>
+		<script src="/Camagru/public/js/custom-file-input.js"></script>
+		<script src="/Camagru/public/js/preview.js"></script>
 	</body>
 </html>

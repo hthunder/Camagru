@@ -1,19 +1,24 @@
 .photo {
 	&__video {
-		min-height: 196px;
-		border: 2px solid $accent;
-		border-radius: 10px;
+		// min-height: 196px;
+		// border: 2px solid $accent;
+		// border-radius: 10px;
 		width: 100%;
 		height: auto;
 	}
 	&__container {
+		overflow: hidden;
 		display: flex;
-		margin-top: 21px;
+		min-height: 196px;
+		border: 2px solid $accent;
+		border-radius: 10px;
+		margin: 22px auto;
 		position: relative;
-		margin-bottom: 22px;
+		max-width: 800px;
 	}
 	&__button {
 		position: absolute;
+		z-index: 2000;
 		left: 50%;
 		transform: translateX(-50%);
 		bottom: 18px;
@@ -45,14 +50,9 @@
 	}
 	&__slider-container {
 		position: relative;
-		margin-bottom: 15px;
-	}
-	&__link {
-		display: block;
-		font-size: 12px;
-		line-height: 23px;
-		letter-spacing: 0.1em;
-		margin-bottom: 10px;
+		// margin-bottom: 15px;
+		margin: 0 auto 15px;
+		max-width: 800px;
 	}
 	&__nav-container {
 		display: none;
@@ -97,5 +97,13 @@
 		opacity: 50%;
 		width: 100%;
 		border: 1px solid rgba(211, 211, 211, 0.4);
+	}
+	&__preview {
+		width: 100%;
+		border-radius: 10px;
+		display: block;
+	}
+	&__custom-input {
+		margin-bottom: 10px;
 	}
 }
