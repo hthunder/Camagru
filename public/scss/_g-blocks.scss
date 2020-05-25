@@ -134,12 +134,12 @@ html {
 	text-align: center;
 	&:hover {
 		background: transparent;
-    	color: #222;
-    	border-color: #4676d7;	
+		color: $accent-6;
+    	border-color: $accent-6;	
 	}
 	&:focus {
 		outline: none;
-		box-shadow: 0 0 0 4px #cbd6ee;
+		box-shadow: 0 0 0 4px rgba(255, 133, 133, 0.25);
 	}
 	&[disabled] {
 		color: #d2d5db;
