@@ -7,12 +7,12 @@
 	</label>
 	<ul class="burger__hidden-list">
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="">
+			<a class="link burger__list-link" href="#">
 				Галерея<img class="burger__icon" src="/Camagru/public/images/icons/picture.svg" alt="">
 			</a>
 		</li>  
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="">
+			<a class="link burger__list-link" href="#">
 				Сделать фото<img class="burger__icon" src="/Camagru/public/images/icons/camera.svg" alt="">
 			</a>
 		</li>
@@ -21,12 +21,12 @@
 			<label class="link burger__list-link checkbox__custom-element" for="checkbox">Уведомления</label>
 		</li>
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="">
+			<a class="link burger__list-link" href="#">
 				Личный кабинет<img class="burger__icon" src="/Camagru/public/images/icons/avatar.svg" alt="">
 			</a>
 		</li>
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="">
+			<a class="link burger__list-link" href="#">
 				Сменить пароль<img class="burger__icon" src="/Camagru/public/images/icons/key.svg" alt="">
 			</a>
 		</li> 
