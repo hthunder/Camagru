@@ -1,4 +1,4 @@
-<button class="photo__exit-button">
+<button class="photo__exit-button" onclick="deletePhoto()">
 	<div class="photo__button-wrapper">
 		<img class="photo__exit-img" src="/Camagru/public/images/icons/cross.svg" alt="">
 	</div>

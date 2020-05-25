@@ -126,6 +126,9 @@
 			// 	preview.parentNode.remove();
 			// }
 			document.querySelector('.photo__video').style.display = "none";
+			let exit = document.querySelector('.photo__exit-button');
+
+            exit.style.display = "block";
 			let div = document.createElement('div');
 			div.classList.add("photo__output");
             div.innerHTML = ['<img class="photo__preview"', ' src="', data, '" />'].join('');

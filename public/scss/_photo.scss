@@ -1,7 +1,7 @@
 .photo {
 	&__output ~ &__form {
 		display: none;
-	}
+	} 
 	&__video {
 		width: 100%;
 		height: auto;
@@ -144,6 +144,7 @@
 		margin-bottom: 10px;
 	}
 	&__exit-button {
+		display: none;
 		height: 0;
 		overflow: hidden;
 		padding-bottom: calc(9.6% - 4px);

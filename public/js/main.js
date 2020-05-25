@@ -7,9 +7,11 @@ function setListeners() {
 
 function toggleMask() {
 	let sliderItems = document.querySelectorAll('.photo__mask');
+
 	if (this.classList.contains("photo__mask_active")) {
-		this.classList.remove("photo__mask_active");
 		let forRemove = document.querySelector('.photo__container .photo__mask-img');
+
+		this.classList.remove("photo__mask_active");
 		if (forRemove) {
 			forRemove.parentNode.removeChild(forRemove);
 		}
@@ -43,6 +45,7 @@ function drawMask(element) {
 function handleMask(property, sign) {
 	let mask = document.querySelector(".photo__container .photo__mask-img");
 	let value;
+
 	if (mask) {
 		value = +mask.style[property].split('%')[0];
 		if (sign == '-')
@@ -50,6 +53,12 @@ function handleMask(property, sign) {
 		else
 			mask.style[property] = (value + 1) + '%';
 	}
+}
+
+function deletePhoto() {
+	document.querySelector(".photo__output").remove();
+	document.querySelector(".photo__video").style.display = "";
+	document.querySelector('.photo__exit-button').style.display = 'none';
 }
 
 setListeners();

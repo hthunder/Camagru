@@ -14,7 +14,10 @@ function handleFileSelect(evt) {
     reader.onload = (function(theFile) {
         return function(e) {
             // Render thumbnail.
-			let div = document.createElement('div');
+            let div = document.createElement('div');
+            let exit = document.querySelector('.photo__exit-button');
+
+            exit.style.display = "block";
             div.classList.add("photo__output");
             div.innerHTML = ['<img class="photo__preview" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
 			document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
