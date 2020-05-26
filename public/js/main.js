@@ -1,3 +1,5 @@
+let labelVal = document.querySelector('.custom-input__label').innerHTML;
+
 function setListeners() {
 	let sliderItems = document.querySelectorAll('.photo__mask');
 	sliderItems.forEach(function(item){
@@ -59,6 +61,20 @@ function deletePhoto() {
 	document.querySelector(".photo__output").remove();
 	document.querySelector(".photo__video").style.display = "";
 	document.querySelector('.photo__exit-button').style.display = 'none';
+	document.querySelector('.photo__button').style.display = 'block';
+	document.querySelector('.custom-input__label').innerHTML = labelVal;
+	document.querySelector('.custom-input__file').value = '';
+	document.querySelector('.photo__container').style.minHeight = '196px';
+	document.querySelector('.photo__button-public').disabled = true;
+	let copyImg = document.querySelector('.photo__copy-img');
+	if (copyImg)
+		copyImg.remove();
+	let sliderMasks = document.querySelectorAll('.photo__mask');
+	sliderMasks.forEach(function (mask) {
+		if (mask.classList.contains('photo__mask_active')) {
+			mask.classList.remove('photo__mask_active');
+		}
+	});
 }
 
 setListeners();

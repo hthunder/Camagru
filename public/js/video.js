@@ -1,3 +1,49 @@
+/**
+ * Функция formMaskInformation() - формирует информацию о наложенной
+ * маске
+ * 
+ * Получаем объект mask - наложенную маску
+ * 
+ * Проверяем наложена ли маска на изображение, если наложена, 
+ * то получаем объекты со стилями для маски - styles,
+ * для контейнера изображения - windowStyles,
+ * maskWindow - контейнер для изображения, нужен для масштабирования
+ * размера и положения маски на сервере, так как по умолчанию ширина 
+ * изображения 1920px, но она масштабируется под размер контейнера
+ * 
+ * в объекте info содержится информация для правильного
+ * расположения масок на фотографии
+ * src - название накладываемой маски (путь к маске), 
+ * width - ширина маски, height - высота маски
+ * top - смещение маски от верхнего края фотографии
+ * left - смещение маски от левого края фотографии
+ * 
+ * Информацию о масках помещаем в скрытое поле 
+ * с классом .photo__hidden-info
+ */
+function formMaskInformation() {
+	let mask = document.querySelector('.photo__container .photo__mask-img');
+	if (mask != null) {
+		let maskWindow = document.querySelector('.photo__output');
+		let styles = window.getComputedStyle(mask);
+		let windowStyles = window.getComputedStyle(maskWindow);
+		let info = {};
+		if (styles != null) {
+			info = {
+				src: mask.src,
+				width: styles.getPropertyValue("width"),
+				height: styles.getPropertyValue("height"),
+				top: styles.getPropertyValue("top"),
+				left: styles.getPropertyValue("left"),
+				windowWidth: windowStyles.getPropertyValue("width"),
+				windowHeight: windowStyles.getPropertyValue("height"),
+			};	
+		}
+		document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
+	}
+	document.querySelector('.photo__form').submit();
+}
+
 (function() {
 	// The width and height of the captured photo. We will set the
 	// width to the value defined here, but the height will be
@@ -66,53 +112,25 @@
 	function takepicture() {
 		let context = canvas.getContext('2d');
 		if (width && height) {
-			let data;
-			let mask;
-			let maskWindow;
-			let styles;
-			let windowStyles;
-			let info;
-			let preview;
-			let exit;
-			let div;
-
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
-			data = canvas.toDataURL('image/jpeg', 1);
-			mask = document.querySelector('.photo__container .photo__mask-img');
-			maskWindow = document.querySelector('.photo__video');
-			styles = null;
-			if (mask != null) {
-				styles = window.getComputedStyle(mask, null);	
-			}
-			windowStyles = window.getComputedStyle(maskWindow, null);
+			/**
+			 * метод toDataURL() возвращает data URL содержащий представление изображения
+			 * в формате определенном параметром type
+			 * encoderOptions параметр означает качество изображения для форматов,
+			 * которые используют сжатие с потерей качества (image/jpeg)
+			 * Фотографию помещаем в скрытое поле формы .photo__hidden
+			 */
+			let data = canvas.toDataURL('image/jpeg', 1);
 			document.querySelector(".photo__hidden").value = data;
-			info = {
-				src: null,
-				width: null,
-				height: null,
-				top: null,
-				left: null,
-			};
-			if (mask != null && styles != null) {
-				info.src = mask.src;
-				info.width = styles.getPropertyValue("width");
-				info.height = styles.getPropertyValue("height");
-				info.top = styles.getPropertyValue("top");
-				info.left = styles.getPropertyValue("left");	
-			}
-			info.windowWidth = windowStyles.getPropertyValue("width");
-			info.windowHeight = windowStyles.getPropertyValue("height");
-			document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
-			
-			// document.querySelector(".photo__form").submit();
-			
-			preview = document.querySelector('.photo__preview');
 			document.querySelector('.photo__video').style.display = "none";
-			exit = document.querySelector('.photo__exit-button');
-            exit.style.display = "block";
-			div = document.createElement('div');
+			document.querySelector('.photo__button').style.display = "none";
+
+			document.querySelector('.photo__exit-button').style.display = 'block';
+			let div = document.createElement('div');
+			document.querySelector('.photo__container').style.minHeight = '0px';
+			document.querySelector('.photo__button-public').disabled = false;
 			div.classList.add("photo__output");
             div.innerHTML = ['<img class="photo__preview"', ' src="', data, '" />'].join('');
 			document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
