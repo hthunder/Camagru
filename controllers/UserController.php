@@ -48,6 +48,8 @@ class UserController
                 // Регистрируем пользователя
                 $activation_code = md5($email . time());
                 $result = User::register($username, $email, $password, $activation_code);
+
+                User::sendMail($email, "Подтверждение регистрации", $activation_code);
                 header('Location: /Camagru');
             }
         }
@@ -63,8 +65,8 @@ class UserController
     **
     */
 
-    public function actionActivation() {
-
+    public function actionActivation($activation_code) {
+        echo (User::activation($activation_code));
     }
     
     /**
@@ -132,7 +134,18 @@ class UserController
         return true;
     }
 
-
+    // public function actionMailConfirm() {
+    //     $string  = 'April 15, 2003';
+    //     $pattern = '/(\w+) (\d+), (\d+)/i';
+    //     $replacement = '$1 1, $3';
+    //     echo preg_replace($pattern, $replacement, $string);
+    //     echo '<br>';
+    //     echo $string;
+    //     echo '<br>';
+    //     echo $pattern;
+    //     echo '<br>';
+    //     echo $replacement;
+    // }
     // public function actionCreatePhoto()
     // {
     //     User::createPhoto();

@@ -36,7 +36,7 @@
 				<form class="photo__form" action="/Camagru/photo/create" method="POST">
 					<input class="photo__hidden" type="hidden" name="hidden">
 					<input class="photo__hidden-info" type="hidden" name="info">
-					<input class="photo__button-public button-2 button-2_inverse" onclick="formMaskInformation()" type="button" value="Опубликовать" disabled>	
+					<input class="button button_bg_pink photo__button-public" onclick="formMaskInformation()" type="button" value="Опубликовать" disabled>	
 				</form>
 				
 				<canvas id="canvas" style="display: none">

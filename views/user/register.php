@@ -19,7 +19,7 @@
 					<!-- <p class="register__errors">
 						<?php if (isset($errors) && $errors != false) var_dump($errors); ?>
 					</p> -->
-					<button class="button-2 register__form-button" type="submit" name="signup">
+					<button class="button button_bg_transparent register__form-button" type="submit" name="signup">
 						Зарегистрироваться
 					</button>
 				</form>

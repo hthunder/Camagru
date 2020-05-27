@@ -23,7 +23,7 @@
 					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
 					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
 				</div>
-				<input class="button-2 button-2_inverse cabinet__show-more" type="button" value="Показать больше">
+				<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
 			</div>
 		</div>
 	</body>

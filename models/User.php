@@ -13,8 +13,7 @@ class User
      * @param string $password <p>Пароль</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function register($username, $email, $password, $activation_code)
-    {
+    public static function register($username, $email, $password, $activation_code) {
         // Соединение с БД
         $db = Db::getConnection();
 
@@ -38,8 +37,7 @@ class User
      * @param string $password <p>Пароль</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function edit($id, $username, $password)
-    {
+    public static function edit($id, $username, $password) {
         // Соединение с БД
         $db = Db::getConnection();
 
@@ -62,8 +60,7 @@ class User
      * @param string $password <p>Пароль</p>
      * @return mixed : integer user id or false
      */
-    public static function checkUserData($email_username, $password)
-    {
+    public static function checkUserData($email_username, $password) {
         // Соединение с БД
         $db = Db::getConnection();
 
@@ -91,8 +88,7 @@ class User
      * Запоминаем пользователя
      * @param integer $userId <p>id пользователя</p>
      */
-    public static function auth($userId)
-    {
+    public static function auth($userId) {
         // Записываем идентификатор пользователя в сессию
         $_SESSION['user'] = $userId;
     }
@@ -102,8 +98,7 @@ class User
      * Иначе перенаправляет на страницу входа
      * @return string <p>Идентификатор пользователя</p>
      */
-    public static function checkLogged()
-    {
+    public static function checkLogged() {
         // Если сессия есть, вернем идентификатор пользователя
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
@@ -116,8 +111,7 @@ class User
      * Проверяет является ли пользователь гостем
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function isGuest()
-    {
+    public static function isGuest() {
         if (isset($_SESSION['user'])) {
             return false;
         }
@@ -129,8 +123,7 @@ class User
      * @param string $username <p>Имя</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkUsername($username)
-    {
+    public static function checkUsername($username) {
         if (strlen($username) >= 2) {
             return true;
         }
@@ -142,8 +135,7 @@ class User
      * @param type $username <p>Username</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkUsernameExists($username)
-    {
+    public static function checkUsernameExists($username) {
         // Соединение с БД        
         $db = Db::getConnection();
 
@@ -164,8 +156,7 @@ class User
      * @param string $phone <p>Телефон</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkPhone($phone)
-    {
+    public static function checkPhone($phone) {
         if (strlen($phone) >= 10) {
             return true;
         }
@@ -177,8 +168,7 @@ class User
      * @param string $password <p>Пароль</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkPassword($password)
-    {
+    public static function checkPassword($password) {
         if (strlen($password) >= 6) {
             return true;
         }
@@ -190,8 +180,7 @@ class User
      * @param string $email <p>E-mail</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkEmail($email)
-    {
+    public static function checkEmail($email) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
         }
@@ -203,8 +192,7 @@ class User
      * @param type $email <p>E-mail</p>
      * @return boolean <p>Результат выполнения метода</p>
      */
-    public static function checkEmailExists($email)
-    {
+    public static function checkEmailExists($email) {
         // Соединение с БД        
         $db = Db::getConnection();
 
@@ -225,8 +213,7 @@ class User
      * @param integer $id <p>id пользователя</p>
      * @return array <p>Массив с информацией о пользователе</p>
      */
-    public static function getUserById($id)
-    {
+    public static function getUserById($id) {
         // Соединение с БД
         $db = Db::getConnection();
 
@@ -249,82 +236,53 @@ class User
      * @return array Возвращает массив путей
     */
 
-    public static function getMasks()
-    {
+    public static function getMasks() {
         $masks = scandir(ROOT . "/public/images/masks/");
         return $masks;
     }
 
-    // public static function getUserPhoto() {
+    /**
+     * Отправить письмо с подтверждением на почту
+     */
+    public static function sendMail($email, $subject, $activation_code) {
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8\r\n";
+        $headers .= "From: Nosov.yura.web@gmail.com\r\n";
+        $message = '<p>Чтобы подтвердить Email, перейдите по <a href="http://localhost/Camagru/user/activation/' . $activation_code . '">ссылке</a></p>';
+        mail($email, $subject, $message, $headers);
+    }
 
-    // }
+    /**
+     * Активация пользователя
+     */
 
-    // public static function createUserPhoto()
-    // {
-    //     // getPhoto();
-    //     /*
-    //     $base_image = imagecreatetruecolor(1000, 1000);
+    public static function activation($activation_code) {
+        $db = Db::getConnection();
+        if ($activation_code) {
+            // Текст запроса к БД
+            $sql = 'SELECT id, activation_status FROM users WHERE activation_code = :activation_code';
 
-    //     imagealphablending($base_image, false);
-    //     $col = imagecolorallocatealpha($base_image, 255, 255, 255, 127);
-    //     imagefilledrectangle($base_image, 0, 0, 90, 135, $col);
-    //     imagealphablending($base_image,true);
-    //     imagesavealpha($base_image, true);
-    //     $photo = imagecreatefromjpeg(ROOT . '/public/images/back.jpg');
-    //     $top_image = imagecreatefrompng(ROOT . '/public/images/masks/heart.png');
-
-    //     imagecopy($base_image, $photo, 20, 23, 0, 0, 1000, 1000);
-    //     imagecopy($base_image, $top_image, 0, 0, 0, 0, 1000, 1000);
-    //     */
-
-    //     // create base image
-    //     $photo = imagecreatefromjpeg(ROOT . "/public/images/work-copy.jpg");
-    //     $frame = imagecreatefrompng(ROOT . "/public/images/masks/heart.png");
-
-    //     // get frame dimentions
-    //     $frame_width = imagesx($frame);
-    //     $frame_height = imagesy($frame);
-
-    //     // get photo dimentions
-    //     $photo_width = imagesx($photo);
-    //     $photo_height = imagesy($photo);
-
-    //     // creating canvas of the same dimentions as of frame
-    //     // $canvas = imagecreatetruecolor($frame_width,$frame_height);
-    //     $canvas = imagecreatetruecolor($photo_width, $photo_height);
-
-    //     // make $canvas transparent
-    //     // imagealphablending($canvas, false);
-    //     // $col = imagecolorallocatealpha($canvas,255,255,255,127);
-    //     // imagefilledrectangle($canvas,0,0,$frame_width,$frame_height,$col);
-    //     imagealphablending($canvas,true);    
-    //     // imagesavealpha($canvas, true);
-
-    //     // merge photo with frame and paste on canvas 
-    //     imagecopy($canvas, $photo, 0, 0, 0, 0, $photo_width, $photo_height);
-    //     imagecopy($canvas, $frame, 0, 0, 0, 0, $frame_width, $frame_height);
-    //     // imagecopyresized($canvas, $frame, 0, 0, 0, 0, $photo_width, $photo_height, $frame_width, $frame_height); // resize png to fit in canvas
-
-    //     // return file
-    //     header('Content-Type: image/jpeg');
-    //     imagejpeg($canvas);
-
-    //     // destroy images to free alocated memory
-    //     imagedestroy($photo);
-    //     imagedestroy($frame);
-    //     imagedestroy($canvas);
-
-
-        
-    //     // imagecopymergegray($dest, $src1, 0, 0, 100, 100, 1000, 1000, 100);
-    //     header('Content-Type: image/png');
-    //     // imagepng($base_image);
-    //     // imagepng($src1);
-    //     // imagejpeg($dest);
-    //     // imagepng($dest);
-    //     // imagejpeg($src);
-    //     // imagedestroy($dest);
-    //     // imagedestroy($src1);
-    // }
-
+            // Получение результатов. Используется подготовленный запрос
+            $result = $db->prepare($sql);
+            $result->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
+            $result->execute();
+            if ($result) {
+                while($row = $result->fetch()) {
+                    if ($row['activation_status'] == 0) {
+                        $activation_status = 1;
+                        $sql = 'UPDATE users SET activation_status = :activation_status WHERE id = :id';
+                        $result = $db->prepare($sql);
+                        $result->bindParam(':activation_status', $activation_status, PDO::PARAM_INT);
+                        $result->bindParam(':id', $row['id'], PDO::PARAM_INT);
+                        $result->execute();
+                        return ("Email подтвержден");
+                    } else {
+                        return ("Email уже подтвержден");
+                    }
+                }    
+            } else {
+                return ("Что-то пошло не так");
+            }
+        }
+    }
 }

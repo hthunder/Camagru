@@ -51,7 +51,6 @@ html {
 	padding: 0 10px;
 	text-align: center;
 	letter-spacing: 0.1em;
-	// color: $placeholder_color;
 	&::placeholder {
 		color: $placeholder_color;
 		letter-spacing: 0.1em;
@@ -59,128 +58,52 @@ html {
 }
 
 .button {
-	appearance: none;
-	border: 0;
-	border-radius: 5px;
-	background: #4676D7;
-	color: #fff;
-	padding: 8px 16px;
-	font-size: 16px;
-	min-width: 100px;
-	font-family: inherit;
-	cursor: pointer;
-	/*Для ссылок в виде кнопок*/
-	text-decoration: none;
-    text-align: center;
-	&:hover {
-		background: #1d49aa;	
-	}
-	&:focus {
-		outline: none;
-		box-shadow: 0 0 0 4px #cbd6ee;
-	}
-	&[disabled] {
-		color: #d2d5db;
-    	background: #6c7589;
-   		cursor: not-allowed;
-	}
-}
-
-.button-1 {
-	appearance: none;
-	border: 2px solid transparent;
-	border-radius: 5px;
-	background: #4676D7;
-	color: #fff;
-	padding: 8px 16px;
-	font-size: 16px;
-	min-width: 100px;
-	font-family: inherit;
-	cursor: pointer;
-	/*Для ссылок в виде кнопок*/
-	text-decoration: none;
-	text-align: center;
-	&:hover {
-		background: transparent;
-    	color: #222;
-    	border-color: #4676d7;	
-	}
-	&:focus {
-		outline: none;
-		box-shadow: 0 0 0 4px #cbd6ee;
-	}
-	&[disabled] {
-		color: #d2d5db;
-    	background: #6c7589;
-   		cursor: not-allowed;
-	}
-}
-
-.button-2 {
-	appearance: none;
 	border: 3px solid #fff;
 	border-radius: 10px;
-	background: transparent;
 	color: #fff;
 	padding: 8px 16px;
-	font-size: 12px;
 	min-width: 200px;
+	font-size: 12px;
 	font-family: inherit;
 	font-weight: bold;
 	letter-spacing: 0.1em;
 	cursor: pointer;
-	/*Для ссылок в виде кнопок*/
-	text-decoration: none;
-	text-align: center;
-	&:hover {
+	&_bg_transparent {
 		background: transparent;
-		color: $accent-6;
-    	border-color: $accent-6;	
+		&:hover {
+			background-color: #fff;
+			color: $accent-8;
+		}
+	}
+	&_bg_white {
+		background: #fff;
+		color: $accent-8;
+		&:hover {
+			background-color: transparent;
+			color: #fff;
+		}
+	}
+	&_bg_pink {
+		background: $accent-6;
+		&:hover {
+			background-color: #fff;
+			color: $accent-8;
+			border-color: $accent-8;
+		}
+	}
+	&_link {
+		text-decoration: none;
+		text-align: center;
+	}
+	&[disabled] {
+		color: #fff;
+    	background: #6c7589;
+		cursor: not-allowed;
+		border-color: transparent;
 	}
 	&:focus {
 		outline: none;
 		box-shadow: 0 0 0 4px rgba(255, 133, 133, 0.25);
-	}
-	&[disabled] {
-		color: #d2d5db;
-    	background: #6c7589;
-   		cursor: not-allowed;
-	}
-	&_inverse {
-		background-color: $accent;
-		border: 3px solid transparent;
-	}
-}
-
-.button-3 {
-	appearance: none;
-	border: 3px solid #fff;
-	border-radius: 10px;
-	background: #fff;
-	color: rgba(255, 131, 131, 0.8);
-	padding: 8px 16px;
-	font-size: 12px;
-	font-weight: bold;
-	letter-spacing: 0.1em;
-	min-width: 200px;
-	font-family: inherit;
-	cursor: pointer;
-	/*Для ссылок в виде кнопок*/
-	text-decoration: none;
-	text-align: center;
-	&:hover {
-		background: transparent;
-    	color: #222;
-    	border-color: #4676d7;	
-	}
-	&:focus {
-		outline: none;
-		box-shadow: 0 0 0 4px #cbd6ee;
-	}
-	&[disabled] {
-		color: #d2d5db;
-    	background: #6c7589;
-   		cursor: not-allowed;
 	}
 }
 
@@ -305,33 +228,6 @@ html {
 	margin: 0 auto;
 }
 
-// .container {
-// 	max-width: 1140px;
-// 	padding: 0 15px;
-// 	margin: 0 auto;
-// 	display: flex;
-// 	flex-wrap: wrap;
-// 	align-items: center;
-// 	&_justify-content_center {
-// 		justify-content: center;
-// 	}
-// 	&_justify-content_space-between {
-// 		justify-content: space-between;
-// 	}
-// 	&_bg_landing {
-// 		height: 316px;
-// 		width: auto;
-// 		background: url("../img/landing.jpg") white no-repeat center;
-// 		background-size: cover;
-// 	}
-// 	&_flex-direction_column {
-// 		flex-direction: column;
-// 	}
-// 	&_align-items_flex-start {
-// 		align-items: flex-start;
-// 	}
-// }
-
 .nav {
 	display: flex;
 	align-items: center;
@@ -347,8 +243,6 @@ html {
 		padding: 0 10px;
 	}
 }
-
-
 
 .footer {
 	border-top: 1px solid #E6E6E6;

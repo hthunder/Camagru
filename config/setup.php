@@ -7,7 +7,8 @@
 			password VARCHAR(60) NOT NULL,
 			activation_status BOOLEAN NOT NULL DEFAULT '0',
 			activation_code VARCHAR(300) NOT NULL UNIQUE,
-			notifications BOOLEAN NOT NULL DEFAULT '1')ENGINE=INNODB";
+			notifications BOOLEAN NOT NULL DEFAULT '1',
+			avatar_src VARCHAR(45) NULL)ENGINE=INNODB";
 			$db->query($sql);
 			// echo("Hi");
 			// $pdo->exec($table);

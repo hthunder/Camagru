@@ -13,7 +13,7 @@
 					<a href="#" class="link link_underline">
 						Забыли пароль?	
 					</a>
-					<button class="button-2 login__form-button" type="submit" name="login">
+					<button class="button button_bg_transparent login__form-button" type="submit" name="login">
 						Войти
 					</button>
 					<span class="login__text">

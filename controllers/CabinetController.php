@@ -53,7 +53,7 @@ class CabinetController
             $errors = false;
 
             // Валидируем значения
-            if (!User::checkName($name)) {
+            if (!User::checkUsername($name)) {
                 $errors[] = 'Имя не должно быть короче 2-х символов';
             }
             if (!User::checkPassword($password)) {

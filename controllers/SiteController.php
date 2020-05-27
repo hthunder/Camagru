@@ -21,6 +21,7 @@ class SiteController
         // $sliderProducts = Product::getRecommendedProducts();
 
         // Подключаем вид
+        $title = 'Главная страница';
         require_once(ROOT . '/views/site/index.php');
         return true;
     }
