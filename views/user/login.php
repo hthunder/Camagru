@@ -10,6 +10,7 @@
 				<form class="login__form" method="POST" action="/Camagru/user/login">
 					<input class="input-1 login__form-login" type="text" name="email_username" placeholder="Логин или эл. адрес">
 					<input class="input-1 login__form-password" type="password" name="password" placeholder="Пароль">
+					<?php if(isset($error) && $error != false) {echo $error;} ?>
 					<a href="#" class="link link_underline">
 						Забыли пароль?	
 					</a>

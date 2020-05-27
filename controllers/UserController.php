@@ -86,15 +86,16 @@ class UserController
             $password = $_POST['password'];
 
             // Флаг ошибок
-            $errors = false;
+            $error = false;
 
             // Проверяем существует ли пользователь
             $userId = User::checkUserData($email_username, $password);
-
-            if ($userId == false) {
+            if ($userId == -2) {
                 // Если данные неправильные - показываем ошибку
-                $errors[] = 'Неправильные данные для входа на сайт';
+                $error = 'Активируйте учетную запись через письмо на почте';
                 // var_dump($errors);
+            } else if ($userId == -1) {
+                $error = 'Неправильно введено имя пользователя или пароль';
             } else {
                 // Если данные правильные, запоминаем пользователя (сессия)
                 User::auth($userId);

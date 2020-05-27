@@ -65,7 +65,7 @@ class User
         $db = Db::getConnection();
 
         // Текст запроса к БД
-        $sql = 'SELECT * FROM users WHERE (email = :email OR username = :username) AND password = :password';
+        $sql = 'SELECT id FROM users WHERE (email = :email OR username = :username) AND password = :password';
 
         // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
@@ -76,12 +76,25 @@ class User
 
         // Обращаемся к записи
         $user = $result->fetch();
-
         if ($user) {
             // Если запись существует, возвращаем id пользователя
-            return $user['id'];
+            // Текст запроса к БД
+            $sql = 'SELECT COUNT(*) FROM users WHERE id = :id AND activation_status = :activation_status';
+
+            // Получение результатов. Используется подготовленный запрос
+            $result = $db->prepare($sql);
+            $activation_status = 1;
+            $result->bindParam(':id', $user['id'], PDO::PARAM_INT);
+            $result->bindParam(':activation_status', $activation_status, PDO::PARAM_INT);
+            $result->execute();
+            $isActivated = $result->fetch()['COUNT(*)'];
+            if ($isActivated) {
+                return $user['id'];
+            } else {
+                return (-2);
+            }
         }
-        return false;
+        return (-1);
     }
 
     /**
