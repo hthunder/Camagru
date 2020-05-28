@@ -42,7 +42,7 @@ class Photo {
         return $photo;
     }
 
-    public static function createPhoto($img, $info)
+    public static function createPhoto($img, $info, $id)
     {
             list($type, $img) = explode(';', $img);
 			list(, $img)      = explode(',', $img);
@@ -55,19 +55,112 @@ class Photo {
 
 			/* Создаем изображение из файла и накладываем маску*/
             $image = imagecreatefromjpeg($uniquePath);
-            if($info->width != null && $info->height != null && $info->left != null && $info->top != null) {
+            if($info != null && $info->width != null && $info->height != null 
+            && $info->left != null && $info->top != null) {
                 $image = Photo::mergePhoto($image, $info);    
             }
+            /* Размещаем фото в постоянной галерее */
+            
+            $pattern = '/tmp_gallery/';
+            $replacement = 'gallery/' . $id;
+            $finalPath = preg_replace($pattern, $replacement, $uniquePath);
 
-			/* Размещаем фото в постоянной галерее */
-			$finalPath = preg_replace("/tmp_gallery/", "gallery", $uniquePath);
-			if (!file_exists($finalPath)) {
-                imagejpeg($image, $finalPath);	
+            date_default_timezone_set('Europe/Moscow');
+            if (!file_exists($finalPath)) {
+                imagejpeg($image, $finalPath);
+                $dateOfCreation = date('Y-m-d-H-i-s');
+                $pieces = explode('/', $finalPath);
+                $photo_src = array_pop($pieces);
+                Photo::addPhotoToDb($id, $photo_src, $dateOfCreation);
 			} else {
-                imagejpeg($image, Photo::getUniqueName(ROOT . '/public/images/gallery/', 'jpg'));
+                $finalPath = Photo::getUniqueName(ROOT . '/public/images/gallery/' . $id . '/', 'jpg');
+                imagejpeg($image, $finalPath);
+                $dateOfCreation = date('Y-m-d-H-i-s');
+                $pieces = explode('/', $finalPath);
+                $photo_src = array_pop($pieces);
+                Photo::addPhotoToDb($id, $photo_src, $dateOfCreation);
             }
 
 			/* Удаляем файл из временной папки */
 			unlink($uniquePath);
+    }
+
+    public static function addPhotoToDb($id, $photo_src, $dateOfCreation) {
+        $db = Db::getConnection();
+
+        // Текст запроса к БД
+        $sql = 'INSERT INTO photos (photo_src, user_id, creation_date) VALUES (:photo_src, :user_id, :creation_date)';
+
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':photo_src', $photo_src, PDO::PARAM_STR);
+        $result->bindParam(':user_id', $id, PDO::PARAM_INT);
+        $result->bindParam(':creation_date', $dateOfCreation, PDO::PARAM_STR);
+        $result->execute();
+    }
+
+    /**
+     * Получить все маски
+     * @return array Возвращает массив путей
+    */
+
+    public static function getMasks() {
+        $masks = scandir(ROOT . "/public/images/masks/");
+        return $masks;
+    }
+
+    public static function getLastPhotos($id) {
+        $db = Db::getConnection();
+
+        // Текст запроса к БД
+        $sql = 'SELECT photo_src FROM photos WHERE user_id = :user_id ORDER BY creation_date DESC LIMIT 6';
+
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':user_id', $id, PDO::PARAM_INT);
+        $result->execute();
+        $photos = array();
+        while($photo = $result->fetch()) {
+            $photos[] = $photo['photo_src'];
+        }
+        return $photos;
+    }
+
+    public static function getAllPhotos() {
+        $db = Db::getConnection();
+
+        // Текст запроса к БД
+        $sql = 'SELECT id, photo_src, user_id FROM photos ORDER BY creation_date DESC LIMIT 5';
+
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        // $result->bindParam(':user_id', $id, PDO::PARAM_INT);
+        $result->execute();
+        $photos_ids = array();
+        while($row = $result->fetch()) {
+            $photos[] = $row;
+        }
+        // var_dump($photos);
+        // die();
+        return $photos;
+    }
+
+    public static function showMore($minId) {
+        $db = Db::getConnection();
+
+        // Текст запроса к БД
+        $sql = 'SELECT id, photo_src, user_id FROM photos WHERE id < :id ORDER BY creation_date DESC LIMIT 5';
+
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $minId, PDO::PARAM_INT);
+        $result->execute();
+        $photos_ids = array();
+        while($row = $result->fetch()) {
+            $photos[] = $row;
+        }
+        // var_dump($photos);
+        // die();
+        return $photos;
     }
 }

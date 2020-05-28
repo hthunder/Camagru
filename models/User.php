@@ -245,16 +245,6 @@ class User
     }
 
     /**
-     * Получить все маски
-     * @return array Возвращает массив путей
-    */
-
-    public static function getMasks() {
-        $masks = scandir(ROOT . "/public/images/masks/");
-        return $masks;
-    }
-
-    /**
      * Отправить письмо с подтверждением на почту
      */
     public static function sendMail($email, $subject, $activation_code) {

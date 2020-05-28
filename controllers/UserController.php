@@ -101,7 +101,6 @@ class UserController
                 User::auth($userId);
 
                 // Перенаправляем пользователя в закрытую часть - кабинет 
-                // echo("Все ок");
                 header("Location: /Camagru/cabinet");
             }
         }
@@ -125,14 +124,6 @@ class UserController
         
         // Перенаправляем пользователя на главную страницу
         header("Location: /Camagru");
-    }
-
-    public function actionPhoto()
-    {
-        $title = 'Сделать фото';
-        $masks = User::getMasks();
-        require_once(ROOT . '/views/user/photo.php');
-        return true;
     }
 
     // public function actionMailConfirm() {

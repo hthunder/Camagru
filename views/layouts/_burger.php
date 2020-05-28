@@ -7,12 +7,12 @@
 	</label>
 	<ul class="burger__hidden-list">
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="#">
+			<a class="link burger__list-link" href="/Camagru/photo/gallery">
 				Галерея<img class="burger__icon" src="/Camagru/public/images/icons/picture.svg" alt="Галерея">
 			</a>
 		</li>  
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="#">
+			<a class="link burger__list-link" href="/Camagru/photo/make">
 				Сделать фото<img class="burger__icon" src="/Camagru/public/images/icons/camera.svg" alt="Сделать фото">
 			</a>
 		</li>
@@ -21,7 +21,7 @@
 			<label class="link burger__list-link checkbox__custom-element" for="checkbox">Уведомления</label>
 		</li>
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="#">
+			<a class="link burger__list-link" href=/Camagru/cabinet>
 				Личный кабинет<img class="burger__icon" src="/Camagru/public/images/icons/avatar.svg" alt="Личный кабинет">
 			</a>
 		</li>

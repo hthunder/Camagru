@@ -7,10 +7,10 @@
 			</div>
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php') ?>
-				<img class="cabinet__avatar" src="/Camagru/public/images/avatar.jpg" alt="аватар">
+				<img class="cabinet__avatar" src="/Camagru/public/images/avatars/<?php echo($user['avatar_src']); ?>" alt="аватар">
 				<form class="cabinet__form">
-					<input class="cabinet__input cabinet__input-name" type="text"  value="София">
-					<input class="cabinet__input cabinet__input-email" type="text"  value="sonya@gmail.com">
+					<input class="cabinet__input cabinet__input-name" type="text"  value="<?php echo($user['username']); ?>">
+					<input class="cabinet__input cabinet__input-email" type="text"  value="<?php echo($user['email']); ?>">
 					<button class="cabinet__button" type="submit">Сохранить</button>
 					<button class="cabinet__button cabinet__button-change" type="submit">Изменить</button>
 					<div class="clearfix"></div>

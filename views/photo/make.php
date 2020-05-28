@@ -7,24 +7,20 @@
 			</div>
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
-				<?php 
+				 <!-- <?php 
 					if(isset($_SESSION['errors'])) {
 						echo($_SESSION['errors']);
 						unset($_SESSION['errors']);
 					} 
-				?>
+				?> -->
 				<div class="photo__container">
 					<?php include(ROOT . '/views/layouts/_mask-control.php'); ?>
 					<video class="photo__video" id="video">Video stream not available.</video>
-					<!-- <form class="photo__form" action="/Camagru/photo/create" method="POST"> -->
-						<!-- <input class="photo__hidden" type="hidden" name="hidden">
-						<input class="photo__hidden-info" type="hidden" name="info"> -->
 					<button class="button-4 photo__button" type="button"  id="startbutton">
 						<div class="photo__button-wrapper">
 							<img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt="">
 						</div>			
 					</button>
-					<!-- </form> -->
 				</div>
 				<?php include(ROOT . '/views/layouts/_slider.php'); ?>
 				<form class="photo__custom-input custom-input">
@@ -41,10 +37,9 @@
 				<canvas id="canvas" style="display: none">
 				</canvas>
 				<div class="photo__grid">
-					<img class="photo__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg">
-					<img class="photo__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg">
-					<img class="photo__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg">
-					<img class="photo__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg">
+					<?php foreach($lastPhotos as $photo) {?>
+						<img class="photo__grid-item" src="/Camagru/public/images/gallery/<?php echo($id . '/' . $photo); ?>">
+					<?php } ?>
 				</div>
 			</div>
 		</div>

@@ -23,6 +23,21 @@
 			// }
 	}
 
+	function createPhotoTable($db) {
+		$sql = "CREATE TABLE IF NOT EXISTS photos (
+			id INT NOT NULL AUTO_INCREMENT,
+			photo_src VARCHAR(45) NOT NULL,
+			user_id INT NOT NULL,
+			creation_date DATETIME NOT NULL,
+			likes INT NULL,
+			description VARCHAR(45) NULL,
+			PRIMARY KEY (id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE)ENGINE = InnoDB";
+		$db->query($sql);
+	}
+
 	function create_db() {
 		require('../config/database.php');
 		try {
@@ -30,6 +45,7 @@
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 			createUsersTable($db);
+			createPhotoTable($db);
 		} catch (PDOException $e) {
 			echo 'Connection failed: ' . $e->getMessage();
 		}

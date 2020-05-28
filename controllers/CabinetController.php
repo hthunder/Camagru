@@ -17,7 +17,6 @@ class CabinetController
 
         // Получаем информацию о пользователе из БД
         $user = User::getUserById($userId);
-
         // Подключаем вид
         $title = 'Личный кабинет';
         require_once(ROOT . '/views/cabinet/index.php');

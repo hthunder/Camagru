@@ -1,0 +1,17 @@
+.gallery {
+	&__grid {
+		margin-top: 18px;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	&__grid-item {
+		width: calc(120/260 * 100%);
+		height: auto;
+		border-radius: 5px;
+		margin-bottom: 18px;
+	}
+	&__show-more {
+		margin: 0 auto;
+	}
+}

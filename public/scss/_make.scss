@@ -123,7 +123,7 @@
 		margin: 2px;
 		position: relative;
 
-		cursor:pointer;
+		cursor: pointer;
 		border-radius: 50%;
 		color: $accent-10;
 		background-color: transparent;
@@ -168,5 +168,19 @@
 		height: auto;
 		z-index: 1001;
 		transform: translateX(-50%);
+	}
+	&__button-public {
+		margin-bottom: 18px;
+	}
+	&__grid {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	&__grid-item {
+		width: calc(120/260 * 100%);
+		height: auto;
+		border-radius: 5px;
+		margin-bottom: 18px;
 	}
 }
