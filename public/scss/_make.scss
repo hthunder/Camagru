@@ -1,7 +1,11 @@
 .photo {
 	&__output ~ &__form {
 		display: none;
-	} 
+	}
+	&__output {
+		width: 100%;
+		height: auto;
+	}
 	&__video {
 		width: 100%;
 		height: auto;

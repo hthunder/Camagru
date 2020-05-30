@@ -136,7 +136,7 @@ class Photo {
         $result = $db->prepare($sql);
         // $result->bindParam(':user_id', $id, PDO::PARAM_INT);
         $result->execute();
-        $photos_ids = array();
+        $photos = array();
         while($row = $result->fetch()) {
             $photos[] = $row;
         }
@@ -154,13 +154,79 @@ class Photo {
         // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':id', $minId, PDO::PARAM_INT);
-        $result->execute();
-        $photos_ids = array();
-        while($row = $result->fetch()) {
-            $photos[] = $row;
+        $photos = array();
+        if ($result->execute()) {
+            while($row = $result->fetch()) {
+                $photos[] = $row;
+            }
         }
-        // var_dump($photos);
-        // die();
         return $photos;
+    }
+
+    public static function getIdByName($name) {
+        $db = Db::getConnection();
+        $photo_src1 = $name . '.jpeg';
+        $photo_src2 = $name . '.jpg';
+
+        // Текст запроса к БД
+        $sql = 'SELECT id FROM photos WHERE (photo_src = :photo_src1) OR (photo_src = :photo_src2)';
+
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':photo_src1', $photo_src1, PDO::PARAM_STR);
+        $result->bindParam(':photo_src2', $photo_src2, PDO::PARAM_STR);
+        if ($result->execute()) {
+            return $result->fetch();
+        } else {
+            return false;
+        }
+    }
+    
+    public static function getComments($name) {
+        $db = Db::getConnection();
+        $photo_src1 = $name . '.jpeg';
+        $photo_src2 = $name . '.jpg';
+    
+        // Текст запроса к БД
+        $sql = 'SELECT text, username 
+                FROM photos 
+                JOIN comments ON photos.id = comments.photo_id 
+                JOIN users ON users.id = comments.user_id 
+                WHERE (photo_src = :photo_src1
+                OR photo_src = :photo_src2)';
+    
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':photo_src1', $photo_src1, PDO::PARAM_STR);
+        $result->bindParam(':photo_src2', $photo_src2, PDO::PARAM_STR);
+        $comments = array();
+        if ($result->execute()) {
+            while ($row = $result->fetch()) {
+                $comments[] = $row;
+            }
+        }
+        return $comments;
+    }
+
+    public static function getLikesNumber($name) {
+        $db = Db::getConnection();
+        $src_name1 = $name . '.jpeg';
+        $src_name2 = $name . '.jpg';
+    
+        // Текст запроса к БД
+        $sql = 'SELECT likes FROM photos WHERE (photo_src = :src_name1
+                OR photo_src = :src_name2)';
+    
+        // Получение результатов. Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':src_name1', $src_name1, PDO::PARAM_STR);
+        $result->bindParam(':src_name2', $src_name2, PDO::PARAM_STR);
+        $likes = 0;
+        if ($result->execute()) {
+            if ($row = $result->fetch()) {
+                $likes = $row['likes'];
+            }
+        }
+        return $likes;
     }
 }

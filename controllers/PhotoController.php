@@ -7,13 +7,6 @@ class PhotoController
 {
 	public function actionCreate()
 	{
-		/**
-		 * 
-		 * Сделать генерацию названий файлов \/
-		 * Сделать обработку масок \/
-		 * Добавить отображение фото при ручном добавлении на фронте
-		 * 
-		 */
 		if (isset($_POST['hidden'])) {
 			$img = $_POST['hidden'];
 			$info = $_POST['info'];
@@ -24,7 +17,6 @@ class PhotoController
 				mkdir($path);	
 			}
 			Photo::createPhoto($img, $info, $id);
-			// Photo::addToDb();
 			header("Location: /Camagru/photo/make");
 			return true;
 		}
@@ -49,10 +41,26 @@ class PhotoController
 	}
 
 	public function actionShowMore() {
-		$minId = $_POST['id'];
-		$photos = Photo::showMore($minId);
-		header('Content-Type: application/json');
-		echo json_encode($photos);
+		if (isset($_POST['id'])) {
+			$minId = $_POST['id'];
+			$photos = Photo::showMore($minId);
+			header('Content-Type: application/json');
+			echo json_encode($photos);
+			return true;	
+		}
+		return false;
+		header("Location: /Camagru");
+	}
+
+	public function actionPage($photoOwnerId, $name) {
+		$comments = Photo::getComments($name);
+		$guestId = $_SESSION['user'];
+		//Запрашиваем количество лайков, для фото с названием $name;
+		$likesNumber = Photo::getLikesNumber($name); 
+		$photoId = Photo::getIdByName($name)['id'];
+		$isLiked = Like::isLiked($photoId, $guestId);
+		$title = "Страница фотографии";
+		require_once(ROOT . '/views/photo/page.php');
 		return true;
 	}
 }

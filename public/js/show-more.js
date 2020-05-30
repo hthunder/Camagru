@@ -1,24 +1,35 @@
-let id = {
-	id: "",
-};
-id.id = document.querySelector('.gallery__show-more').dataset.id;
 function showMore(srcs) {
-	// let button = document.querySelector('.gallery__show-more');
 	let grid = document.querySelector('.gallery__grid');
-	// button.onclick = function(){
-		srcs.forEach(element => {
-			let img = document.createElement('img');
+	let counter = 0;
+	let showMore = document.querySelector('.gallery__show-more');
+	srcs.forEach(element => {
+		counter++;
+		showMore = document.querySelector('.gallery__show-more');
+		let img = document.createElement('img');
+		let link = document.createElement('a');
+		if (element != null) {
 			img.src = '/Camagru/public/images/gallery/';
 			img.src += element['user_id'];
 			img.src += '/';
 			img.src += element['photo_src'];
 			img.classList.add('gallery__grid-item');
-			grid.appendChild(img);	
-		});
-	// }
+			link.classList.add('gallery__grid-link');
+			grid.appendChild(link);
+			link.appendChild(img);
+			if (+element['id'] < +showMore.dataset.id)
+				showMore.dataset.id = element['id'];
+		}
+	});
+	if (counter < 5) {
+		showMore.disabled = true;
+	}
 }
 let button = document.querySelector('.gallery__show-more');
 button.onclick = function(){
+	let id = {
+		id: "",
+	};
+	id.id = document.querySelector('.gallery__show-more').dataset.id;
 	ajax('/Camagru/photo/showMore', 'POST', showMore, id);
 };
 // ajax('/Camagru/photo/showMore', 'POST', showMore, id);	

@@ -1,0 +1,99 @@
+.page {
+	&__wrapper {
+		display: inline-block;
+	}
+	&__photo-wrapper {
+		display: inline-block;
+	}
+	&__photo {
+		max-width: 100%;
+		height: auto;
+		border-radius: 5px;
+		margin: 18px auto;
+	}
+	&__likes {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+		color: $accent-10;
+		line-height: 18px;
+		margin-bottom: 18px;
+	}
+	&__likes-icon {
+		width: 20px;
+		height: 18px;
+	}
+	&__commentaries {
+		margin-bottom: 20px;
+	}
+}
+
+.commentaries {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	&__heading {
+		display: none;
+	}
+	&__form {
+		display: flex;
+		border: 1px solid $accent-6;
+		border-radius: 10px;
+		justify-content: space-between;
+		margin-bottom: 10px;
+	}
+	&__form-text {
+		font-size: 10px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+		padding: 8px;
+		border: none;
+		border-radius: 10px;
+		flex-grow: 1;
+		flex-shrink: 1;
+		&::placeholder {
+			color: #C6C4C4;
+		}
+		&::-moz-input-placeholder {
+			color: #C6C4C4;
+		}
+	}
+	&__form-submit {
+		padding: 8px;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		border: none;
+		border-radius: 8px;
+		background-color: $accent-6;
+		color: #fff;
+	}
+	&__show-more {
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		font-weight: normal;
+		text-decoration: underline;
+		color: $accent-10;
+		border: none;
+		background-color: transparent;
+		margin-top: 10px;
+	}
+	&__show-more_hidden {
+		display: none;
+	}
+}
+
+.commentary {
+	&_hidden {
+		display: none;
+	}
+	&__text {
+		font-size: 12px;
+		font-weight: normal;
+		letter-spacing: 0.1em;
+		word-break: break-all;
+    	text-align: start;
+	}
+	&__author {
+		color: $accent-10;
+	}
+}

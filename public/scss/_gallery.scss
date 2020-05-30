@@ -5,13 +5,17 @@
 		justify-content: space-between;
 		flex-wrap: wrap;
 	}
-	&__grid-item {
+	&__grid-link {
 		width: calc(120/260 * 100%);
+	}
+	&__grid-item {
+		width: 100%;
 		height: auto;
 		border-radius: 5px;
 		margin-bottom: 18px;
 	}
 	&__show-more {
 		margin: 0 auto;
+		margin-bottom: 20px;
 	}
 }

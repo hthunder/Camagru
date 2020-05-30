@@ -12,7 +12,10 @@
 						if ($minId == NULL || $photo['id'] < $minId)
 							$minId = $photo['id'];
 					?>
-						<img class="gallery__grid-item" src="/Camagru/public/images/gallery/<?php echo($photo['user_id'] . '/' . $photo['photo_src']); ?>">
+						<a class="gallery__grid-link" href="/Camagru/photo/page/<?php echo($photo['user_id'] . '/' . explode('.', $photo['photo_src'])[0]); ?>">
+							<img class="gallery__grid-item" 
+							src="/Camagru/public/images/gallery/<?php echo($photo['user_id'] . '/' . $photo['photo_src']); ?>">
+						</a>
 					<?php } ?>
 				</div>
 				<input class="button button_bg_pink gallery__show-more" type="button" value="Показать больше" data-id="<?php echo($minId); ?>">
