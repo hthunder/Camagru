@@ -50,7 +50,7 @@ class UserController
                 $result = User::register($username, $email, $password, $activation_code);
 
                 User::sendMail($email, "Подтверждение регистрации", $activation_code);
-                header('Location: /Camagru');
+                header('Location: ');
             }
         }
 
@@ -101,7 +101,7 @@ class UserController
                 User::auth($userId);
 
                 // Перенаправляем пользователя в закрытую часть - кабинет 
-                header("Location: /Camagru/cabinet");
+                header("Location: /cabinet");
             }
         }
 
@@ -123,7 +123,7 @@ class UserController
         unset($_SESSION["user"]);
         
         // Перенаправляем пользователя на главную страницу
-        header("Location: /Camagru");
+        header("Location: ");
     }
 
     // public function actionMailConfirm() {

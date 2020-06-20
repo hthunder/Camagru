@@ -251,7 +251,7 @@ class User
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
         $headers .= "From: Nosov.yura.web@gmail.com\r\n";
-        $message = '<p>Чтобы подтвердить Email, перейдите по <a href="http://localhost/Camagru/user/activation/' . $activation_code . '">ссылке</a></p>';
+        $message = '<p>Чтобы подтвердить Email, перейдите по <a href="http://localhost/user/activation/' . $activation_code . '">ссылке</a></p>';
         mail($email, $subject, $message, $headers);
     }
 

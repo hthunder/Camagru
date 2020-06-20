@@ -17,7 +17,7 @@ class PhotoController
 				mkdir($path);	
 			}
 			Photo::createPhoto($img, $info, $id);
-			header("Location: /Camagru/photo/make");
+			header("Location: /photo/make");
 			return true;
 		}
 	}
@@ -49,7 +49,7 @@ class PhotoController
 			return true;	
 		}
 		return false;
-		header("Location: /Camagru");
+		header("Location: ");
 	}
 
 	public function actionPage($photoOwnerId, $name) {

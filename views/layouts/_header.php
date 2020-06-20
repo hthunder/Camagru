@@ -3,7 +3,7 @@
 		<div class="header__logo">
 			<a class="link header__logo-link " href="index.php">Camagru</a>
 			<a class="header__logo-link" href="">
-				<img class="header__logout-img" src="/Camagru/public/images/photo-camera.svg" alt="">
+				<img class="header__logout-img" src="/public/images/photo-camera.svg" alt="">
 			</a>
 		</div>
 		<nav class="nav header__nav">

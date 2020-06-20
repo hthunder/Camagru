@@ -5,13 +5,13 @@
 	<div class="index-container">
 		<div class="index-container__inner">
 			<div class="logo index-container__logo">
-				<img class="logo__img" src="/Camagru/public/images/mdi-light_camera.png" alt="">
+				<img class="logo__img" src="/public/images/mdi-light_camera.png" alt="">
 				<span class="logo__text">Camagru</span>
 			</div>
-			<a href="/Camagru/user/login" class="button button_bg_transparent button_link index-container__button">
+			<a href="/user/login" class="button button_bg_transparent button_link index-container__button">
 				Войти
 			</a>
-			<a href="/Camagru/user/register" class="button button_bg_white button_link index-container__button">
+			<a href="/user/register" class="button button_bg_white button_link index-container__button">
 				Зарегистрироваться
 			</a>
 		</div>

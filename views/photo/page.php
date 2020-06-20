@@ -9,12 +9,12 @@
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
 				<div class="page__wrapper">
 					<div class="page__photo-wrapper">
-						<img class="page__photo" src="/Camagru/public/images/gallery/<?php echo($photoOwnerId . '/' . $name . '.jpg'); ?>">
+						<img class="page__photo" src="/public/images/gallery/<?php echo($photoOwnerId . '/' . $name . '.jpg'); ?>">
 						<span class="page__likes">
 							<?php if($isLiked != null && $isLiked == 1) {?>
-							<img class="page__likes-icon" src="/Camagru/public/images/icons/likePushed.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
+							<img class="page__likes-icon" src="/public/images/icons/likePushed.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
 							<?php } else { ?>
-							<img class="page__likes-icon" src="/Camagru/public/images/icons/like.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
+							<img class="page__likes-icon" src="/public/images/icons/like.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
 							<?php } ?>
 							<strong class="page__likes-number"><?php echo($likesNumber); ?></strong>
 						</span>	
@@ -22,7 +22,7 @@
 					
 					<section class="page__commentaries commentaries">
 						<h2 class="commentaries__heading">Комментарии</h2>
-						<form class="commentaries__form" action="/Camagru/comment/add" method="POST">
+						<form class="commentaries__form" action="/comment/add" method="POST">
 							<input class="commentaries__form-text" type="text" maxlength="50" name="comment" placeholder="Написать комментарий" required>
 							<input class="commentaries__form-hidden" type="hidden" name="photo_name" value="<?php echo($name); ?>">
 							<input class="commentaries__form-hidden" type="hidden" name="photoOwner" value="<?php echo($photoOwnerId); ?>">
@@ -58,8 +58,8 @@
 				</div>
 			</div>
 		</article>
-		<script src='/Camagru/public/js/ajax.js'></script>
-		<script src='/Camagru/public/js/like.js'></script>
-		<script src='/Camagru/public/js/show-more-comments.js'></script>
+		<script src='/public/js/ajax.js'></script>
+		<script src='/public/js/like.js'></script>
+		<script src='/public/js/show-more-comments.js'></script>
 	</body>
 </html>

@@ -7,7 +7,7 @@
 			</div>
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php') ?>
-				<img class="cabinet__avatar" src="/Camagru/public/images/avatars/<?php echo($user['avatar_src']); ?>" alt="аватар">
+				<img class="cabinet__avatar" src="/public/images/avatars/<?php echo($user['avatar_src']); ?>" alt="аватар">
 				<form class="cabinet__form">
 					<input class="cabinet__input cabinet__input-name" type="text"  value="<?php echo($user['username']); ?>">
 					<input class="cabinet__input cabinet__input-email" type="text"  value="<?php echo($user['email']); ?>">
@@ -16,12 +16,12 @@
 					<div class="clearfix"></div>
 				</form>
 				<div class="cabinet__grid">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/Camagru/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
 				</div>
 				<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
 			</div>

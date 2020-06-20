@@ -18,7 +18,7 @@ class LikeController
 			echo json_encode(['response' => 'good']);
 			return true;	
 		}
-		header("Location: /Camagru");
+		header("Location: ");
 		return false;
 	}
 }

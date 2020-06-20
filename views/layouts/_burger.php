@@ -7,13 +7,13 @@
 	</label>
 	<ul class="burger__hidden-list">
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="/Camagru/photo/gallery">
-				Галерея<img class="burger__icon" src="/Camagru/public/images/icons/picture.svg" alt="Галерея">
+			<a class="link burger__list-link" href="/photo/gallery">
+				Галерея<img class="burger__icon" src="/public/images/icons/picture.svg" alt="Галерея">
 			</a>
 		</li>  
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href="/Camagru/photo/make">
-				Сделать фото<img class="burger__icon" src="/Camagru/public/images/icons/camera.svg" alt="Сделать фото">
+			<a class="link burger__list-link" href="/photo/make">
+				Сделать фото<img class="burger__icon" src="/public/images/icons/camera.svg" alt="Сделать фото">
 			</a>
 		</li>
 		<li class="burger__list-item">
@@ -21,13 +21,13 @@
 			<label class="link burger__list-link checkbox__custom-element" for="checkbox">Уведомления</label>
 		</li>
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href=/Camagru/cabinet>
-				Личный кабинет<img class="burger__icon" src="/Camagru/public/images/icons/avatar.svg" alt="Личный кабинет">
+			<a class="link burger__list-link" href=/cabinet>
+				Личный кабинет<img class="burger__icon" src="/public/images/icons/avatar.svg" alt="Личный кабинет">
 			</a>
 		</li>
 		<li class="burger__list-item">
 			<a class="link burger__list-link" href="#">
-				Сменить пароль<img class="burger__icon" src="/Camagru/public/images/icons/key.svg" alt="Сменить пароль">
+				Сменить пароль<img class="burger__icon" src="/public/images/icons/key.svg" alt="Сменить пароль">
 			</a>
 		</li> 
 		<li class="burger__list-item burger__list-item_bottom">

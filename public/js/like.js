@@ -4,17 +4,17 @@ function like(event) {
 	const regex = RegExp('like.svg');
 	let temp = document.querySelector('.page__likes-number').innerText;
 	if (regex.test(event.target.src)) {
-		event.target.src = '/Camagru/public/images/icons/likePushed.svg';
+		event.target.src = '/public/images/icons/likePushed.svg';
 		document.querySelector('.page__likes-number').innerText = +temp + 1;
-		ajax('/Camagru/like/addRemove', 'POST', console.log, {
+		ajax('/like/addRemove', 'POST', console.log, {
 			like: 'true',
 			photoName: event.target.dataset.photoName,
 		})
 	}	
 	else {
-		event.target.src = '/Camagru/public/images/icons/like.svg';
+		event.target.src = '/public/images/icons/like.svg';
 		document.querySelector('.page__likes-number').innerText = +temp - 1;
-		ajax('/Camagru/like/addRemove', 'POST', console.log, {
+		ajax('/like/addRemove', 'POST', console.log, {
 			like: 'false',
 			photoName: event.target.dataset.photoName,
 		})

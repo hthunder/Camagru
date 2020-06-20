@@ -18,7 +18,7 @@
 					<video class="photo__video" id="video">Video stream not available.</video>
 					<button class="button-4 photo__button" type="button"  id="startbutton">
 						<div class="photo__button-wrapper">
-							<img class="button-4__img" src="/Camagru/public/images/icons/camera_white.svg" alt="">
+							<img class="button-4__img" src="/public/images/icons/camera_white.svg" alt="">
 						</div>			
 					</button>
 				</div>
@@ -29,7 +29,7 @@
 						<span class="custom-input__span">Выбрать файл&hellip;</span>
 					</label>
 				</form>
-				<form class="photo__form" action="/Camagru/photo/create" method="POST">
+				<form class="photo__form" action="/photo/create" method="POST">
 					<input class="photo__hidden" type="hidden" name="hidden">
 					<input class="photo__hidden-info" type="hidden" name="info">
 					<input class="button button_bg_pink photo__button-public" onclick="formMaskInformation()" type="button" value="Опубликовать" disabled>	
@@ -38,14 +38,14 @@
 				</canvas>
 				<div class="photo__grid">
 					<?php foreach($lastPhotos as $photo) {?>
-						<img class="photo__grid-item" src="/Camagru/public/images/gallery/<?php echo($id . '/' . $photo); ?>">
+						<img class="photo__grid-item" src="/public/images/gallery/<?php echo($id . '/' . $photo); ?>">
 					<?php } ?>
 				</div>
 			</div>
 		</div>
-		<script src="/Camagru/public/js/main.js"></script>
-		<script src="/Camagru/public/js/video.js"></script>
-		<script src="/Camagru/public/js/slider.js"></script>
-		<script src="/Camagru/public/js/preview.js"></script>
+		<script src="/public/js/main.js"></script>
+		<script src="/public/js/video.js"></script>
+		<script src="/public/js/slider.js"></script>
+		<script src="/public/js/preview.js"></script>
 	</body>
 </html>

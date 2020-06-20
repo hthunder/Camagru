@@ -8,7 +8,7 @@ function showMore(srcs) {
 		let img = document.createElement('img');
 		let link = document.createElement('a');
 		if (element != null) {
-			img.src = '/Camagru/public/images/gallery/';
+			img.src = '/public/images/gallery/';
 			img.src += element['user_id'];
 			img.src += '/';
 			img.src += element['photo_src'];
@@ -30,8 +30,8 @@ button.onclick = function(){
 		id: "",
 	};
 	id.id = document.querySelector('.gallery__show-more').dataset.id;
-	ajax('/Camagru/photo/showMore', 'POST', showMore, id);
+	ajax('/photo/showMore', 'POST', showMore, id);
 };
-// ajax('/Camagru/photo/showMore', 'POST', showMore, id);	
+// ajax('/photo/showMore', 'POST', showMore, id);	
 
-// showMore(["/Camagru/public/images/gallery/1/4f71e3b252b419cdd94c5484589aae20.jpg", "/Camagru/public/images/gallery/1/4f71e3b252b419cdd94c5484589aae20.jpg"]);
+// showMore(["/public/images/gallery/1/4f71e3b252b419cdd94c5484589aae20.jpg", "/public/images/gallery/1/4f71e3b252b419cdd94c5484589aae20.jpg"]);

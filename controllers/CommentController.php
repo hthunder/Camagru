@@ -20,7 +20,7 @@ class CommentController
 		// die();
 		if (strlen($comment) <= 50 && strlen($comment) > 0)
 			Comment::add($comment, $userId, $dateOfCreation, $photoId);
-		header("Location: /Camagru/photo/page/" . $photoOwnerId . "/" . $photoName);
+		header("Location: /photo/page/" . $photoOwnerId . "/" . $photoName);
 		// $masks = Photo::getMasks();
 		// $lastPhotos = Photo::getLastPhotos($id);
         // require_once(ROOT . '/views/photo/make.php');
