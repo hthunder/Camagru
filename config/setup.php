@@ -66,17 +66,15 @@
 
 	function create_db() {
 		require('../config/database.php');
-		try {
-			$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-			createUsersTable($db);
-			createPhotoTable($db);
-			createCommentsTable($db);
-			createLikesTable($db);
-		} catch (PDOException $e) {
-			echo 'Connection failed: ' . $e->getMessage();
-		}
+		$db = new PDO($DB_DSN_SETUP, $DB_USER, $DB_PASSWORD, $DB_OPTIONS);
+		$db->exec("DROP DATABASE IF EXISTS Camagru");
+		$db->exec("CREATE DATABASE Camagru");
+		$db->exec("USE Camagru");
+		createUsersTable($db);
+		createPhotoTable($db);
+		createCommentsTable($db);
+		createLikesTable($db);
+		header("Location: /");
 	} 
 
 	create_db();

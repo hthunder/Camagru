@@ -6,7 +6,7 @@
 class UserController
 {
     /**
-     * Action для страницы "Регистрация"
+     * Action for the registration page
      */
     public function actionRegister()
     {
@@ -17,7 +17,8 @@ class UserController
         $result = false;
 
         // Обработка формы
-        if (isset($_POST['signup'])) {
+        if (isset($_POST['signup']) && isset($_POST['username']) && isset($_POST['email'])
+            && isset($_POST['pass1']) && isset($_POST['pass2'])) {
             // Если форма отправлена 
             // Получаем данные из формы
             $username = $_POST['username'];

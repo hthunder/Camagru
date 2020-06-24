@@ -1,7 +1,6 @@
 <?php
 
 return array(
-	'' => 'site/index',
 	'user/register' => 'user/register',
 	'user/login' => 'user/login',
 	'user/activation/(\w+)' => 'user/activation/$1',
@@ -14,4 +13,5 @@ return array(
 	'like/addRemove' => 'like/addRemove',
 	'site/gallery' => 'site/gallery',
 	'cabinet' => 'cabinet/index',
+	'' => 'site/index',
 );

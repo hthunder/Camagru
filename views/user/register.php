@@ -12,10 +12,10 @@
 						<span class="logo__text">Camagru</span>
 				</div>
 				<form class="register__form" action="/user/register" method="POST">
-					<input class="input-1 register__form-input" type="text" name="username" <?php if (isset($username) && $username) {echo("placeholder=$username");} else echo("placeholder='Логин'"); ?>>
-					<input class="input-1 register__form-input" type="text" name="email" <?php if (isset($email) && $email) {echo("placeholder=$email");} else echo("placeholder='Электронный адрес'"); ?>>
-					<input class="input-1 register__form-input" type="password" name="password" placeholder="Пароль">
-					<input class="input-1 register__form-input" type="password" name="password" placeholder="Повторите пароль">
+					<input class="input-1 register__form-input" required type="text" name="username" <?php if (isset($username) && $username) {echo("placeholder=$username");} else echo("placeholder='Логин'"); ?>>
+					<input class="input-1 register__form-input" required type="text" name="email" <?php if (isset($email) && $email) {echo("placeholder=$email");} else echo("placeholder='Электронный адрес'"); ?>>
+					<input class="input-1 register__form-input" required type="password" name="pass1" placeholder="Пароль">
+					<input class="input-1 register__form-input" required type="password" name="pass2" placeholder="Повторите пароль">
 					<!-- <p class="register__errors">
 						<?php if (isset($errors) && $errors != false) var_dump($errors); ?>
 					</p> -->
