@@ -5,7 +5,6 @@
  */
 class User
 {
-
     /**
      * Checks that a form is filled out properly
      * and returns errors
@@ -37,12 +36,13 @@ class User
      */
     public static function register($username, $email, $password, $activation_code) {
         $db = Db::getConnection();
+        $hashedPass = password_hash($password, PASSWORD_BCRYPT);
         $sql = 'INSERT INTO users (username, email, password, activation_code) '
                 . 'VALUES (:username, :email, :password, :activation_code)';
         $result = $db->prepare($sql);
         $result->bindParam(':username', $username, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $password, PDO::PARAM_STR);
+        $result->bindParam(':password', $hashedPass, PDO::PARAM_STR);
         $result->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
         return $result->execute();
     }
