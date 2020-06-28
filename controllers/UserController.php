@@ -27,70 +27,47 @@ class UserController
                     $activation_code = md5($array["email"] . time());
                     $result = User::register($array["username"], $array["email"], 
                     $array["pass1"], $activation_code);
-                    User::sendMail($email, "Подтверждение регистрации", $activation_code);
+                    User::sendMail($array["email"], "Подтверждение регистрации", $activation_code);
                     header('Location: /');
+                    exit();
                 }
             } else {
                 $array["errors"] .= "Не все поля заполнены";
             }
         }
-        ob_start();
-        include_once(ROOT . '/views/user/register.php');
-        $file = ob_get_contents();
-        ob_end_clean();
-        $file = Template::render($array, $file);
-        print($file);
+        print(Template::render($array, ROOT . '/views/user/register.php'));
         return true;
     }
 
     /*
-    ** Action для активация профиля пользователя
-    **
+    ** Action for activation by mail
     */
 
     public function actionActivation($activation_code) {
-        echo (User::activation($activation_code));
+        User::activation($activation_code);
+        header("Location: /");
+        return true;
     }
     
     /**
-     * Action для страницы "Вход на сайт"
+     * Action for a login page
      */
     public function actionLogin()
     {
-        // Переменные для формы
-        $email = false;
-        $password = false;
-        
-        // Обработка формы
-        if (isset($_POST['login'])) {
-            // Если форма отправлена 
-            // Получаем данные из формы
-            $email_username = $_POST['email_username'];
-            $password = $_POST['password'];
-
-            // Флаг ошибок
-            $error = false;
-
-            // Проверяем существует ли пользователь
-            $userId = User::checkUserData($email_username, $password);
-            if ($userId == -2) {
-                // Если данные неправильные - показываем ошибку
-                $error = 'Активируйте учетную запись через письмо на почте';
-                // var_dump($errors);
-            } else if ($userId == -1) {
-                $error = 'Неправильно введено имя пользователя или пароль';
+        $array = array(
+            "email_username" => !empty($_POST["email_username"]) ? $_POST["email_username"] : "",
+            "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
+            "title" => "Форма логина",
+            "errors" => "",
+        );
+        if (isset($_POST["login"])) {
+            if ($array["email_username"] && $array["password"]) {
+                $array["errors"] = User::login($array);
             } else {
-                // Если данные правильные, запоминаем пользователя (сессия)
-                User::auth($userId);
-
-                // Перенаправляем пользователя в закрытую часть - кабинет 
-                header("Location: /cabinet");
+                $array["errors"] .= "Не все поля заполнены";
             }
         }
-
-        // Подключаем вид
-        $title = 'Форма логина';
-        require_once(ROOT . '/views/user/login.php');
+        print(Template::render($array, ROOT . '/views/user/login.php'));
         return true;
     }
 
@@ -99,14 +76,9 @@ class UserController
      */
     public function actionLogout()
     {
-        // Стартуем сессию
-        // session_start();
-        
-        // Удаляем информацию о пользователе из сессии
-        unset($_SESSION["user"]);
-        
-        // Перенаправляем пользователя на главную страницу
-        header("Location: ");
+        if (isset($_POST["logout"]))
+            unset($_SESSION["user"]);
+        header("Location: /");
     }
 
     // public function actionMailConfirm() {

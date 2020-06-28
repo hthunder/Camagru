@@ -3,6 +3,7 @@
 return array(
 	'user/register' => 'user/register',
 	'user/login' => 'user/login',
+	'user/logout' => 'user/logout',
 	'user/activation/(\w+)' => 'user/activation/$1',
 	'photo/make' => 'photo/make',
 	'photo/gallery' => 'photo/gallery',
