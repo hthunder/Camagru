@@ -6,58 +6,40 @@
 class UserController
 {
     /**
-     * Action for the registration page
+     * Action for a register page. Error handling
+     * and rendering of the register page.
      */
+    
     public function actionRegister()
     {
-        // Переменные для формы
-        $name = false;
-        $email = false;
-        $password = false;
-        $result = false;
-
-        // Обработка формы
-        if (isset($_POST['signup']) && isset($_POST['username']) && isset($_POST['email'])
-            && isset($_POST['pass1']) && isset($_POST['pass2'])) {
-            // Если форма отправлена 
-            // Получаем данные из формы
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            // Флаг ошибок
-            $errors = false;
-
-            // Валидация полей
-            if (!User::checkUsername($username)) {
-                $errors[] = 'Имя не должно быть короче 2-х символов';
-            }
-            if (User::checkUsernameExists($username)) {
-                $errors[] = 'Такое имя пользователя уже используется';
-            }
-            if (!User::checkEmail($email)) {
-                $errors[] = 'Неправильный email';
-            }
-            if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
-            }
-            if (User::checkEmailExists($email)) {
-                $errors[] = 'Такой email уже используется';
-            }
-            if ($errors == false) {
-                // Если ошибок нет
-                // Регистрируем пользователя
-                $activation_code = md5($email . time());
-                $result = User::register($username, $email, $password, $activation_code);
-
-                User::sendMail($email, "Подтверждение регистрации", $activation_code);
-                header('Location: ');
+        $array = array(
+            "username" => !empty($_POST["username"]) ? $_POST["username"] : "", 
+            "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
+            "pass1" => !empty($_POST["pass1"]) ? $_POST["pass1"] : "",
+            "pass2" => !empty($_POST["pass2"]) ? $_POST["pass2"] : "",
+            "title" => "Форма регистрации",
+            "errors" => "",
+        );
+        if (isset($_POST["signup"])) {
+            if ($array["username"] && $array["email"] && $array["pass1"] && $array["pass2"]) {
+                $array["errors"] = User::isRegistrationValid($array);
+                if ($array["errors"] === "") {
+                    $activation_code = md5($array["email"] . time());
+                    $result = User::register($array["username"], $array["email"], 
+                    $array["pass1"], $activation_code);
+                    User::sendMail($email, "Подтверждение регистрации", $activation_code);
+                    header('Location: /');
+                }
+            } else {
+                $array["errors"] .= "Не все поля заполнены";
             }
         }
-
-        // Подключаем вид
-        $title = 'Форма регистрации';
-        require_once(ROOT . '/views/user/register.php');
+        ob_start();
+        include_once(ROOT . '/views/user/register.php');
+        $file = ob_get_contents();
+        ob_end_clean();
+        $file = Template::render($array, $file);
+        print($file);
         return true;
     }
 

@@ -7,21 +7,38 @@ class User
 {
 
     /**
-     * Регистрация пользователя 
-     * @param string $username <p>Имя</p>
-     * @param string $email <p>E-mail</p>
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks that a form is filled out properly
+     * and returns errors
+     */
+
+    public static function isRegistrationValid($data) {
+        $errors = $data["errors"];
+        if (strlen($data['username']) < 2)
+            $errors .= 'Имя не должно быть короче 2-х символов</br>';
+        if (User::checkUsernameExists($data['username']))
+            $errors .= 'Такое имя пользователя уже используется</br>';
+
+        if (!User::checkEmail($data['email']))
+            $errors .= 'Неправильный email</br>';
+        if (User::checkEmailExists($data['email']))
+            $errors .= 'Такой email уже используется</br>';
+
+        if ($data['pass1'] == $data['pass2']) {
+            if (strlen($data['pass1']) < 6)
+                $errors .= 'Пароль не должен быть короче 6-ти символов</br>';
+        } else {
+            $errors .= 'Пароли должны совпадать</br>';
+        }
+        return($errors);
+    }
+
+    /**
+     * A user registration
      */
     public static function register($username, $email, $password, $activation_code) {
-        // Соединение с БД
         $db = Db::getConnection();
-
-        // Текст запроса к БД
         $sql = 'INSERT INTO users (username, email, password, activation_code) '
                 . 'VALUES (:username, :email, :password, :activation_code)';
-
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':username', $username, PDO::PARAM_STR);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
@@ -31,22 +48,12 @@ class User
     }
 
     /**
-     * Редактирование данных пользователя
-     * @param integer $id <p>id пользователя</p>
-     * @param string $username <p>Имя</p>
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Edits user info
      */
     public static function edit($id, $username, $password) {
-        // Соединение с БД
         $db = Db::getConnection();
-
-        // Текст запроса к БД
-        $sql = "UPDATE users 
-            SET username = :username, password = :password 
-            WHERE id = :id";
-
-        // Получение и возврат результатов. Используется подготовленный запрос
+        $sql = "UPDATE users SET username = :username, password = :password 
+                WHERE id = :id";
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':username', $username, PDO::PARAM_STR);
@@ -55,33 +62,19 @@ class User
     }
 
     /**
-     * Проверяем существует ли пользователь с заданными $email и $password
-     * @param string $email <p>E-mail</p>
-     * @param string $password <p>Пароль</p>
-     * @return mixed : integer user id or false
+     * Checks that a user with a given email and password exists
      */
     public static function checkUserData($email_username, $password) {
-        // Соединение с БД
         $db = Db::getConnection();
-
-        // Текст запроса к БД
         $sql = 'SELECT id FROM users WHERE (email = :email OR username = :username) AND password = :password';
-
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email_username, PDO::PARAM_STR);
         $result->bindParam(':username', $email_username, PDO::PARAM_STR);
         $result->bindParam(':password', $password, PDO::PARAM_STR);
         $result->execute();
-
-        // Обращаемся к записи
         $user = $result->fetch();
         if ($user) {
-            // Если запись существует, возвращаем id пользователя
-            // Текст запроса к БД
             $sql = 'SELECT COUNT(*) FROM users WHERE id = :id AND activation_status = :activation_status';
-
-            // Получение результатов. Используется подготовленный запрос
             $result = $db->prepare($sql);
             $activation_status = 1;
             $result->bindParam(':id', $user['id'], PDO::PARAM_INT);
@@ -98,8 +91,7 @@ class User
     }
 
     /**
-     * Запоминаем пользователя
-     * @param integer $userId <p>id пользователя</p>
+     * Saves a user in a session
      */
     public static function auth($userId) {
         // Записываем идентификатор пользователя в сессию
@@ -107,22 +99,18 @@ class User
     }
 
     /**
-     * Возвращает идентификатор пользователя, если он авторизирован.<br/>
-     * Иначе перенаправляет на страницу входа
-     * @return string <p>Идентификатор пользователя</p>
+     * Returns an id of user if he is authorised else redirects to a login page
      */
     public static function checkLogged() {
         // Если сессия есть, вернем идентификатор пользователя
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
         }
-
         header("Location: /user/login");
     }
 
     /**
-     * Проверяет является ли пользователь гостем
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks that a user is a guest
      */
     public static function isGuest() {
         if (isset($_SESSION['user'])) {
@@ -132,59 +120,16 @@ class User
     }
 
     /**
-     * Проверяет имя: не меньше, чем 2 символа
-     * @param string $username <p>Имя</p>
-     * @return boolean <p>Результат выполнения метода</p>
+     * Checks that a username exists
      */
-    public static function checkUsername($username) {
-        if (strlen($username) >= 2) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Проверяет не занят ли username другим пользователем
-     * @param type $username <p>Username</p>
-     * @return boolean <p>Результат выполнения метода</p>
-     */
-    public static function checkUsernameExists($username) {
-        // Соединение с БД        
+    public static function checkUsernameExists($username) {       
         $db = Db::getConnection();
-
-        // Текст запроса к БД
         $sql = 'SELECT COUNT(*) FROM users WHERE username = :username';
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':username', $username, PDO::PARAM_STR);
         $result->execute();
         if ($result->fetchColumn())
             return true;
-        return false;
-    }
-
-
-    /**
-     * Проверяет телефон: не меньше, чем 10 символов
-     * @param string $phone <p>Телефон</p>
-     * @return boolean <p>Результат выполнения метода</p>
-     */
-    public static function checkPhone($phone) {
-        if (strlen($phone) >= 10) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Проверяет имя: не меньше, чем 6 символов
-     * @param string $password <p>Пароль</p>
-     * @return boolean <p>Результат выполнения метода</p>
-     */
-    public static function checkPassword($password) {
-        if (strlen($password) >= 6) {
-            return true;
-        }
         return false;
     }
 
