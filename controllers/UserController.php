@@ -81,22 +81,56 @@ class UserController
         header("Location: /");
     }
 
-    // public function actionMailConfirm() {
-    //     $string  = 'April 15, 2003';
-    //     $pattern = '/(\w+) (\d+), (\d+)/i';
-    //     $replacement = '$1 1, $3';
-    //     echo preg_replace($pattern, $replacement, $string);
-    //     echo '<br>';
-    //     echo $string;
-    //     echo '<br>';
-    //     echo $pattern;
-    //     echo '<br>';
-    //     echo $replacement;
-    // }
-    // public function actionCreatePhoto()
-    // {
-    //     User::createPhoto();
-    //     echo "I tried";
-    //     return true;
-    // }
+    public function actionForgotPass()
+    {
+        $array = array(
+            "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
+            "title" => "Восстановление пароля",
+            "errors" => "",
+        );
+        if (isset($_POST["forgotPass"])) {
+            if ($array["email"]) {
+                $userInfo = User::getUserBy("email", $array["email"]);
+                User::sendMail($array["email"], "Ссылка для восстановления пароля", $userInfo["activation_code"]);
+                header('Location: /user/login');
+                exit();
+            } else {
+                $array["errors"] .= "Не все поля заполнены";
+            }
+        }
+        print(Template::render($array, ROOT . '/views/user/forgotPass.php'));
+        return true;
+    }
+
+    public function actionChangePass($activationCode)
+    {
+        $array = array(
+            "pass1" => !empty($_POST["pass1"]) ? $_POST["pass1"] : "",
+            "pass2" => !empty($_POST["pass2"]) ? $_POST["pass2"] : "",
+            "activationCode" => !empty($activationCode) ? $activationCode : "", 
+            "title" => "Форма изменения пароля",
+            "errors" => "",
+        );
+        if (isset($_POST["changePass"])) {
+            if ($array["pass1"] && $array["pass2"]) { 
+                $userInfo = User::getUserBy("activation_code", $array["activationCode"]);
+                if ($array["pass1"] == $array["pass2"]) {
+                    if (strlen($array["pass1"]) < 6) {
+                        $array["errors"] .= 'Пароль не должен быть короче 6-ти символов</br>';    
+                    } else {
+                        $dataForUpdate = array("password" => password_hash($array["pass1"], PASSWORD_BCRYPT));
+                        User::updateUserData($dataForUpdate, $userInfo['id']);
+                        header('Location: /user/login');
+                        exit();    
+                    }
+                } else {
+                    $array["errors"] .= 'Пароли должны совпадать</br>';
+                }
+            } else {
+                $array["errors"] .= "Не все поля заполнены</br>";
+            }
+        }
+        print(Template::render($array, ROOT . '/views/user/changePass.php'));
+        return true;
+    }
 }

@@ -11,7 +11,7 @@
 					<input class="input-1 login__form-login" type="text" name="email_username" value="{email_username}" placeholder="Логин или эл. адрес">
 					<input class="input-1 login__form-password" type="password" name="password" placeholder="Пароль">
 					<p class="login__errors">{errors}</p>
-					<a href="#" class="link link_underline">
+					<a href="/user/forgotPass" class="link link_underline">
 						Забыли пароль?	
 					</a>
 					<button class="button button_bg_transparent login__form-button" type="submit" name="login">

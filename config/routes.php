@@ -4,6 +4,8 @@ return array(
 	'user/register' => 'user/register',
 	'user/login' => 'user/login',
 	'user/logout' => 'user/logout',
+	'user/forgotPass' => 'user/forgotPass',
+	'user/changePass' => 'user/changePass',
 	'user/activation/(\w+)' => 'user/activation/$1',
 	'photo/make' => 'photo/make',
 	'photo/gallery' => 'photo/gallery',

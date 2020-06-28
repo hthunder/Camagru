@@ -42,6 +42,24 @@ class User
         return($errors);
     }
 
+    public static function updateUserData(array $userData, $id) {
+        $db = Db::getConnection();
+        $sql = "UPDATE users SET";
+        foreach($userData as $key => $value) {
+            $sql .= " $key = :$key";
+        }
+        $sql .= " WHERE id = :id";
+        $result = $db->prepare($sql);
+        foreach($userData as $key => $value) {
+            if ($key == "activation_status" || $key == "notifications")
+                $result->bindParam(":$key", $value, PDO::PARAM_INT);
+            else
+                $result->bindParam(":$key", $value, PDO::PARAM_STR);
+        }
+        $result->bindParam(":id", $id, PDO::PARAM_INT);
+        return $result->execute();
+    }
+
     /**
      * Registers a new user and adds him to a database
      */
@@ -126,15 +144,18 @@ class User
     }
 
     /**
-     * Возвращает пользователя с указанным id
-     * @param integer $id <p>id пользователя</p>
-     * @return array <p>Массив с информацией о пользователе</p>
+     * Retrieve user info by a given field
+     * $field The field to retrieve the user with.
+     * $value A value for $field
      */
-    public static function getUserById($id) {
+    public static function getUserBy($field, $value) {
         $db = Db::getConnection();
-        $sql = 'SELECT * FROM users WHERE id = :id';
+        $sql = "SELECT * FROM users WHERE " . "$field = :" . "$field";
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        if ($field == 'id' || $field == 'activation_status')
+            $result->bindParam(":$field", $value, PDO::PARAM_INT);
+        else
+            $result->bindParam(":$field", $value, PDO::PARAM_STR);
         $result->execute();
         return $result->fetch();
     }
@@ -146,7 +167,10 @@ class User
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
         $headers .= "From: Nosov.yura.web@gmail.com\r\n";
-        $message = '<p>Чтобы подтвердить Email, перейдите по <a href="http://localhost/user/activation/' . $activation_code . '">ссылке</a></p>';
+        if ($subject === "Ссылка для восстановления пароля")
+            $message = '<p>Чтобы восстановить пароль, перейдите по <a href="http://localhost/user/changePass/' . $activation_code . '">ссылке</a></p>';
+        else
+            $message = '<p>Чтобы подтвердить Email, перейдите по <a href="http://localhost/user/activation/' . $activation_code . '">ссылке</a></p>';
         mail($email, $subject, $message, $headers);
     }
 
