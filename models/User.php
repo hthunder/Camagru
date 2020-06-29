@@ -42,12 +42,13 @@ class User
         return($errors);
     }
 
-    public static function changeInfo(array $data) {
+    /**
+     * 
+     */
+    public static function changeInfoValidation(array $data) {
         $errors = $data["errors"];
         if (strlen($data['username']) < 2)
             $errors .= 'Имя не должно быть короче 2-х символов</br>';
-        // if (User::checkRowExists('username', $data['username']))
-        //     $errors .= 'Такое имя пользователя уже используется</br>';
         $user = User::getUserBy("username", $data["username"]);
         if ($user && $user["id"] !== $_SESSION["user"])
             $errors .= 'Такое имя пользователя уже используется</br>';
@@ -56,17 +57,12 @@ class User
         $user = User::getUserBy("email", $data["email"]);
         if ($user && $user["id"] !== $_SESSION["user"])
             $errors .= 'Такое имя пользователя уже используется</br>';
-        // if (User::checkRowExists('email', $data['email']))
-        //     $errors .= 'Такой email уже используется</br>';
-        // if ($data['pass1'] == $data['pass2']) {
-        //     if (strlen($data['pass1']) < 6)
-        //         $errors .= 'Пароль не должен быть короче 6-ти символов</br>';
-        // } else {
-        //     $errors .= 'Пароли должны совпадать</br>';
-        // }
         return($errors);
     }
 
+    /**
+     * This function lets to update user data
+     */
     public static function updateUserData(array $userData, $id) {
         $db = Db::getConnection();
         $sql = "UPDATE users SET";
@@ -76,15 +72,8 @@ class User
         $sql = substr($sql, 0, -1);
         $sql .= " WHERE id =:id";
         $result = $db->prepare($sql);
-        foreach($userData as $key => &$value) {
-            if ($key == "activation_status" || $key == "notifications")
-                $result->bindParam(":$key", $value, PDO::PARAM_INT);
-            else {
-                $result->bindParam(":$key", $value, PDO::PARAM_STR);
-            }
-        }
-        $result->bindParam(":id", $id, PDO::PARAM_INT);
-        $result->execute();
+        $userData["id"] = $id;
+        $result->execute($userData);
         return true; 
     }
 
@@ -155,6 +144,7 @@ class User
             return $_SESSION['user'];
         }
         header("Location: /user/login");
+        exit();
     }
 
     /**
