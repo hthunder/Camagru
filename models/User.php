@@ -43,7 +43,7 @@ class User
     }
 
     /**
-     * 
+     * this function checks an input login and email for changing in cabinet
      */
     public static function changeInfoValidation(array $data) {
         $errors = $data["errors"];

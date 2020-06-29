@@ -53,13 +53,17 @@ class Router
 
 				if (file_exists($controllerFile)) {
 					include_once($controllerFile);
+					// Создать объект, вызвать метод (т.е. action)
+					$controllerObject = new $controllerName;
+					if (method_exists($controllerObject, $actionName)) {
+						$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+					} else {
+						header("Location: /");	
+					}
+				} else {
+					header("Location: /");
 				}
 
-				// Создать объект, вызвать метод (т.е. action)
-				$controllerObject = new $controllerName;
-
-				$result = call_user_func_array(array($controllerObject, $actionName), $parameters);
-				
 				if ($result != null) {
 					break;
 				}

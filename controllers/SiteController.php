@@ -11,6 +11,10 @@ class SiteController
      */
     public function actionIndex()
     {
+        if (User::checkLogged()) {
+            header("Location: /cabinet");
+            exit();
+        }
         $array = array(
             "title" => "Главная страница",
         );

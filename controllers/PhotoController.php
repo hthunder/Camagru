@@ -7,6 +7,7 @@ class PhotoController
 {
 	public function actionCreate()
 	{
+		User::checkLogged();
 		if (isset($_POST['hidden'])) {
 			$img = $_POST['hidden'];
 			$info = $_POST['info'];
@@ -24,6 +25,7 @@ class PhotoController
 	
 	public function actionMake()
     {
+		User::checkLogged();
 		$title = 'Сделать фото';
 		$id = $_SESSION['user'];
 		$masks = Photo::getMasks();

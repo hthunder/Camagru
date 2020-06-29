@@ -23,6 +23,9 @@ class CabinetController
         );
         if (isset($_SESSION["editErrors"]))
             unset($_SESSION["editErrors"]);
+        foreach($array as $key => $value) {
+            $array[$key] = htmlspecialchars($value);
+        }
         print(Template::render($array, ROOT . '/views/cabinet/index.php'));
         return true;
     }
@@ -31,9 +34,10 @@ class CabinetController
      * A changeInfo action lets to update a user login and email
      */
     public function actionChangeInfo() {
+        User::checkLogged();
         $array = array(
-            "username" => !empty($_POST["username"]) ? $_POST["username"] : "",
-            "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
+            "username" => !empty($_POST["username"]) ? substr($_POST["username"], 0, 30) : "",
+            "email" => !empty($_POST["email"]) ? substr($_POST["email"], 0, 30) : "",
             "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
             "errors" => "",
         );
@@ -70,9 +74,9 @@ class CabinetController
     {
         User::checkLogged();
         $array = array(
-            "pass1" => !empty($_POST["pass1"]) ? $_POST["pass1"] : "",
-            "pass2" => !empty($_POST["pass2"]) ? $_POST["pass2"] : "",
-            "oldPass" => !empty($_POST["oldPass"]) ? $_POST["oldPass"] : "",
+            "pass1" => !empty($_POST["pass1"]) ? substr($_POST["pass1"], 0, 60) : "",
+            "pass2" => !empty($_POST["pass2"]) ? substr($_POST["pass2"], 0, 60) : "",
+            "oldPass" => !empty($_POST["oldPass"]) ? substr($_POST["oldPass"], 0, 60) : "",
             "errors" => "",
         );
         if (isset($_POST["changePass"])) {

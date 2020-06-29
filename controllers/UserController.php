@@ -13,10 +13,10 @@ class UserController
     public function actionRegister()
     {
         $array = array(
-            "username" => !empty($_POST["username"]) ? $_POST["username"] : "", 
-            "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
-            "pass1" => !empty($_POST["pass1"]) ? $_POST["pass1"] : "",
-            "pass2" => !empty($_POST["pass2"]) ? $_POST["pass2"] : "",
+            "username" => !empty($_POST["username"]) ? substr($_POST["username"], 0, 30) : "", 
+            "email" => !empty($_POST["email"]) ? substr($_POST["email"], 0, 30) : "",
+            "pass1" => !empty($_POST["pass1"]) ? substr($_POST["pass1"], 0, 60) : "",
+            "pass2" => !empty($_POST["pass2"]) ? substr($_POST["pass2"], 0, 60) : "",
             "title" => "Форма регистрации",
             "errors" => "",
         );
@@ -105,8 +105,8 @@ class UserController
     public function actionChangePass($activationCode)
     {
         $array = array(
-            "pass1" => !empty($_POST["pass1"]) ? $_POST["pass1"] : "",
-            "pass2" => !empty($_POST["pass2"]) ? $_POST["pass2"] : "",
+            "pass1" => !empty($_POST["pass1"]) ? substr($_POST["pass1"], 0, 60) : "",
+            "pass2" => !empty($_POST["pass2"]) ? substr($_POST["pass2"], 0, 60) : "",
             "activationCode" => !empty($activationCode) ? $activationCode : "", 
             "title" => "Форма изменения пароля",
             "errors" => "",
