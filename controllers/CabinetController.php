@@ -14,37 +14,48 @@ class CabinetController
     {
         $userId = User::checkLogged();
         $user = User::getUserBy("id", $userId);
-        $title = 'Личный кабинет';
-        require_once(ROOT . '/views/cabinet/index.php');
+        $array = array(
+            "username" => !empty($user["username"]) ? $user["username"] : "",
+            "email" => !empty($user["email"]) ? $user["email"] : "",
+            "avatar_src" => !empty($user["avatar_src"]) ? $user["avatar_src"] : "avatar.jpg",
+            "errors" => !empty($_SESSION["editErrors"]) ? $_SESSION["editErrors"] : "",
+            "title" => "Кабинет пользователя",
+        );
+        if (isset($_SESSION["editErrors"]))
+            unset($_SESSION["editErrors"]);
+        print(Template::render($array, ROOT . '/views/cabinet/index.php'));
         return true;
     }
 
-    /**
-     * Action для страницы "Редактирование данных пользователя"
-     */
-    public function actionEdit()
-    {
-        $userId = User::checkLogged();
-        $user = User::getUserBy("id", $userId);
-        $name = $user['name'];
-        $password = $user['password'];
-        $result = false;
-        if (isset($_POST['submit'])) {
-            $name = $_POST['name'];
-            $password = $_POST['password'];
-            $errors = false;
-            if (!User::checkUsername($name)) {
-                $errors[] = 'Имя не должно быть короче 2-х символов';
-            }
-            if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
-            }
-            if ($errors == false) {
-                $result = User::edit($userId, $name, $password);
+    public function actionChangeInfo() {
+        $array = array(
+            "username" => !empty($_POST["username"]) ? $_POST["username"] : "",
+            "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
+            "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
+            "errors" => "",
+        );
+        if (isset($_POST["changeInfo"])) {
+            if ($array["username"] && $array["email"] && $array["password"]) {
+                $array["errors"] .= User::changeInfo($array);
+                if ($array["errors"] === "") {
+                    $user = User::getUserBy('id', $_SESSION["user"]);
+                    if ($user && password_verify($array["password"], $user["password"])) {
+                        $newArray = array(
+                            "email" => $array["email"],
+                            "username" => $array["username"],
+                        );
+                        if (!User::updateUserData($newArray, $_SESSION["user"]))
+                            $array["errors"] .= "Что-то пошло не так</br>";
+                    } else {
+                       $array["errors"] .= "Введен неверный пароль</br>"; 
+                    }
+                }
+            } else {
+                $array["errors"] .= "Не все поля заполнены</br>";
             }
         }
-        require_once(ROOT . '/views/cabinet/edit.php');
-        return true;
+        $_SESSION["editErrors"] = $array["errors"];
+        header("Location: /cabinet");
+        exit();
     }
-
 }

@@ -15,6 +15,8 @@ return array(
 	'comment/add' => 'comment/add',
 	'like/addRemove' => 'like/addRemove',
 	'site/gallery' => 'site/gallery',
+	'cabinet/changeInfo' => 'cabinet/changeInfo',
+	'cabinet/changePass' => 'cabinet/changePass',
 	'cabinet' => 'cabinet/index',
 	'' => 'site/index',
 );

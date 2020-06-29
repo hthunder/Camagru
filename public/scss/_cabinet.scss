@@ -12,25 +12,23 @@
 	&__form {
 		margin: 45px auto 0;
 		width: 100%;
-		// max-width: 1140px;
-		// padding: 0 15px;
+	}
+	&__form_password {
+		margin: 0 auto;
 	}
 	&__input {
+		text-align: left;
 		box-sizing: border-box;
+		font-weight: normal;
 		display: block;
 		width: 100%;
 		font-family: inherit;
 		font-size: 14px;
 		letter-spacing: 0.2em;
-		margin: 0 auto;
+		margin: 0px auto 10px;
 		border: none;
 		border-bottom: 1px solid $accent;
-	}
-	&__input-name {
-		margin-bottom: 10px;
-	}
-	&__input-email {
-		margin-bottom: 5px;
+		cursor: pointer;
 	}
 	&__container {
 		min-width: 280px;
@@ -52,15 +50,11 @@
 		vertical-align:top;
 		line-height: 19px;
 		float: right;
-	}
-	&__button-change {
-		margin-right: 9px;
+		cursor: pointer;
 	}
 	&__grid {
-		// padding: 0 15px;
 		margin: 26px auto 0px;
 		width: 100%;
-		// max-width: 1140px;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;

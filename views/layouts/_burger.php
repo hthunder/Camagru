@@ -36,7 +36,6 @@
 					Выйти<span class="close"></span>
 				</button>
 			</form>
-			
 		</li> 
 	</ul>
 </div>

@@ -42,22 +42,50 @@ class User
         return($errors);
     }
 
+    public static function changeInfo(array $data) {
+        $errors = $data["errors"];
+        if (strlen($data['username']) < 2)
+            $errors .= 'Имя не должно быть короче 2-х символов</br>';
+        // if (User::checkRowExists('username', $data['username']))
+        //     $errors .= 'Такое имя пользователя уже используется</br>';
+        $user = User::getUserBy("username", $data["username"]);
+        if ($user && $user["id"] !== $_SESSION["user"])
+            $errors .= 'Такое имя пользователя уже используется</br>';
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
+            $errors .= 'Неправильный email</br>';
+        $user = User::getUserBy("email", $data["email"]);
+        if ($user && $user["id"] !== $_SESSION["user"])
+            $errors .= 'Такое имя пользователя уже используется</br>';
+        // if (User::checkRowExists('email', $data['email']))
+        //     $errors .= 'Такой email уже используется</br>';
+        // if ($data['pass1'] == $data['pass2']) {
+        //     if (strlen($data['pass1']) < 6)
+        //         $errors .= 'Пароль не должен быть короче 6-ти символов</br>';
+        // } else {
+        //     $errors .= 'Пароли должны совпадать</br>';
+        // }
+        return($errors);
+    }
+
     public static function updateUserData(array $userData, $id) {
         $db = Db::getConnection();
         $sql = "UPDATE users SET";
         foreach($userData as $key => $value) {
-            $sql .= " $key = :$key";
+            $sql .= " $key = :$key,";
         }
-        $sql .= " WHERE id = :id";
+        $sql = substr($sql, 0, -1);
+        $sql .= " WHERE id =:id";
         $result = $db->prepare($sql);
-        foreach($userData as $key => $value) {
+        foreach($userData as $key => &$value) {
             if ($key == "activation_status" || $key == "notifications")
                 $result->bindParam(":$key", $value, PDO::PARAM_INT);
-            else
+            else {
                 $result->bindParam(":$key", $value, PDO::PARAM_STR);
+            }
         }
         $result->bindParam(":id", $id, PDO::PARAM_INT);
-        return $result->execute();
+        $result->execute();
+        return true; 
     }
 
     /**
@@ -110,20 +138,6 @@ class User
         } else {
             return ("Пользователь с такими данными не найден");
         }
-    }
-
-    /**
-     * Edits user info
-     */
-    public static function edit($id, $username, $password) {
-        $db = Db::getConnection();
-        $sql = "UPDATE users SET username = :username, password = :password 
-                WHERE id = :id";
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
-        $result->bindParam(':username', $username, PDO::PARAM_STR);
-        $result->bindParam(':password', $password, PDO::PARAM_STR);
-        return $result->execute();
     }
 
     /**
