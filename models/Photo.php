@@ -18,7 +18,6 @@ class Photo {
         $reg_exp = "/\/(\w+.png)/";
         preg_match($reg_exp, $info->src, $matches);
         $frame = imagecreatefrompng(ROOT . "/public/images/masks/" . $matches[1]);
-        
         $photo_width = imagesx($photo);
         $photo_height = imagesy($photo);
         $photo_windowWidth = explode("px", $info->windowWidth)[0];
@@ -42,6 +41,17 @@ class Photo {
         return $photo;
     }
 
+    public static function photoCrop($img) {
+        $width = imagesx($img);
+        $height = imagesy($img);
+        $aspectRatio = 4/3;
+        if ($width > $height)
+            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height, 'height' => $height * (1/$aspectRatio)]);
+        else
+            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
+        return($croppedImg);
+    }
+
     public static function createPhoto($img, $info, $id)
     {
             list($type, $img) = explode(';', $img);
@@ -49,16 +59,25 @@ class Photo {
 			/* Декодируем, принятое фото */
 			$img = base64_decode($img);
 
-			/* Создаем уникальное имя для хранения во временной папке и размещаем фото */
+            /* Создаем уникальное имя для хранения во временной папке и размещаем фото */
+            if (!is_dir(ROOT . '/public/images/tmp_gallery'))
+                mkdir(ROOT . '/public/images/tmp_gallery');
             $uniquePath = Photo::getUniqueName(ROOT . '/public/images/tmp_gallery/', 'jpg');
 			file_put_contents($uniquePath, $img);
 
 			/* Создаем изображение из файла и накладываем маску*/
             $image = imagecreatefromjpeg($uniquePath);
-            if($info != null && $info->width != null && $info->height != null 
-            && $info->left != null && $info->top != null) {
-                $image = Photo::mergePhoto($image, $info);    
+            
+
+            if($info != null) {
+                foreach($info as $infoPart) {
+                    if ($infoPart->width != null && $infoPart->height != null 
+                    && $infoPart->left != null && $infoPart->top != null)
+                    $image = Photo::mergePhoto($image, $infoPart);      
+                }
+                  
             }
+            $image = Photo::photoCrop($image);
             /* Размещаем фото в постоянной галерее */
             
             $pattern = '/tmp_gallery/';
@@ -228,5 +247,39 @@ class Photo {
             }
         }
         return $likes;
+    }
+
+    /**
+     * getRowBy
+     */
+    public static function getRowBy($field, $value, $table) {
+        $db = Db::getConnection();
+        $sql = "SELECT * FROM $table WHERE $field = :$field";
+        $result = $db->prepare($sql);
+        if ($field == 'id' || $field == 'activation_status')
+            $result->bindParam(":$field", $value, PDO::PARAM_INT);
+        else
+            $result->bindParam(":$field", $value, PDO::PARAM_STR);
+        $result->execute();
+        return $result->fetch();
+    }
+
+    public static function deletePhoto($photoId, $photoOwnerId, $photoName) {
+
+        Photo::deleteRowBy("id", $photoId, "photos");
+        unlink(ROOT . "/public/images/gallery/$photoOwnerId/$photoName");
+        header("Location: /photo/gallery");
+        exit();
+    }
+
+    public static function deleteRowBy($field, $value, $table) {
+        $db = Db::getConnection();
+        $sql = "DELETE FROM $table WHERE $field = :$field";
+        $result = $db->prepare($sql);
+        if ($field == 'id' || $field == 'activation_status')
+            $result->bindParam(":$field", $value, PDO::PARAM_INT);
+        else
+            $result->bindParam(":$field", $value, PDO::PARAM_STR);
+        return($result->execute());
     }
 }

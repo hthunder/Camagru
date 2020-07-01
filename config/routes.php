@@ -12,6 +12,7 @@ return array(
 	'photo/showMore' => 'photo/showMore',
 	'photo/page/(\d+)/(\w+)' => 'photo/page/$1/$2',
 	'photo/create' => 'photo/create',
+	'photo/delete' => 'photo/delete',
 	'comment/add' => 'comment/add',
 	'like/addRemove' => 'like/addRemove',
 	'site/gallery' => 'site/gallery',

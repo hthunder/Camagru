@@ -182,9 +182,20 @@
 		flex-wrap: wrap;
 	}
 	&__grid-item {
-		width: calc(120/260 * 100%);
-		height: auto;
-		border-radius: 5px;
-		margin-bottom: 18px;
+
+		height: 100%;
+    	border-radius: 5px;
+
+
+		// width: calc(120/260 * 100%);
+		// height: auto;
+		// border-radius: 5px;
+		// margin-bottom: 18px;
 	}
+}
+
+.chtoto-tam {
+	margin-bottom: 20px;
+    width: 49%;
+    height: 400px;
 }

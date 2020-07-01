@@ -1,31 +1,53 @@
 .page {
-	&__wrapper {
-		display: inline-block;
-	}
-	&__photo-wrapper {
-		display: inline-block;
-	}
 	&__photo {
-		max-width: 100%;
+		width: 100%;
 		height: auto;
 		border-radius: 5px;
 		margin: 18px auto;
 	}
 	&__likes {
-		display: flex;
-		justify-content: start;
-		align-items: center;
+		width: 20%;
+		text-align: start;
 		color: $accent-10;
-		line-height: 18px;
-		margin-bottom: 18px;
 	}
 	&__likes-icon {
-		width: 20px;
-		height: 18px;
+		width: 50%;
+		max-width: 30px;
+		vertical-align: middle;
 	}
 	&__commentaries {
 		margin-bottom: 20px;
 	}
+	&__likes-number {
+		font-size: 5vw;
+		vertical-align: middle;
+	}
+	&__bottom-wrapper {
+		display: flex; 
+		justify-content: space-between; 
+		margin-bottom: 15px; 
+		align-items: center;
+	}
+	&__delete-form {
+		width: 10%; 
+		max-width: 30px;
+	}
+	&__delete-button {
+		width: 100%; 
+		background-color: transparent; 
+		border: none; 
+		vertical-align: middle
+	}
+	&__delete-icon {
+		width: 100%; 
+		vertical-align: middle;
+	}
+}
+
+@media (min-width: 576px) {
+	.page__likes-number{
+		font-size: 24px;
+	} 
 }
 
 .commentaries {
@@ -36,6 +58,7 @@
 		display: none;
 	}
 	&__form {
+		width: 100%;
 		display: flex;
 		border: 1px solid $accent-6;
 		border-radius: 10px;
@@ -96,4 +119,8 @@
 	&__author {
 		color: $accent-10;
 	}
+}
+
+.container_small {
+	max-width: 540px;
 }

@@ -3,57 +3,36 @@
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
 		<article class="page">
-			<div class="top-line">	
+			<div class="top-line">
 			</div>
-			<div class="container">
+			<div class="container container_small">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
 				<div class="page__wrapper">
 					<div class="page__photo-wrapper">
-						<img class="page__photo" src="/public/images/gallery/<?php echo($photoOwnerId . '/' . $name . '.jpg'); ?>">
-						<span class="page__likes">
-							<?php if($isLiked != null && $isLiked == 1) {?>
-							<img class="page__likes-icon" src="/public/images/icons/likePushed.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
-							<?php } else { ?>
-							<img class="page__likes-icon" src="/public/images/icons/like.svg" alt="лайк" data-photo-name="<?php echo($name); ?>">
-							<?php } ?>
-							<strong class="page__likes-number"><?php echo($likesNumber); ?></strong>
-						</span>	
+						<img class="page__photo" src="/public/images/gallery/{hostId}/{name}.jpg">
+						<div class="page__bottom-wrapper">
+							<span class="page__likes">
+								{likeIcon}
+								<strong class="page__likes-number">{likesNumber}</strong>
+							</span>
+							<form class="page__delete-form" action="/photo/delete" method="POST">
+								<input type="hidden" name="photoId" value="{photoId}">
+								<button class="page__delete-button" name="delete">
+									<img class="page__delete-icon" src="/public/images/icons/bin.svg" alt="Удалить комментарий">
+								</button>
+							</form>	
+						</div>
 					</div>
-					
 					<section class="page__commentaries commentaries">
 						<h2 class="commentaries__heading">Комментарии</h2>
 						<form class="commentaries__form" action="/comment/add" method="POST">
 							<input class="commentaries__form-text" type="text" maxlength="50" name="comment" placeholder="Написать комментарий" required>
-							<input class="commentaries__form-hidden" type="hidden" name="photo_name" value="<?php echo($name); ?>">
-							<input class="commentaries__form-hidden" type="hidden" name="photoOwner" value="<?php echo($photoOwnerId); ?>">
+							<input class="commentaries__form-hidden" type="hidden" name="photo_name" value="{name}">
+							<input class="commentaries__form-hidden" type="hidden" name="photoOwner" value="{hostId}">
 							<input class="commentaries__form-submit" type="submit" value="Отправить">
 						</form>
-						<?php
-							$counter = 0;
-							foreach($comments as $comment) {
-								if ($counter < 5) {
-						?>
-						<article class="commentary">
-							<p class="commentary__text">
-								<span class="commentary__author"><?php echo($comment["username"]); ?>:</span>
-								<?php echo($comment["text"]); ?>
-							</p>
-						</article>
-						<?php 	} else { ?>
-						<article class="commentary commentary_hidden">
-							<p class="commentary__text">
-								<span class="commentary__author"><?php echo($comment["username"]); ?>:</span>
-								<?php echo($comment["text"]); ?>
-							</p>
-						</article>
-						<?php
-								}
-								$counter++; 
-							}
-							?>
-						<?php if ($counter > 5) { ?>
-							<input class="commentaries__show-more" type="button" value="Показать больше" onclick="showMoreComments();">
-						<?php } ?>
+						{comments}
+						{showMore}
 					</section>
 				</div>
 			</div>

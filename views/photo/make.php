@@ -7,12 +7,7 @@
 			</div>
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
-				 <!-- <?php 
-					if(isset($_SESSION['errors'])) {
-						echo($_SESSION['errors']);
-						unset($_SESSION['errors']);
-					} 
-				?> -->
+				{errors}
 				<div class="photo__container">
 					<?php include(ROOT . '/views/layouts/_mask-control.php'); ?>
 					<video class="photo__video" id="video">Video stream not available.</video>
@@ -37,9 +32,7 @@
 				<canvas id="canvas" style="display: none">
 				</canvas>
 				<div class="photo__grid">
-					<?php foreach($lastPhotos as $photo) {?>
-						<img class="photo__grid-item" src="/public/images/gallery/<?php echo($id . '/' . $photo); ?>">
-					<?php } ?>
+					{lastPhotos}
 				</div>
 			</div>
 		</div>

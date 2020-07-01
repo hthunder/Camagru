@@ -4,7 +4,7 @@ class Template
 {
     public static function render(array $params, $main_template) {
         ob_start();
-        include_once($main_template);
+        include($main_template);
         $file = ob_get_contents();
         ob_end_clean();
         foreach($params as $key => $value) {
