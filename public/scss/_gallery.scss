@@ -6,7 +6,7 @@
 		flex-wrap: wrap;
 	}
 	&__grid-link {
-		width: calc(120/260 * 100%);
+		width: 49%;
 	}
 	&__grid-item {
 		width: 100%;
@@ -17,5 +17,11 @@
 	&__show-more {
 		margin: 0 auto;
 		margin-bottom: 20px;
+	}
+}
+
+@media (min-width: 480px) {
+	.gallery__grid-link {
+		width: 32%;
 	}
 }

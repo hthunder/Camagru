@@ -13,18 +13,38 @@ class CabinetController
     public function actionIndex()
     {
         $userId = User::checkLogged();
-        $user = User::getUserBy("id", $userId);
+        $user = Common::getRowsBy("id", $userId, "users")->fetch();
         $array = array(
             "username" => !empty($user["username"]) ? $user["username"] : "",
             "email" => !empty($user["email"]) ? $user["email"] : "",
             "avatar_src" => !empty($user["avatar_src"]) ? $user["avatar_src"] : "avatar.jpg",
             "errors" => !empty($_SESSION["editErrors"]) ? $_SESSION["editErrors"] : "",
+            "cabinet__grid" => "",
             "title" => "Кабинет пользователя",
         );
+        $photosArray = Common::getRowsBy("user_id", $_SESSION["user"], "photos");
+        if ($photosArray) {
+            $counter = 0;
+            while ($row = $photosArray->fetch()) {
+                if ($counter > 5)
+                    break;
+                $photo_src = explode('.', $row["photo_src"])[0];
+			    $file_name = $row["photo_src"];
+			    $str = "<a class='cabinet__grid-link' href='/photo/page/{photo_userid}/{photo_src}'>
+						    <img class='cabinet__grid-item' src='/public/images/gallery/{photo_userid}/{file_name}'>
+                        </a>";
+                $str = str_replace("{photo_userid}", $_SESSION["user"], $str);
+			    $str = str_replace("{photo_src}", $photo_src, $str);
+                $str = str_replace("{file_name}", $file_name, $str);
+                $array["cabinet__grid"] .= $str;
+                $counter++;
+            }
+        }
         if (isset($_SESSION["editErrors"]))
             unset($_SESSION["editErrors"]);
         foreach($array as $key => $value) {
-            $array[$key] = htmlspecialchars($value);
+            if ($key != "cabinet__grid")
+                $array[$key] = htmlspecialchars($value);
         }
         print(Template::render($array, ROOT . '/views/cabinet/index.php'));
         return true;
@@ -45,13 +65,13 @@ class CabinetController
             if ($array["username"] && $array["email"] && $array["password"]) {
                 $array["errors"] .= User::changeInfoValidation($array);
                 if ($array["errors"] === "") {
-                    $user = User::getUserBy('id', $_SESSION["user"]);
+                    $user = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
                     if ($user && password_verify($array["password"], $user["password"])) {
                         $newArray = array(
                             "email" => $array["email"],
                             "username" => $array["username"],
                         );
-                        if (!User::updateUserData($newArray, $_SESSION["user"]))
+                        if (!Common::updateRow($newArray, $_SESSION["user"]))
                             $array["errors"] .= "Что-то пошло не так</br>";
                     } else {
                        $array["errors"] .= "Введен неверный пароль</br>"; 
@@ -81,14 +101,14 @@ class CabinetController
         );
         if (isset($_POST["changePass"])) {
             if ($array["pass1"] && $array["pass2"] && $array["oldPass"]) { 
-                $userInfo = User::getUserBy("id", $_SESSION["user"]);
+                $userInfo = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
                 if ($userInfo && password_verify($array["oldPass"], $userInfo["password"])) {
                     if ($array["pass1"] == $array["pass2"]) {
                         if (strlen($array["pass1"]) < 6) {
                             $array["errors"] .= 'Пароль не должен быть короче 6-ти символов</br>';    
                         } else {
                             $dataForUpdate = array("password" => password_hash($array["pass1"], PASSWORD_BCRYPT));
-                            User::updateUserData($dataForUpdate, $userInfo['id']);
+                            Common::updateRow($dataForUpdate, $userInfo['id']);
                             header('Location: /cabinet');
                             exit();    
                         }

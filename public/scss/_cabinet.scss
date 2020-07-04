@@ -59,11 +59,14 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}
-	&__grid-item {
-		border-radius: 10px;
+	&__grid-link {
 		width: 49%;
+	}
+	&__grid-item {
+		width: 100%;
 		height: auto;
-		margin-bottom: 8px;
+		border-radius: 5px;
+		margin-bottom: 18px;
 	}
 	&__show-more {
 		margin-top: 11px;
@@ -73,7 +76,7 @@
 }
 
 @media (min-width: 480px) {
-	.cabinet__grid-item {
+	.cabinet__grid-link {
 		width: 32%;
 	}
 }

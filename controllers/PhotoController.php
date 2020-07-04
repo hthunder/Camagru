@@ -43,8 +43,15 @@ class PhotoController
 			}
 		}
 		foreach ($lastPhotos as $photo) {
-			$array["lastPhotos"] .= "<div class='chtoto-tam'>
-			<img class='photo__grid-item' src='/public/images/gallery/$id/$photo'></div>";
+			$photo_src = explode('.', $photo)[0];
+			$file_name = $photo;
+			$str = "<a class='photo__grid-link' href='/photo/page/{photo_userid}/{photo_src}'>
+					    <img class='photo__grid-item' src='/public/images/gallery/{photo_userid}/{file_name}'>
+					</a>";
+			$str = str_replace("{photo_userid}", $_SESSION["user"], $str);
+			$str = str_replace("{photo_src}", $photo_src, $str);
+            $str = str_replace("{file_name}", $file_name, $str);
+			$array["lastPhotos"] .= $str;
 		}
 		print(Template::render($array, ROOT . '/views/photo/make.php'));
         return true;
@@ -102,7 +109,12 @@ class PhotoController
 		$guestId = $_SESSION['user'];
 		$likesNumber = Photo::getLikesNumber($name);
 		$array["likesNumber"] = $likesNumber;
-		$photoId = Photo::getIdByName($name)['id'];
+		$temp = Photo::getIdByName($name);
+		if (!$temp) {
+			header("Location: /photo/gallery");
+			exit();
+		}
+		$photoId = $temp['id'];
 		$array["photoId"] = $photoId;
 		$isLiked = Like::isLiked($photoId, $guestId);
 
@@ -152,49 +164,11 @@ class PhotoController
 		);
 		if (isset($_POST["delete"])) {
 			if ($array["photoId"]) {
-				$user = Photo::getRowBy("id", $array["photoId"], "photos");
+				$user = Common::getRowsBy("id", $array["photoId"], "photos")->fetch();
 				if ($user["user_id"] == $_SESSION["user"]) {
 					Photo::deletePhoto($array["photoId"], $user["user_id"], $user["photo_src"]);
 				}
 			}
 		}
 	}
-
-	// /**
-    //  * A changeInfo action lets to update a user login and email
-    //  */
-    // public function actionChangeInfo() {
-    //     User::checkLogged();
-    //     $array = array(
-    //         "username" => !empty($_POST["username"]) ? substr($_POST["username"], 0, 30) : "",
-    //         "email" => !empty($_POST["email"]) ? substr($_POST["email"], 0, 30) : "",
-    //         "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
-    //         "errors" => "",
-    //     );
-    //     if (isset($_POST["changeInfo"])) {
-    //         if ($array["username"] && $array["email"] && $array["password"]) {
-    //             $array["errors"] .= User::changeInfoValidation($array);
-    //             if ($array["errors"] === "") {
-    //                 $user = User::getUserBy('id', $_SESSION["user"]);
-    //                 if ($user && password_verify($array["password"], $user["password"])) {
-    //                     $newArray = array(
-    //                         "email" => $array["email"],
-    //                         "username" => $array["username"],
-    //                     );
-    //                     if (!User::updateUserData($newArray, $_SESSION["user"]))
-    //                         $array["errors"] .= "Что-то пошло не так</br>";
-    //                 } else {
-    //                    $array["errors"] .= "Введен неверный пароль</br>"; 
-    //                 }
-    //             }
-    //         } else {
-    //             $array["errors"] .= "Не все поля заполнены</br>";
-    //         }
-    //     }
-    //     $_SESSION["editErrors"] = $array["errors"];
-    //     header("Location: /cabinet");
-    //     exit();
-    // }
-
-
 }

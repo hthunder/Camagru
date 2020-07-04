@@ -14,6 +14,8 @@ function showMore(srcs) {
 			img.src += element['photo_src'];
 			img.classList.add('gallery__grid-item');
 			link.classList.add('gallery__grid-link');
+			link.href = "/photo/page/" + element["user_id"] + "/" + element["photo_src"];
+			link.href = (link.href.replace(/.jpe?g$/, ""));
 			grid.appendChild(link);
 			link.appendChild(img);
 			if (+element['id'] < +showMore.dataset.id)

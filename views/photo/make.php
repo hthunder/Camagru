@@ -5,7 +5,7 @@
 		<div class="photo">
 			<div class="top-line">	
 			</div>
-			<div class="container">
+			<div class="container container_small">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
 				{errors}
 				<div class="photo__container">

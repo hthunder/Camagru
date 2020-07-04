@@ -18,7 +18,7 @@
 			photo_src VARCHAR(45) NOT NULL,
 			user_id INT NOT NULL,
 			creation_date DATETIME NOT NULL,
-			likes INT NULL,
+			likes INT DEFAULT 0,
 			description VARCHAR(45) NULL,
 			PRIMARY KEY (id),
 			FOREIGN KEY (user_id) REFERENCES users(id)

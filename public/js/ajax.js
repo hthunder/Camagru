@@ -7,8 +7,8 @@ function ajax(url, method, functionName, dataArray) {
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            // console.log(JSON.parse(this.response));
-            functionName(JSON.parse(this.response));
+            if (functionName !== null)
+                functionName(JSON.parse(this.response));
         }
     }
 }

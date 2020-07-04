@@ -7,23 +7,23 @@ class CommentController
 {	
 	public function actionAdd()
     {
-		// $title = 'Сделать фото';
-		$comment = $_POST['comment'];
+		$comment = substr($_POST['comment'], 0, 45);
 		$userId = $_SESSION['user']; // id того кто оставил фото
 		$photoOwnerId = $_POST['photoOwner'];
 		$photoName = $_POST['photo_name'];
+
 		date_default_timezone_set('Europe/Moscow');
 		$dateOfCreation = date('Y-m-d-H-i-s');
 		$temp = Photo::getIdByName($photoName);
+		if (!$temp) {
+			header("Location: /photo/gallery");
+			exit();
+		}
 		$photoId = $temp['id'];
-		// var_dump($photoId);
-		// die();
-		if (strlen($comment) <= 50 && strlen($comment) > 0)
-			Comment::add($comment, $userId, $dateOfCreation, $photoId);
+		if (strlen($comment) <= 45 && strlen($comment) > 0)
+			Common::insertRow(array("text" => $comment, "user_id" => $userId,
+			"creation_date" => $dateOfCreation, "photo_id" => $photoId), "comments");
 		header("Location: /photo/page/" . $photoOwnerId . "/" . $photoName);
-		// $masks = Photo::getMasks();
-		// $lastPhotos = Photo::getLastPhotos($id);
-        // require_once(ROOT . '/views/photo/make.php');
         return true;
     }
 }

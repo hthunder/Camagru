@@ -17,7 +17,7 @@
 							</span>
 							<form class="page__delete-form" action="/photo/delete" method="POST">
 								<input type="hidden" name="photoId" value="{photoId}">
-								<button class="page__delete-button" name="delete">
+								<button class="page__delete-button" type="sumbit" name="delete">
 									<img class="page__delete-icon" src="/public/images/icons/bin.svg" alt="Удалить комментарий">
 								</button>
 							</form>	
@@ -37,6 +37,7 @@
 				</div>
 			</div>
 		</article>
+		<script src="/public/js/photo-delete.js"></script>
 		<script src='/public/js/ajax.js'></script>
 		<script src='/public/js/like.js'></script>
 		<script src='/public/js/show-more-comments.js'></script>

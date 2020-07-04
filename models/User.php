@@ -49,48 +49,15 @@ class User
         $errors = $data["errors"];
         if (strlen($data['username']) < 2)
             $errors .= 'Имя не должно быть короче 2-х символов</br>';
-        $user = User::getUserBy("username", $data["username"]);
+        $user = Common::getRowsBy("username", $data["username"], "users")->fetch();
         if ($user && $user["id"] !== $_SESSION["user"])
             $errors .= 'Такое имя пользователя уже используется</br>';
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
             $errors .= 'Неправильный email</br>';
-        $user = User::getUserBy("email", $data["email"]);
+        $user = Common::getRowsBy("email", $data["email"], "users")->fetch();
         if ($user && $user["id"] !== $_SESSION["user"])
             $errors .= 'Такое имя пользователя уже используется</br>';
         return($errors);
-    }
-
-    /**
-     * This function lets to update user data
-     */
-    public static function updateUserData(array $userData, $id) {
-        $db = Db::getConnection();
-        $sql = "UPDATE users SET";
-        foreach($userData as $key => $value) {
-            $sql .= " $key = :$key,";
-        }
-        $sql = substr($sql, 0, -1);
-        $sql .= " WHERE id =:id";
-        $result = $db->prepare($sql);
-        $userData["id"] = $id;
-        $result->execute($userData);
-        return true; 
-    }
-
-    /**
-     * Registers a new user and adds him to a database
-     */
-    public static function register($username, $email, $password, $activation_code) {
-        $db = Db::getConnection();
-        $hashedPass = password_hash($password, PASSWORD_BCRYPT);
-        $sql = 'INSERT INTO users (username, email, password, activation_code) '
-                . 'VALUES (:username, :email, :password, :activation_code)';
-        $result = $db->prepare($sql);
-        $result->bindParam(':username', $username, PDO::PARAM_STR);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $hashedPass, PDO::PARAM_STR);
-        $result->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
-        return $result->execute();
     }
 
     /**
@@ -148,23 +115,6 @@ class User
     }
 
     /**
-     * Retrieve user info by a given field
-     * $field The field to retrieve the user with.
-     * $value A value for $field
-     */
-    public static function getUserBy($field, $value) {
-        $db = Db::getConnection();
-        $sql = "SELECT * FROM users WHERE " . "$field = :" . "$field";
-        $result = $db->prepare($sql);
-        if ($field == 'id' || $field == 'activation_status')
-            $result->bindParam(":$field", $value, PDO::PARAM_INT);
-        else
-            $result->bindParam(":$field", $value, PDO::PARAM_STR);
-        $result->execute();
-        return $result->fetch();
-    }
-
-    /**
      * Отправить письмо с подтверждением на почту
      */
     public static function sendMail($email, $subject, $activation_code) {
@@ -188,21 +138,14 @@ class User
             $sql = 'SELECT id, activation_status FROM users WHERE activation_code = :activation_code';
             $result = $db->prepare($sql);
             $result->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
-            $result->execute();
-            if ($result) {
-                while($row = $result->fetch()) {
+            if ($result->execute()) {
+                $row = $result->fetch();
                     if ($row['activation_status'] == 0) {
-                        $activation_status = 1;
-                        $sql = 'UPDATE users SET activation_status = :activation_status WHERE id = :id';
-                        $result = $db->prepare($sql);
-                        $result->bindParam(':activation_status', $activation_status, PDO::PARAM_INT);
-                        $result->bindParam(':id', $row['id'], PDO::PARAM_INT);
-                        $result->execute();
-                        return ("Email подтвержден");
+                        if (Common::updateRow(array("activation_status" => 1), $row["id"]))
+                            return ("Email подтвержден");
                     } else {
                         return ("Email уже подтвержден");
                     }
-                }    
             } else {
                 return ("Что-то пошло не так");
             }

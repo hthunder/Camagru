@@ -23,12 +23,7 @@
 				</form>
 				<p class="edit__errors">{errors}</p>
 				<div class="cabinet__grid">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
-					<img class="cabinet__grid-item" src="/public/images/kot-v-ochkah.jpg" alt="">
+					{cabinet__grid}
 				</div>
 				<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
 			</div>

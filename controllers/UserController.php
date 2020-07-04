@@ -25,8 +25,10 @@ class UserController
                 $array["errors"] = User::isRegistrationValid($array);
                 if ($array["errors"] === "") {
                     $activation_code = md5($array["email"] . time());
-                    $result = User::register($array["username"], $array["email"], 
-                    $array["pass1"], $activation_code);
+                    $result = Common::insertRow(array("username" => $array["username"],
+                        "email" => $array["email"], 
+                        "password" => password_hash($array["pass1"], PASSWORD_BCRYPT),
+                        "activation_code" => $activation_code), "users");
                     User::sendMail($array["email"], "Подтверждение регистрации", $activation_code);
                     header('Location: /');
                     exit();
@@ -90,7 +92,7 @@ class UserController
         );
         if (isset($_POST["forgotPass"])) {
             if ($array["email"]) {
-                $userInfo = User::getUserBy("email", $array["email"]);
+                $userInfo = Common::getRowsBy("email", $array["email"], "users")->fetch();
                 User::sendMail($array["email"], "Ссылка для восстановления пароля", $userInfo["activation_code"]);
                 header('Location: /user/login');
                 exit();
@@ -112,14 +114,14 @@ class UserController
             "errors" => "",
         );
         if (isset($_POST["changePass"])) {
-            if ($array["pass1"] && $array["pass2"]) { 
-                $userInfo = User::getUserBy("activation_code", $array["activationCode"]);
+            if ($array["pass1"] && $array["pass2"]) {
+                $user = Common::getRowsBy("activation_code", $array["activationCode"], "users")->fetch();
                 if ($array["pass1"] == $array["pass2"]) {
                     if (strlen($array["pass1"]) < 6) {
                         $array["errors"] .= 'Пароль не должен быть короче 6-ти символов</br>';    
                     } else {
                         $dataForUpdate = array("password" => password_hash($array["pass1"], PASSWORD_BCRYPT));
-                        User::updateUserData($dataForUpdate, $userInfo['id']);
+                        Common::updateRow($dataForUpdate, $userInfo['id']);
                         header('Location: /user/login');
                         exit();    
                     }

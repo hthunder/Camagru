@@ -45,10 +45,17 @@ class Photo {
         $width = imagesx($img);
         $height = imagesy($img);
         $aspectRatio = 4/3;
+        // var_dump($width);
+        // var_dump($height);
+        // die();
         if ($width > $height)
-            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height, 'height' => $height * (1/$aspectRatio)]);
+            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height * $aspectRatio, 'height' => $height]);
         else
             $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
+            // if ($width > $height)
+        //     $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height, 'height' => $height * (1/$aspectRatio)]);
+        // else
+        //     $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
         return($croppedImg);
     }
 
@@ -99,18 +106,12 @@ class Photo {
                 $photo_src = array_pop($pieces);
                 Photo::addPhotoToDb($id, $photo_src, $dateOfCreation);
             }
-
-			/* Удаляем файл из временной папки */
 			unlink($uniquePath);
     }
 
     public static function addPhotoToDb($id, $photo_src, $dateOfCreation) {
         $db = Db::getConnection();
-
-        // Текст запроса к БД
         $sql = 'INSERT INTO photos (photo_src, user_id, creation_date) VALUES (:photo_src, :user_id, :creation_date)';
-
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':photo_src', $photo_src, PDO::PARAM_STR);
         $result->bindParam(':user_id', $id, PDO::PARAM_INT);
@@ -130,11 +131,8 @@ class Photo {
 
     public static function getLastPhotos($id) {
         $db = Db::getConnection();
-
-        // Текст запроса к БД
         $sql = 'SELECT photo_src FROM photos WHERE user_id = :user_id ORDER BY creation_date DESC LIMIT 6';
 
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':user_id', $id, PDO::PARAM_INT);
         $result->execute();
@@ -147,30 +145,19 @@ class Photo {
 
     public static function getAllPhotos() {
         $db = Db::getConnection();
-
-        // Текст запроса к БД
-        $sql = 'SELECT id, photo_src, user_id FROM photos ORDER BY creation_date DESC LIMIT 5';
-
-        // Получение результатов. Используется подготовленный запрос
+        $sql = 'SELECT id, photo_src, user_id FROM photos ORDER BY creation_date DESC LIMIT 6';
         $result = $db->prepare($sql);
-        // $result->bindParam(':user_id', $id, PDO::PARAM_INT);
         $result->execute();
         $photos = array();
         while($row = $result->fetch()) {
             $photos[] = $row;
         }
-        // var_dump($photos);
-        // die();
         return $photos;
     }
 
     public static function showMore($minId) {
         $db = Db::getConnection();
-
-        // Текст запроса к БД
-        $sql = 'SELECT id, photo_src, user_id FROM photos WHERE id < :id ORDER BY creation_date DESC LIMIT 5';
-
-        // Получение результатов. Используется подготовленный запрос
+        $sql = 'SELECT id, photo_src, user_id FROM photos WHERE id < :id ORDER BY creation_date DESC LIMIT 6';
         $result = $db->prepare($sql);
         $result->bindParam(':id', $minId, PDO::PARAM_INT);
         $photos = array();
@@ -184,16 +171,10 @@ class Photo {
 
     public static function getIdByName($name) {
         $db = Db::getConnection();
-        $photo_src1 = $name . '.jpeg';
-        $photo_src2 = $name . '.jpg';
-
-        // Текст запроса к БД
-        $sql = 'SELECT id FROM photos WHERE (photo_src = :photo_src1) OR (photo_src = :photo_src2)';
-
-        // Получение результатов. Используется подготовленный запрос
+        $sql = 'SELECT id FROM photos WHERE photo_src LIKE :photo_src';
         $result = $db->prepare($sql);
-        $result->bindParam(':photo_src1', $photo_src1, PDO::PARAM_STR);
-        $result->bindParam(':photo_src2', $photo_src2, PDO::PARAM_STR);
+        $likeStr = $name . "%";
+        $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
         if ($result->execute()) {
             return $result->fetch();
         } else {
@@ -205,16 +186,12 @@ class Photo {
         $db = Db::getConnection();
         $photo_src1 = $name . '.jpeg';
         $photo_src2 = $name . '.jpg';
-    
-        // Текст запроса к БД
         $sql = 'SELECT text, username 
                 FROM photos 
                 JOIN comments ON photos.id = comments.photo_id 
                 JOIN users ON users.id = comments.user_id 
                 WHERE (photo_src = :photo_src1
                 OR photo_src = :photo_src2)';
-    
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':photo_src1', $photo_src1, PDO::PARAM_STR);
         $result->bindParam(':photo_src2', $photo_src2, PDO::PARAM_STR);
@@ -231,12 +208,8 @@ class Photo {
         $db = Db::getConnection();
         $src_name1 = $name . '.jpeg';
         $src_name2 = $name . '.jpg';
-    
-        // Текст запроса к БД
         $sql = 'SELECT likes FROM photos WHERE (photo_src = :src_name1
                 OR photo_src = :src_name2)';
-    
-        // Получение результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':src_name1', $src_name1, PDO::PARAM_STR);
         $result->bindParam(':src_name2', $src_name2, PDO::PARAM_STR);
@@ -249,37 +222,11 @@ class Photo {
         return $likes;
     }
 
-    /**
-     * getRowBy
-     */
-    public static function getRowBy($field, $value, $table) {
-        $db = Db::getConnection();
-        $sql = "SELECT * FROM $table WHERE $field = :$field";
-        $result = $db->prepare($sql);
-        if ($field == 'id' || $field == 'activation_status')
-            $result->bindParam(":$field", $value, PDO::PARAM_INT);
-        else
-            $result->bindParam(":$field", $value, PDO::PARAM_STR);
-        $result->execute();
-        return $result->fetch();
-    }
-
     public static function deletePhoto($photoId, $photoOwnerId, $photoName) {
 
-        Photo::deleteRowBy("id", $photoId, "photos");
+        Common::deleteRowsBy("id", $photoId, "photos");
         unlink(ROOT . "/public/images/gallery/$photoOwnerId/$photoName");
         header("Location: /photo/gallery");
         exit();
-    }
-
-    public static function deleteRowBy($field, $value, $table) {
-        $db = Db::getConnection();
-        $sql = "DELETE FROM $table WHERE $field = :$field";
-        $result = $db->prepare($sql);
-        if ($field == 'id' || $field == 'activation_status')
-            $result->bindParam(":$field", $value, PDO::PARAM_INT);
-        else
-            $result->bindParam(":$field", $value, PDO::PARAM_STR);
-        return($result->execute());
     }
 }
