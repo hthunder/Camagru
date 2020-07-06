@@ -7,6 +7,7 @@ return array(
 	'user/forgotPass' => 'user/forgotPass',
 	'user/changePass' => 'user/changePass',
 	'user/activation/(\w+)' => 'user/activation/$1',
+	'user/notifications' => 'user/notifications',
 	'photo/make' => 'photo/make',
 	'photo/gallery' => 'photo/gallery',
 	'photo/showMore' => 'photo/showMore',
