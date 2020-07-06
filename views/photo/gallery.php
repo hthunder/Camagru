@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
 		<div class="gallery">

@@ -7,16 +7,19 @@ function like(event) {
 		event.target.src = '/public/images/icons/likePushed.svg';
 		document.querySelector('.page__likes-number').innerText = +temp + 1;
 		ajax('/like/addRemove', 'POST', null, {
-			like: 'true',
-			photoName: event.target.dataset.photoName,
+			like: "true",
+			photoId: event.target.dataset.photoId,
 		})
 	}	
 	else {
 		event.target.src = '/public/images/icons/like.svg';
-		document.querySelector('.page__likes-number').innerText = +temp - 1;
-		ajax('/like/addRemove', 'POST', null, {
-			like: 'false',
-			photoName: event.target.dataset.photoName,
-		})
+		let newTemp = +temp - 1;
+		if (newTemp >= 0) {
+			document.querySelector('.page__likes-number').innerText = newTemp;
+			ajax('/like/addRemove', 'POST', null, {
+				like: "false",
+				photoId: event.target.dataset.photoId,
+			})	
+		}
 	}	
 }

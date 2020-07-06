@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
 		<div class="cabinet">
@@ -29,5 +29,7 @@
 			</div>
 		</div>
 		<script src="/public/js/modal.js"></script>
+		<script src="/public/js/ajax.js"></script>
+		<script src="/public/js/notifications.js"></script>
 	</body>
 </html>

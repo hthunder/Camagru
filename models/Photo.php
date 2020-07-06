@@ -45,17 +45,10 @@ class Photo {
         $width = imagesx($img);
         $height = imagesy($img);
         $aspectRatio = 4/3;
-        // var_dump($width);
-        // var_dump($height);
-        // die();
         if ($width > $height)
             $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height * $aspectRatio, 'height' => $height]);
         else
             $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
-            // if ($width > $height)
-        //     $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height, 'height' => $height * (1/$aspectRatio)]);
-        // else
-        //     $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
         return($croppedImg);
     }
 
@@ -169,9 +162,9 @@ class Photo {
         return $photos;
     }
 
-    public static function getIdByName($name) {
+    public static function getPhotoByName($name) {
         $db = Db::getConnection();
-        $sql = 'SELECT id FROM photos WHERE photo_src LIKE :photo_src';
+        $sql = 'SELECT * FROM photos WHERE photo_src LIKE :photo_src';
         $result = $db->prepare($sql);
         $likeStr = $name . "%";
         $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
@@ -184,17 +177,14 @@ class Photo {
     
     public static function getComments($name) {
         $db = Db::getConnection();
-        $photo_src1 = $name . '.jpeg';
-        $photo_src2 = $name . '.jpg';
         $sql = 'SELECT text, username 
                 FROM photos 
                 JOIN comments ON photos.id = comments.photo_id 
                 JOIN users ON users.id = comments.user_id 
-                WHERE (photo_src = :photo_src1
-                OR photo_src = :photo_src2)';
+                WHERE photo_src LIKE :photo_src';
         $result = $db->prepare($sql);
-        $result->bindParam(':photo_src1', $photo_src1, PDO::PARAM_STR);
-        $result->bindParam(':photo_src2', $photo_src2, PDO::PARAM_STR);
+        $likeStr = $name . "%";
+        $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
         $comments = array();
         if ($result->execute()) {
             while ($row = $result->fetch()) {
@@ -206,14 +196,11 @@ class Photo {
 
     public static function getLikesNumber($name) {
         $db = Db::getConnection();
-        $src_name1 = $name . '.jpeg';
-        $src_name2 = $name . '.jpg';
-        $sql = 'SELECT likes FROM photos WHERE (photo_src = :src_name1
-                OR photo_src = :src_name2)';
+
+        $sql = 'SELECT likes FROM photos WHERE photo_src LIKE :photo_src';
         $result = $db->prepare($sql);
-        $result->bindParam(':src_name1', $src_name1, PDO::PARAM_STR);
-        $result->bindParam(':src_name2', $src_name2, PDO::PARAM_STR);
-        $likes = 0;
+        $likeStr = $name . "%";
+        $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
         if ($result->execute()) {
             if ($row = $result->fetch()) {
                 $likes = $row['likes'];

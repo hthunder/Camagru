@@ -83,6 +83,12 @@
 	}
 }
 
+@media (min-width: 480px) {
+	.burger__list-link {
+		max-width: 240px;
+	}
+}
+
 @media (min-width: 576px) {
 	.burger__list-link {
 		font-size: 13px;

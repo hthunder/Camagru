@@ -31,6 +31,7 @@ class PhotoController
 			"masks" => "",
 			"lastPhotos" => "",
 			"errors" => !empty($_SESSION["errors"]) ? $_SESSION["errors"] : "",
+			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
 		);
 		if (isset($_SESSION["errors"]))
 			unset($_SESSION["errors"]);
@@ -62,6 +63,7 @@ class PhotoController
 			"title" => "Галерея",
 			"gallery__grid" => "",
 			"min_id" => null,
+			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 		);
 		$photos = Photo::getAllPhotos();
 		foreach($photos as $photo) {
@@ -101,16 +103,23 @@ class PhotoController
 			"title" => "Страница фотографии",
 			"hostId" => !empty($hostId) ? $hostId : "",
 			"name" => !empty($name) ? $name : "",
+			"fullName" => "",
 			"likeIcon" => "",
 			"comments" => "",
 			"showMore" => "",
+			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
+			"deletePhoto" => "",
 		);
 		$comments = Photo::getComments($name);
 		$guestId = $_SESSION['user'];
 		$likesNumber = Photo::getLikesNumber($name);
 		$array["likesNumber"] = $likesNumber;
-		$temp = Photo::getIdByName($name);
-		if (!$temp) {
+		$deletePhoto = file_get_contents(ROOT . "/views/layouts/_delete-photo.php");
+		if ($deletePhoto && $guestId == $hostId)
+			$array["deletePhoto"] = $deletePhoto;
+		$temp = Photo::getPhotoByName($name);
+		$array["fullName"] = $temp["photo_src"];
+		if (!isset($temp["photo_src"]) || !file_exists(ROOT . "/public/images/gallery/$hostId/" . $temp["photo_src"])) {
 			header("Location: /photo/gallery");
 			exit();
 		}
@@ -119,11 +128,11 @@ class PhotoController
 		$isLiked = Like::isLiked($photoId, $guestId);
 
 		if($isLiked != null && $isLiked == 1) {
-			$str = "<img class='page__likes-icon' src='/public/images/icons/likePushed.svg' alt='лайк' data-photo-name='{name}'>";
-			$str = str_replace("{name}", $array["name"], $str);
+			$str = "<img class='page__likes-icon' src='/public/images/icons/likePushed.svg' alt='лайк' data-photo-id='{photoId}'>";
+			$str = str_replace("{photoId}", $array["photoId"], $str);
 		} else {
-			$str = "<img class='page__likes-icon' src='/public/images/icons/like.svg' alt='лайк' data-photo-name='{name}'>";
-			$str = str_replace("{name}", $array["name"], $str);
+			$str = "<img class='page__likes-icon' src='/public/images/icons/like.svg' alt='лайк' data-photo-id='{photoId}'>";
+			$str = str_replace("{photoId}", $array["photoId"], $str);
 		}
 		$array["likeIcon"] .= $str;
 
@@ -144,8 +153,8 @@ class PhotoController
 										. "</p>"
 									. "</article>";
 			}
-			$cmt = str_replace("{commentText}", $comment["text"], $cmt);
-			$cmt = str_replace("{commentAuthor}", $comment["username"], $cmt);
+			$cmt = str_replace("{commentText}", htmlspecialchars($comment["text"]), $cmt);
+			$cmt = str_replace("{commentAuthor}", htmlspecialchars($comment["username"]), $cmt);
 			$array["comments"] .= $cmt;
 			$counter++; 
 		}

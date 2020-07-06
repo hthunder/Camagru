@@ -25,7 +25,7 @@ class User
      */
     public static function isRegistrationValid($data) {
         $errors = $data["errors"];
-        if (strlen($data['username']) < 2)
+        if (mb_strlen($data['username']) < 2)
             $errors .= 'Имя не должно быть короче 2-х символов</br>';
         if (User::checkRowExists('username', $data['username']))
             $errors .= 'Такое имя пользователя уже используется</br>';
@@ -34,7 +34,7 @@ class User
         if (User::checkRowExists('email', $data['email']))
             $errors .= 'Такой email уже используется</br>';
         if ($data['pass1'] == $data['pass2']) {
-            if (strlen($data['pass1']) < 6)
+            if (mb_strlen($data['pass1']) < 6)
                 $errors .= 'Пароль не должен быть короче 6-ти символов</br>';
         } else {
             $errors .= 'Пароли должны совпадать</br>';
@@ -47,7 +47,7 @@ class User
      */
     public static function changeInfoValidation(array $data) {
         $errors = $data["errors"];
-        if (strlen($data['username']) < 2)
+        if (mb_strlen($data['username']) < 2)
             $errors .= 'Имя не должно быть короче 2-х символов</br>';
         $user = Common::getRowsBy("username", $data["username"], "users")->fetch();
         if ($user && $user["id"] !== $_SESSION["user"])
@@ -85,7 +85,7 @@ class User
         $user = $result->fetch();
         if ($user && password_verify($userData["password"], $user["password"])) {
             if (User::isActivated($user['id'])) {
-                User::auth($user['id']);
+                User::auth($user["id"], $user["notifications"]);
                 header("Location: /cabinet");
                 exit();
             } else {
@@ -99,8 +99,9 @@ class User
     /**
      * Saves a user in a session
      */
-    public static function auth($userId) {
-        $_SESSION['user'] = $userId;
+    public static function auth($userId, $notifications) {
+        $_SESSION["notifications"] = $notifications;
+        $_SESSION["user"] = $userId;
     }
 
     /**
@@ -129,6 +130,20 @@ class User
     }
 
     /**
+     * Sends notifications about recieved comments
+     */
+    public static function sendNotification($email, $subject, $link, $text) {
+        $headers = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8\r\n";
+        $headers .= "From: Nosov.yura.web@gmail.com\r\n";
+
+        $message = "<p>Под вашим фото оставили новый комментарий: $text. <a href=" . "$link" . ">Ссылка на фото</a></p>";
+        mail($email, $subject, $message, $headers);
+    }
+
+
+
+    /**
      * User activation
      */
 
@@ -151,4 +166,12 @@ class User
             }
         }
     }
+
+    public static function notificationsToggle() {
+		$db = Db::getConnection();
+        $sql = 'UPDATE users SET notifications = ((notifications + 1) % 2) WHERE id = :id';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $_SESSION["user"], PDO::PARAM_INT);
+		return($result->execute());
+	}
 }

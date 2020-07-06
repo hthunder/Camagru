@@ -13,10 +13,10 @@ class UserController
     public function actionRegister()
     {
         $array = array(
-            "username" => !empty($_POST["username"]) ? substr($_POST["username"], 0, 30) : "", 
-            "email" => !empty($_POST["email"]) ? substr($_POST["email"], 0, 30) : "",
-            "pass1" => !empty($_POST["pass1"]) ? substr($_POST["pass1"], 0, 60) : "",
-            "pass2" => !empty($_POST["pass2"]) ? substr($_POST["pass2"], 0, 60) : "",
+            "username" => !empty($_POST["username"]) ? mb_substr($_POST["username"], 0, 30, "UTF-8") : "", 
+            "email" => !empty($_POST["email"]) ? mb_substr($_POST["email"], 0, 30, "UTF-8") : "",
+            "pass1" => !empty($_POST["pass1"]) ? mb_substr($_POST["pass1"], 0, 60, "UTF-8") : "",
+            "pass2" => !empty($_POST["pass2"]) ? mb_substr($_POST["pass2"], 0, 60, "UTF-8") : "",
             "title" => "Форма регистрации",
             "errors" => "",
         );
@@ -107,8 +107,8 @@ class UserController
     public function actionChangePass($activationCode)
     {
         $array = array(
-            "pass1" => !empty($_POST["pass1"]) ? substr($_POST["pass1"], 0, 60) : "",
-            "pass2" => !empty($_POST["pass2"]) ? substr($_POST["pass2"], 0, 60) : "",
+            "pass1" => !empty($_POST["pass1"]) ? mb_substr($_POST["pass1"], 0, 60, "UTF-8") : "",
+            "pass2" => !empty($_POST["pass2"]) ? mb_substr($_POST["pass2"], 0, 60, "UTF-8") : "",
             "activationCode" => !empty($activationCode) ? $activationCode : "", 
             "title" => "Форма изменения пароля",
             "errors" => "",
@@ -117,7 +117,7 @@ class UserController
             if ($array["pass1"] && $array["pass2"]) {
                 $user = Common::getRowsBy("activation_code", $array["activationCode"], "users")->fetch();
                 if ($array["pass1"] == $array["pass2"]) {
-                    if (strlen($array["pass1"]) < 6) {
+                    if (mb_strlen($array["pass1"]) < 6) {
                         $array["errors"] .= 'Пароль не должен быть короче 6-ти символов</br>';    
                     } else {
                         $dataForUpdate = array("password" => password_hash($array["pass1"], PASSWORD_BCRYPT));
@@ -133,6 +133,21 @@ class UserController
             }
         }
         print(Template::render($array, ROOT . '/views/user/changePass.php'));
+        return true;
+    }
+
+    public function actionNotifications()
+    {
+        if (isset($_POST["notifications"]) && !empty($_SESSION["user"]) && $_POST["notifications"] === "change") {
+            $result = User::notificationsToggle();
+            $notificationsStatus = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
+            $_SESSION["notifications"] = $notificationsStatus["notifications"];
+            header('Content-Type: application/json');
+            echo json_encode(['response' => "$result"]);    
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(["response" => null]);
+        }
         return true;
     }
 }
