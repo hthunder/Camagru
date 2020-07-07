@@ -140,13 +140,15 @@ class PhotoController
 		foreach($comments as $comment) {
 			$cmt = $counter < 5 ? "<article class='commentary'>" : "<article class='commentary commentary_hidden'>";
 			$cmt .= "<p class='commentary__text'>"
-				. "<span class='commentary__author'>{commentAuthor}: </span>"
-				. "{commentText}<button class='commentary__delete-btn' data-comment-id='{commentId}'>x</button>"
-				. "</p>"
+				. "<span class='commentary__author'>{commentAuthor}: </span>{commentText}";
+			if ($comment["user_id"] == $_SESSION["user"])
+				$cmt .= "<button class='commentary__delete-btn' data-comment-id='{commentId}'>x</button>";
+			$cmt .= "</p>"
 				. "</article>";
 			$cmt = str_replace("{commentText}", htmlspecialchars($comment["text"]), $cmt);
 			$cmt = str_replace("{commentAuthor}", htmlspecialchars($comment["username"]), $cmt);
-			$cmt = str_replace("{commentId}", $comment["id"], $cmt);
+			if ($comment["user_id"] == $_SESSION["user"])
+				$cmt = str_replace("{commentId}", $comment["id"], $cmt);
 			$array["comments"] .= $cmt;
 			$counter++; 
 		}

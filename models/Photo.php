@@ -174,34 +174,13 @@ class Photo {
             return false;
         }
     }
-    
-    // public static function getComments($name) {
-    //     $db = Db::getConnection();
-    //     $sql = 'SELECT * 
-    //             FROM photos 
-    //             JOIN comments ON photos.id = comments.photo_id 
-    //             JOIN users ON users.id = comments.user_id 
-    //             WHERE photo_src LIKE :photo_src';
-    //     $result = $db->prepare($sql);
-    //     $likeStr = $name . "%";
-    //     $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
-    //     $comments = array();
-    //     if ($result->execute()) {
-    //         while ($row = $result->fetch()) {
-    //             $comments[] = $row;
-    //         }
-    //     }
-    //     return $comments;
-    // }
 
     public static function getComments($photoId) {
         $db = Db::getConnection();
-        $sql = 'SELECT comments.id, text, username FROM comments 
+        $sql = 'SELECT comments.id, text, username, users.id AS user_id FROM comments 
                 JOIN users ON comments.user_id = users.id  
                 WHERE photo_id = :photo_id';
         $result = $db->prepare($sql);
-        // $likeStr = $name . "%";
-        // $result->bindParam(':photo_src', $likeStr, PDO::PARAM_STR);
         $comments = array();
         if ($result->execute(array("photo_id" => $photoId))) {
             while ($row = $result->fetch()) {
