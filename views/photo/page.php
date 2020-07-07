@@ -22,9 +22,9 @@
 						<h2 class="commentaries__heading">Комментарии</h2>
 						<form class="commentaries__form" action="/comment/add" method="POST">
 							<input class="commentaries__form-text" type="text" maxlength="45" name="comment" placeholder="Написать комментарий" required>
-							<input class="commentaries__form-hidden" type="hidden" name="photo_name" value="{name}">
+							<input class="commentaries__form-hidden" type="hidden" name="photoName" value="{name}">
 							<input class="commentaries__form-hidden" type="hidden" name="photoOwner" value="{hostId}">
-							<input class="commentaries__form-submit" type="submit" value="Отправить">
+							<button class="commentaries__form-submit" type="submit" name="commentAction" value="add">Отправить</button>
 						</form>
 						{comments}
 						{showMore}
@@ -36,5 +36,6 @@
 		<script src='/public/js/ajax.js'></script>
 		<script src='/public/js/like.js'></script>
 		<script src='/public/js/show-more-comments.js'></script>
+		<script src="/public/js/comment-delete.js"></script>
 	</body>
 </html>

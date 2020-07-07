@@ -108,6 +108,7 @@
 }
 
 .commentary {
+	width: 100%;
 	&_hidden {
 		display: none;
 	}
@@ -120,6 +121,15 @@
 	}
 	&__author {
 		color: $accent-10;
+	}
+	&__delete-btn {
+		cursor: pointer;
+		background-color: transparent;
+		border: none;
+		float: right;
+	}
+	&__delete-btn:hover {
+		color: red;
 	}
 }
 

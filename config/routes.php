@@ -15,6 +15,7 @@ return array(
 	'photo/create' => 'photo/create',
 	'photo/delete' => 'photo/delete',
 	'comment/add' => 'comment/add',
+	'comment/delete' => 'comment/delete',
 	'like/addRemove' => 'like/addRemove',
 	'site/gallery' => 'site/gallery',
 	'cabinet/changeInfo' => 'cabinet/changeInfo',

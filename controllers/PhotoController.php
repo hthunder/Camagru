@@ -110,7 +110,6 @@ class PhotoController
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 			"deletePhoto" => "",
 		);
-		$comments = Photo::getComments($name);
 		$guestId = $_SESSION['user'];
 		$likesNumber = Photo::getLikesNumber($name);
 		$array["likesNumber"] = $likesNumber;
@@ -118,6 +117,7 @@ class PhotoController
 		if ($deletePhoto && $guestId == $hostId)
 			$array["deletePhoto"] = $deletePhoto;
 		$temp = Photo::getPhotoByName($name);
+		$comments = Photo::getComments($temp["id"]);
 		$array["fullName"] = $temp["photo_src"];
 		if (!isset($temp["photo_src"]) || !file_exists(ROOT . "/public/images/gallery/$hostId/" . $temp["photo_src"])) {
 			header("Location: /photo/gallery");
@@ -138,30 +138,21 @@ class PhotoController
 
 		$counter = 0;
 		foreach($comments as $comment) {
-			if ($counter < 5) {
-				$cmt = "<article class='commentary'>"	
-										. "<p class='commentary__text'>"
-											. "<span class='commentary__author'>{commentAuthor}: </span>"
-											. "{commentText}"
-										. "</p>"
-									. "</article>";
-			} else {
-				$cmt = "<article class='commentary commentary_hidden'>"
-										. "<p class='commentary__text'>"
-											. "<span class='commentary__author'>{commentAuthor}: </span>"
-											. "{commentText}"
-										. "</p>"
-									. "</article>";
-			}
+			$cmt = $counter < 5 ? "<article class='commentary'>" : "<article class='commentary commentary_hidden'>";
+			$cmt .= "<p class='commentary__text'>"
+				. "<span class='commentary__author'>{commentAuthor}: </span>"
+				. "{commentText}<button class='commentary__delete-btn' data-comment-id='{commentId}'>x</button>"
+				. "</p>"
+				. "</article>";
 			$cmt = str_replace("{commentText}", htmlspecialchars($comment["text"]), $cmt);
 			$cmt = str_replace("{commentAuthor}", htmlspecialchars($comment["username"]), $cmt);
+			$cmt = str_replace("{commentId}", $comment["id"], $cmt);
 			$array["comments"] .= $cmt;
 			$counter++; 
 		}
 		if ($counter > 5) {
 			$array["showMore"] .= "<input class='commentaries__show-more' type='button' value='Показать больше' onclick='showMoreComments();'>";
 		}
-
 		print(Template::render($array, ROOT . '/views/photo/page.php'));
 		return true;
 	}
