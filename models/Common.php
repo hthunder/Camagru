@@ -1,9 +1,11 @@
 <?php
 
 class Common {
-    public static function getRowsBy($field, $value, $table) {
+    public static function getRowsBy($field, $value, $table, $order = null) {
         $db = Db::getConnection();
         $sql = "SELECT * FROM $table WHERE $field = :$field";
+        if ($order == "desc")
+            $sql .= " ORDER BY creation_date DESC";
         $result = $db->prepare($sql);
         if ($field == 'id' || $field == 'activation_status')
             $result->bindParam(":$field", $value, PDO::PARAM_INT);
@@ -40,6 +42,23 @@ class Common {
 
         $result = $db->prepare($sql);
         return($result->execute($userData));
+    }
+
+    public static function insertRowGetLast(array $userData, $table) {
+        $db = Db::getConnection();
+        $sql = "INSERT INTO $table (";
+        foreach ($userData as $key => $value)
+            $sql .= "$key, ";
+        $sql = substr($sql, 0, -2);
+        $sql .= ") VALUES (";
+        foreach ($userData as $key => $value)
+            $sql .= ":$key, ";
+        $sql = substr($sql, 0, -2);
+        $sql .= ")";
+
+        $result = $db->prepare($sql);
+        $result->execute($userData);
+        return($db->lastInsertId());
     }
 
     public static function updateRow(array $userData, $id) {

@@ -50,12 +50,12 @@ class User
         if (mb_strlen($data['username']) < 2)
             $errors .= 'Имя не должно быть короче 2-х символов</br>';
         $user = Common::getRowsBy("username", $data["username"], "users")->fetch();
-        if ($user && $user["id"] !== $_SESSION["user"])
+        if ($user && $user["id"] !== $_SESSION["id"])
             $errors .= 'Такое имя пользователя уже используется</br>';
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
             $errors .= 'Неправильный email</br>';
         $user = Common::getRowsBy("email", $data["email"], "users")->fetch();
-        if ($user && $user["id"] !== $_SESSION["user"])
+        if ($user && $user["id"] !== $_SESSION["id"])
             $errors .= 'Такое имя пользователя уже используется</br>';
         return($errors);
     }
@@ -85,7 +85,7 @@ class User
         $user = $result->fetch();
         if ($user && password_verify($userData["password"], $user["password"])) {
             if (User::isActivated($user['id'])) {
-                User::auth($user["id"], $user["notifications"]);
+                User::auth($user["id"], $user["username"], $user["notifications"]);
                 header("Location: /cabinet");
                 exit();
             } else {
@@ -99,17 +99,18 @@ class User
     /**
      * Saves a user in a session
      */
-    public static function auth($userId, $notifications) {
+    public static function auth($userId, $username, $notifications) {
         $_SESSION["notifications"] = $notifications;
-        $_SESSION["user"] = $userId;
+        $_SESSION["id"] = $userId;
+        $_SESSION["username"] = $username;
     }
 
     /**
      * Returns an id of user if he is authorised else redirects to a login page
      */
     public static function checkLogged() {
-        if (isset($_SESSION['user'])) {
-            return $_SESSION['user'];
+        if (isset($_SESSION["id"]) && isset($_SESSION["notifications"]) && isset($_SESSION["username"])){
+            return $_SESSION["id"];
         }
         header("Location: /user/login");
         exit();
@@ -171,7 +172,7 @@ class User
 		$db = Db::getConnection();
         $sql = 'UPDATE users SET notifications = ((notifications + 1) % 2) WHERE id = :id';
         $result = $db->prepare($sql);
-        $result->bindParam(':id', $_SESSION["user"], PDO::PARAM_INT);
+        $result->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
 		return($result->execute());
 	}
 }

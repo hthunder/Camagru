@@ -6,9 +6,9 @@
 class LikeController
 {
 	public function actionAddRemove() {
-		if (!empty($_POST["like"]) && !empty($_POST["photoId"]) && !empty($_SESSION["user"])) {
+		if (!empty($_POST["like"]) && !empty($_POST["photoId"]) && !empty($_SESSION["id"])) {
 			$like = $_POST['like']; // Ставим или снимаем (true or false)
-			$whoseLike = $_SESSION['user'];
+			$whoseLike = $_SESSION["id"];
 			$photoId = $_POST["photoId"];
 
 			if ($like === "true" && Like::isLiked($photoId, $whoseLike)) {

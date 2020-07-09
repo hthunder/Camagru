@@ -2,9 +2,10 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
-		<div class="photo">
+		<div class="photo main-content">
 			<div class="top-line">	
 			</div>
+			<?php include(ROOT . '/views/layouts/_header.php') ?>
 			<div class="container container_small">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
 				{errors}
@@ -36,6 +37,7 @@
 				</div>
 			</div>
 		</div>
+		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
 		<script src="/public/js/main.js"></script>
 		<script src="/public/js/video.js"></script>
 		<script src="/public/js/slider.js"></script>

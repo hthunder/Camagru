@@ -5,7 +5,7 @@ class Comment {
         $db = Db::getConnection();
         $sql = "DELETE FROM comments WHERE (id = :id && user_id = :user_id)";
         $result = $db->prepare($sql);
-        $result->execute(array("id" => $commentId, "user_id" => $_SESSION["user"]));
+        $result->execute(array("id" => $commentId, "user_id" => $_SESSION["id"]));
         return($result->rowCount());
     }
 }

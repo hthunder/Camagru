@@ -6,9 +6,12 @@ for (let i = 0; i < deleteBtns.length; i++) {
 
 function deleteComment() {
     let commentId = this.dataset.commentId;
-    let targetComment = this;
-    ajax("/comment/delete", "POST", function (response) {
-        if (response === true)
-            targetComment.parentNode.parentNode.remove();
-    }, {commentId});
+    if (commentId) {
+        let targetComment = this;
+        ajax("/comment/delete", "POST", function (response) {
+            if (response === true)
+                targetComment.parentNode.parentNode.remove();
+        }, {commentId});
+    }
+    
 }

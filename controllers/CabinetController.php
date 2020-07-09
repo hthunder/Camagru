@@ -23,7 +23,7 @@ class CabinetController
             "title" => "Кабинет пользователя",
             "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
         );
-        $photosArray = Common::getRowsBy("user_id", $_SESSION["user"], "photos");
+        $photosArray = Common::getRowsBy("user_id", $_SESSION["id"], "photos", "desc");
         if ($photosArray) {
             $counter = 0;
             while ($row = $photosArray->fetch()) {
@@ -34,7 +34,7 @@ class CabinetController
 			    $str = "<a class='cabinet__grid-link' href='/photo/page/{photo_userid}/{photo_src}'>
 						    <img class='cabinet__grid-item' src='/public/images/gallery/{photo_userid}/{file_name}'>
                         </a>";
-                $str = str_replace("{photo_userid}", $_SESSION["user"], $str);
+                $str = str_replace("{photo_userid}", $_SESSION["id"], $str);
 			    $str = str_replace("{photo_src}", $photo_src, $str);
                 $str = str_replace("{file_name}", $file_name, $str);
                 $array["cabinet__grid"] .= $str;
@@ -66,13 +66,13 @@ class CabinetController
             if ($array["username"] && $array["email"] && $array["password"]) {
                 $array["errors"] .= User::changeInfoValidation($array);
                 if ($array["errors"] === "") {
-                    $user = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
+                    $user = Common::getRowsBy("id", $_SESSION["id"], "users")->fetch();
                     if ($user && password_verify($array["password"], $user["password"])) {
                         $newArray = array(
                             "email" => $array["email"],
                             "username" => $array["username"],
                         );
-                        if (!Common::updateRow($newArray, $_SESSION["user"]))
+                        if (!Common::updateRow($newArray, $_SESSION["id"]))
                             $array["errors"] .= "Что-то пошло не так</br>";
                     } else {
                        $array["errors"] .= "Введен неверный пароль</br>"; 
@@ -102,7 +102,7 @@ class CabinetController
         );
         if (isset($_POST["changePass"])) {
             if ($array["pass1"] && $array["pass2"] && $array["oldPass"]) { 
-                $userInfo = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
+                $userInfo = Common::getRowsBy("id", $_SESSION["id"], "users")->fetch();
                 if ($userInfo && password_verify($array["oldPass"], $userInfo["password"])) {
                     if ($array["pass1"] == $array["pass2"]) {
                         if (mb_strlen($array["pass1"]) < 6) {

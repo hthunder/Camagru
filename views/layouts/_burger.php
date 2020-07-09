@@ -21,15 +21,10 @@
 			<label class="link burger__list-link checkbox__custom-element" for="checkbox">Уведомления</label>
 		</li>
 		<li class="burger__list-item">
-			<a class="link burger__list-link" href=/cabinet>
+			<a class="link burger__list-link" href="/cabinet">
 				Личный кабинет<img class="burger__icon" src="/public/images/icons/avatar.svg" alt="Личный кабинет">
 			</a>
 		</li>
-		<li class="burger__list-item">
-			<a class="link burger__list-link" href="#">
-				Сменить пароль<img class="burger__icon" src="/public/images/icons/key.svg" alt="Сменить пароль">
-			</a>
-		</li> 
 		<li class="burger__list-item burger__list-item_bottom">
 			<form action="/user/logout" method="POST">
 				<button type="submit" name="logout" class="link burger__list-link burger__list-link_button">

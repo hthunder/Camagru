@@ -79,7 +79,7 @@ class UserController
     public function actionLogout()
     {
         if (isset($_POST["logout"]))
-            unset($_SESSION["user"]);
+            unset($_SESSION["id"]);
         header("Location: /");
     }
 
@@ -138,9 +138,9 @@ class UserController
 
     public function actionNotifications()
     {
-        if (isset($_POST["notifications"]) && !empty($_SESSION["user"]) && $_POST["notifications"] === "change") {
+        if (isset($_POST["notifications"]) && !empty($_SESSION["id"]) && $_POST["notifications"] === "change") {
             $result = User::notificationsToggle();
-            $notificationsStatus = Common::getRowsBy("id", $_SESSION["user"], "users")->fetch();
+            $notificationsStatus = Common::getRowsBy("id", $_SESSION["id"], "users")->fetch();
             $_SESSION["notifications"] = $notificationsStatus["notifications"];
             header('Content-Type: application/json');
             echo json_encode(['response' => "$result"]);    
