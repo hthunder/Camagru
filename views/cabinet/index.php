@@ -27,6 +27,15 @@
 				<div class="cabinet__wrapper">
 					<div class="cabinet__userinfo">
 						<img class="cabinet__avatar" src="/public/images/avatars/{avatar_src}" alt="аватар">
+						
+						<form class="cabinet__avatar-form" method="POST" action="/cabinet/uploadAvatar" enctype="multipart/form-data">
+							<div>
+								<span class="cabinet__avatar-message">Загрузить аватар:</span>
+								<input type="file" name="uploadedFile" />
+							</div>
+							<input type="submit" name="uploadBtn" value="Загрузить" />
+						</form>
+						
 						<div class="cabinet__form">
 							<input class="cabinet__input cabinet__input_username" id="forhidden1" type="text" value="{username}">
 							<input class="cabinet__input cabinet__input_email" id="forhidden2" type="text" value="{email}">
@@ -48,12 +57,14 @@
 					</div>
 					<div class="cabinet__grid">
 						{cabinet__grid}
+						<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
 					</div>
 				</div>
-				<!-- <div class="cabinet__grid">
+					
+				<!-- <div class="cabinet__grid">// TODO Delete comment
 					{cabinet__grid}
 				</div> -->
-				<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
+				<!-- <input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше"> -->
 			</div>
 		</div>
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>

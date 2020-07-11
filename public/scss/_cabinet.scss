@@ -21,9 +21,15 @@
 		width: 80px;
 		height: 80px;
 		border-radius: 1000px;
+		object-fit: cover;
+	}
+	&__avatar-form {
+		margin-top: 45px;
+	}
+	&__avatar-message {
+		display: block;
 	}
 	&__form {
-		margin: 45px auto 0;
 		width: 100%;
 	}
 	&__form_password {
@@ -82,6 +88,7 @@
 		border-radius: 5px;
 	}
 	&__show-more {
+		flex-basis: 100%;
 		margin-top: 11px;
 		height: 40px;
 		margin-bottom: 25px;
@@ -90,6 +97,9 @@
 
 @media (min-width: 768px) {
 	.cabinet {
+		&__avatar-form {
+			margin-top: 0px;
+		}
 		&__form_notifications {
 			display: block;
 		}
@@ -101,8 +111,9 @@
 		&__avatar {
 			position: initial;
 			margin: 0 auto;
-			width: 50%;
-			height: auto;
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
 			border-radius: 1000px;
 		}
 		&__grid-link {
@@ -139,11 +150,13 @@
 }
 
 .list {
-	display: flex; 
-	height: 100%; 
+	display: flex;
 	align-items: center; 
-	justify-content: center;
-	font-size: 24px;
+	justify-content: space-between;
+	max-width: 768px;
+	height: 100%; 
+	margin: 0 auto;
+	font-size: 22px;
 	font-weight: normal;
 	font-family: 'News Cycle';
 	&__item {
@@ -151,7 +164,6 @@
 	}
 	&__link {
 		color: #fff;
-		margin-right: 65px;
 	}
 	&__button {
 		font-size: inherit;

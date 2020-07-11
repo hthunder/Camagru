@@ -2,10 +2,11 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
+		<?php include(ROOT . '/views/layouts/_header.php') ?>
 		<div class="gallery main-content">
 			<div class="top-line">	
 			</div>
-			<?php include(ROOT . '/views/layouts/_header.php') ?>
+			<!-- //TODO replace header -->
 			<div class="container">
 				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
 				<div class="gallery__grid">

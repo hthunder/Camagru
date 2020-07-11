@@ -27,12 +27,7 @@
 		}
 		&__grid-link {
 			width: 32%;
-		}
-		&__grid-link:nth-child(3n+3) {
-			margin-left: 2%;
-		}
-		&__grid-link:nth-child(3n+2) {
-			margin-left: 2%;
+			margin: 0 calc(4%/6);
 		}
 	}
 }

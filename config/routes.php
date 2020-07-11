@@ -20,6 +20,7 @@ return array(
 	'site/gallery' => 'site/gallery',
 	'cabinet/changeInfo' => 'cabinet/changeInfo',
 	'cabinet/changePass' => 'cabinet/changePass',
+	'cabinet/uploadAvatar' => 'cabinet/uploadAvatar',
 	'cabinet' => 'cabinet/index',
 	'' => 'site/index',
 );
