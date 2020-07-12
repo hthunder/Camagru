@@ -22,6 +22,7 @@ class CabinetController
             "cabinet__grid" => "",
             "title" => "Кабинет пользователя",
             "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
+            "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
         );
         $photosArray = Common::getRowsBy("user_id", $_SESSION["id"], "photos", "desc");
         if ($photosArray) {
@@ -44,7 +45,7 @@ class CabinetController
         if (isset($_SESSION["editErrors"]))
             unset($_SESSION["editErrors"]);
         foreach($array as $key => $value) {
-            if ($key != "cabinet__grid")
+            if ($key != "cabinet__grid" && $key != "logout")
                 $array[$key] = htmlspecialchars($value);
         }
         print(Template::render($array, ROOT . '/views/cabinet/index.php'));
@@ -65,7 +66,7 @@ class CabinetController
                 $fileNameCmps = explode(".", $fileName);
                 $fileExtension = strtolower(end($fileNameCmps));
                 $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                $allowedfileExtensions = array('jpg', 'gif', 'png', 'zip', 'txt', 'xls', 'doc');
+                $allowedfileExtensions = array("jpg", "jpeg");
                 if (in_array($fileExtension, $allowedfileExtensions)) {
                     $uploadFileDir = ROOT . '/public/images/avatars/';
                     $dest_path = $uploadFileDir . $newFileName;
@@ -75,10 +76,10 @@ class CabinetController
                     } else {
                         $message = 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.';
                     }
-                    header("Location: /cabinet");
                 }
             }
         }
+        header("Location: /cabinet");
         return (true);
     }
 

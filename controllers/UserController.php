@@ -61,6 +61,7 @@ class UserController
             "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
             "title" => "Форма логина",
             "errors" => "",
+            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["login"])) {
             if ($array["email_username"] && $array["password"]) {
@@ -78,8 +79,11 @@ class UserController
      */
     public function actionLogout()
     {
-        if (isset($_POST["logout"]))
-            unset($_SESSION["id"]);
+        if (isset($_POST["logout"])) {
+           unset($_SESSION["id"]);
+           unset($_SESSION["notifications"]);
+           unset($_SESSION["username"]);
+        }
         header("Location: /");
     }
 

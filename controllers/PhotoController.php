@@ -32,6 +32,7 @@ class PhotoController
 			"lastPhotos" => "",
 			"errors" => !empty($_SESSION["errors"]) ? $_SESSION["errors"] : "",
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
+			"logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
 		);
 		if (isset($_SESSION["errors"]))
 			unset($_SESSION["errors"]);
@@ -64,7 +65,16 @@ class PhotoController
 			"gallery__grid" => "",
 			"min_id" => null,
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
+			"transparency" => "",
+			"logout" => "",
 		);
+		if (User::isLogged()) {
+			$array["logout"] = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
+			$array["header"] = Template::render(array("transparency" => ""), ROOT . "/views/layouts/_header/_header.php");
+		} else {
+			$array["header"] = Template::render(array("transparency" => ""), ROOT . "/views/layouts/_header/_header-unauthorized.php");
+		}
+			
 		$photos = Photo::getAllPhotos();
 		foreach($photos as $photo) {
 			if ($array["min_id"] === NULL || $photo["id"] < $array["min_id"])
