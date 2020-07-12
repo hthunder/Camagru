@@ -116,6 +116,13 @@ class User
         exit();
     }
 
+    public static function isLogged() {
+        if (isset($_SESSION["id"]) && isset($_SESSION["notifications"]) && isset($_SESSION["username"]))
+            return (true);
+        else
+            return (false);
+    }
+
     /**
      * Отправить письмо с подтверждением на почту
      */

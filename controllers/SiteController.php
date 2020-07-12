@@ -11,16 +11,15 @@ class SiteController
      */
     public function actionIndex()
     {
-        if (isset($_SESSION["id"]) 
-        && isset($_SESSION["notifications"]) 
-        && isset($_SESSION["username"])) {
+        if (User::isLogged()) {
             header("Location: /cabinet");
             exit();
         }
         $array = array(
             "title" => "Главная страница",
-            "logout" => "",
+            "transparency" => "header_bg_transparent",
         );
+        $array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger-unauthorized.php");
         print(Template::render($array, ROOT . '/views/site/index.php'));
         return true;
     }

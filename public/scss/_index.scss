@@ -1,12 +1,11 @@
 .index-container {
 	width: 100%;
-	// margin: 100px auto 0;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	&__inner {
+		width: 81.25%;
 		flex-direction: column;
-		// width: 81.25%;
 		padding: 0 15px;
 		min-width: 290px;
 		text-align: center;
@@ -17,6 +16,7 @@
 		align-items: flex-end;
 	}
 	&__entry {
+		align-self: center;
 		padding: 0 2%;
 	}
 	&__text-block {
@@ -24,7 +24,13 @@
 		flex-direction: column;
 		align-items: center;
 		max-width: 585px;
-		margin-bottom: 20px;
+		// margin-bottom: 20px;
+		margin-bottom: 80px;
+	}
+	&__icon-img {
+		margin-bottom: -20px;
+		width: 32px;
+		height: auto;
 	}
 	&__heading {
 		font-family: Kaushan Script;
@@ -42,12 +48,14 @@
 		max-width: 635px;
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 	}
 	&__button {
 		display: block;
-		margin: 0 auto 40px;
+		margin: 0 5px 40px;
 	}
 	&__img-wrapper {
+		// align-self: center;
 		display: none;
 	}
 	&__img {

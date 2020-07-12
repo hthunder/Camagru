@@ -5,7 +5,7 @@
 		<div class="cabinet main-content">
 			<div class="top-line top-line_cabinet">	
 			</div>
-			<?php include(ROOT . '/views/layouts/_header.php') ?>
+			<?php include(ROOT . '/views/layouts/_header/_header.php') ?>
 			<div class="container">
 				
 				<!-- <img class="cabinet__avatar" src="/public/images/avatars/{avatar_src}" alt="аватар">
@@ -23,7 +23,7 @@
 					<div class="clearfix"></div>
 				</form>
 				<p class="edit__errors">{errors}</p> -->
-				<?php include(ROOT . '/views/layouts/_burger.php') ?>
+				<?php include(ROOT . '/views/layouts/_burger/_burger.php') ?>
 				<div class="cabinet__wrapper">
 					<div class="cabinet__userinfo">
 						<img class="cabinet__avatar" src="/public/images/avatars/{avatar_src}" alt="аватар">

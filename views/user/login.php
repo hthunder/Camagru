@@ -5,11 +5,11 @@
 		<div class="login main-content">
 			<div class="top-line">
 			</div>
-			<?php include(ROOT . "/views/layouts/_header-transparent.php"); ?>
+			<?php include(ROOT . "/views/layouts/_header/_header-transparent.php"); ?>
 			<div class="container">
-				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
+				<?php include(ROOT . '/views/layouts/_burger/_burger.php'); ?>
 				<div class="logo login__logo">
-					<img class="logo__img" src="/public/images/mdi-light_camera.png" alt="">
+					<img class="logo__img" src="/public/images/icons/camera_white.svg" alt="">
 					<span class="logo__text">Camagru</span>
 				</div>
 				<form class="login__form" method="POST" action="/user/login">

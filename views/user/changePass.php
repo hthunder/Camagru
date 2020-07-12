@@ -4,7 +4,7 @@
 	<body class="body body_bg_accent">
 		<div class="login">
 				<div class="logo login__logo">
-					<img class="logo__img" src="/public/images/mdi-light_camera.png" alt="">
+					<img class="logo__img" src="/public/images/icons/camera_white.svg" alt="">
 					<span class="logo__text">Camagru</span>
 				</div>
 				<form class="login__form" method="POST" action="/user/changePass/{activationCode}">

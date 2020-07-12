@@ -152,7 +152,7 @@
 .list {
 	display: flex;
 	align-items: center; 
-	justify-content: space-between;
+	justify-content: center;
 	max-width: 768px;
 	height: 100%; 
 	margin: 0 auto;
@@ -160,6 +160,7 @@
 	font-weight: normal;
 	font-family: 'News Cycle';
 	&__item {
+		margin: 0 20px;
 		list-style-type: none;
 	}
 	&__link {

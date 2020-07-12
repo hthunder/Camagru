@@ -2,12 +2,17 @@
 <html class="html" lang="en">
 <?php include(ROOT . "/views/layouts/_head.php"); ?>
 <body class="body body_back">
-	<?php include(ROOT . "/views/layouts/_header-transparent.php"); ?>
+	<?php include(ROOT . "/views/layouts/_header/_header-unauthorized.php"); ?>
 	<div class="index-container main-content">
 		<div class="index-container__inner">
-			<?php include(ROOT . "/views/layouts/_burger.php"); ?>
+			{burger}
 			<div class="index-container__entry">
 				<div class="index-container__text-block">
+					<!-- //TODO replace the logout icon and change it in code -->
+					<!-- //TODO delete the notifications button and the logout button 
+					from burger for not authorized users and delete the cabinet button. Add a link to go
+					to the main page -->
+					<img class="index-container__icon-img" src="/public/images/icons/camera_white.svg" alt="">
 					<h1 class="index-container__heading">Camagru</h1>
 					<p class="index-container__text">
 						Место, где делятся миллионами эмоций

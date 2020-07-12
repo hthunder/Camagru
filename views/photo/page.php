@@ -5,9 +5,9 @@
 		<article class="page main-content">
 			<div class="top-line">
 			</div>
-			<?php include(ROOT . "/views/layouts/_header.php"); ?>
+			<?php include(ROOT . "/views/layouts/_header/_header.php"); ?>
 			<div class="container container_small">
-				<?php include(ROOT . '/views/layouts/_burger.php'); ?>
+				<?php include(ROOT . '/views/layouts/_burger/_burger.php'); ?>
 				<div class="page__wrapper">
 					<div class="page__photo-wrapper">
 						<img class="page__photo" src="/public/images/gallery/{hostId}/{fullName}">
