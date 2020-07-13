@@ -59,27 +59,61 @@ class PhotoController
         return true;
     }
 
-	public function actionGallery() {
+	public function actionGallery($pageNum) {
 		$array = array(
 			"title" => "Галерея",
 			"gallery__grid" => "",
-			"min_id" => null,
+			// "min_id" => null,
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 			"transparency" => "",
-			"logout" => "",
 		);
 		if (User::isLogged()) {
-			$array["logout"] = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
-			$array["header"] = Template::render(array("transparency" => ""), ROOT . "/views/layouts/_header/_header.php");
+			$logout = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
+			$array["header"] = Template::render(array("transparency" => "", "logout" => $logout), ROOT . "/views/layouts/_header/_header.php");
 		} else {
 			$array["header"] = Template::render(array("transparency" => ""), ROOT . "/views/layouts/_header/_header-unauthorized.php");
 		}
 			
-		$photos = Photo::getAllPhotos();
+		//$photos = Photo::getAllPhotos();
+		$numberOfRecordsPerPage = 6;
+		$offset = ($pageNum - 1) * $numberOfRecordsPerPage;
+
+		$totalPages = Photo::pagesCounter($numberOfRecordsPerPage);
+		$photos = Photo::pagination($numberOfRecordsPerPage, $offset);
+
+		$template = ROOT . "/views/layouts/_pagination/_page.php";
+		$content = "";
+		$pageNumCurrent = $pageNum - 2;
+		$pageNumEnd = $pageNum + 2;
+		if ($pageNum <= 1)
+			$content .= Template::render(array("pageClass" => "disabled", "pageLink" => "#", "pageValue" => "&lt;"), $template);
+		else
+			$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . ($pageNum - 1), "pageValue" => "&lt;"), $template);
+		if ($pageNum == 1)
+			$content .= Template::render(array("pageClass" => "pagination__current", "pageLink" => "/photo/gallery/", "pageValue" => "1"), $template);
+		else
+			$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/", "pageValue" => "1"), $template);
+		while($pageNumCurrent <= $pageNumEnd) {
+			if ($pageNumCurrent < $totalPages && $pageNumCurrent > 1) {
+				if ($pageNumCurrent == $pageNum)
+					$content .= Template::render(array("pageClass" => "pagination__current", "pageLink" => "/photo/gallery/" . $pageNumCurrent, "pageValue" => $pageNumCurrent), $template);
+				else
+					$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . $pageNumCurrent, "pageValue" => $pageNumCurrent), $template);
+			}
+			$pageNumCurrent++;
+		}
+		if ($pageNum == $totalPages)
+			$content .= Template::render(array("pageClass" => "pagination__current", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);
+		else
+			$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);
+
+		if ($pageNum >= $totalPages)
+			$content .= Template::render(array("pageClass" => "disabled", "pageLink" => "#", "pageValue" => "&gt;"), $template);
+		else
+			$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . ($pageNum + 1), "pageValue" => "&gt;"), $template);
+		$array["pagination"] = $content;
+		
 		foreach($photos as $photo) {
-			if ($array["min_id"] === NULL || $photo["id"] < $array["min_id"])
-				$array["min_id"] = $photo["id"];
-			
 			$photo_src = explode('.', $photo['photo_src'])[0];
 			$file_name = $photo_src . ".jpg";
 			$str = "<a class='gallery__grid-link' href='/photo/page/{photo_userid}/{photo_src}'>
@@ -96,7 +130,7 @@ class PhotoController
 
 	public function actionShowMore() {
 		User::checkLogged();
-		if (isset($_POST['id'])) {
+		if (!empty($_POST['id'])) {
 			$minId = $_POST['id'];
 			$photos = Photo::showMore($minId);
 			header('Content-Type: application/json');
@@ -121,6 +155,7 @@ class PhotoController
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 			"deletePhoto" => "",
 		);
+		$array["logout"] = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
 		$guestId = $_SESSION["id"];
 		$likesNumber = Photo::getLikesNumber($name);
 		$array["likesNumber"] = $likesNumber;

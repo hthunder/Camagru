@@ -23,11 +23,14 @@ class CabinetController
             "title" => "Кабинет пользователя",
             "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
             "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
+            "min_id" => null,
         );
         $photosArray = Common::getRowsBy("user_id", $_SESSION["id"], "photos", "desc");
         if ($photosArray) {
             $counter = 0;
             while ($row = $photosArray->fetch()) {
+                if ($array["min_id"] === NULL || $row["id"] < $array["min_id"])
+				    $array["min_id"] = $row["id"];
                 if ($counter > 5)
                     break;
                 $photo_src = explode('.', $row["photo_src"])[0];

@@ -41,7 +41,8 @@
 					</div>
 					<div class="cabinet__grid">
 						{cabinet__grid}
-						<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше">
+						<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше" data-id="{min_id}"> 
+						<!-- //TODO repair the showmore button -->
 					</div>
 				</div>
 			</div>
@@ -50,6 +51,7 @@
 		<script src="/public/js/modal.js"></script>
 		<script src="/public/js/ajax.js"></script>
 		<script src="/public/js/notifications.js"></script>
+		<script src="/public/js/show-more.js"></script>
 	</body>
 	
 </html>

@@ -1,0 +1,22 @@
+.disabled {
+    pointer-events: none;
+}
+
+.pagination {
+    display: flex;
+    width: 100px;
+    margin: 0 auto;
+    justify-content: space-between;
+    list-style-type: none;
+    margin-bottom: 20px;
+    &__item {
+        padding: 0 2px;
+    }
+    &__link {
+        text-decoration: none;
+        color: rgba(255,133,133,0.6);      
+    }
+    &__current {
+        color: black;
+    }
+}

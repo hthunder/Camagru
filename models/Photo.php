@@ -136,6 +136,27 @@ class Photo {
         return $photos;
     }
 
+    public static function pagination($numberOfRecordsPerPage, $offset) {
+        $db = Db::getConnection();
+        $sql = "SELECT * FROM photos LIMIT :offset, :photosPerPage";
+        $result = $db->prepare($sql);
+        $result->bindValue(":offset", $offset, PDO::PARAM_INT);
+        $result->bindValue(":photosPerPage", $numberOfRecordsPerPage, PDO::PARAM_INT);
+        if ($result->execute()) {
+            return ($result->fetchAll());
+        } else {
+            return (false);
+        }
+    }
+
+    public static function pagesCounter($numberOfRecordsPerPage) {
+        $db = Db::getConnection();
+        $sql = "SELECT COUNT(*) FROM photos";
+        $totalRows = $db->query($sql)->fetchColumn();
+        $totalPages = ceil($totalRows / $numberOfRecordsPerPage);
+        return ($totalPages);
+    }
+
     public static function getAllPhotos() {
         $db = Db::getConnection();
         $sql = 'SELECT id, photo_src, user_id FROM photos ORDER BY creation_date DESC LIMIT 6';

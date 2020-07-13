@@ -89,9 +89,8 @@
 	}
 	&__show-more {
 		flex-basis: 100%;
-		margin-top: 11px;
 		height: 40px;
-		margin-bottom: 25px;
+		margin: 11px 10% 25px;
 	}
 }
 
@@ -132,6 +131,9 @@
 		&__form {
 			margin-top: 5px;
 		}
+		&__show-more {
+			margin: 11px 20% 25px;
+		}
 	}
 }
 
@@ -145,6 +147,9 @@
 		}
 		&__userinfo {
 			width: 30%;
+		}
+		&__show-more {
+			margin: 11px 33% 25px;
 		}
 	}
 }

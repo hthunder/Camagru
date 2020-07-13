@@ -19,6 +19,7 @@ class UserController
             "pass2" => !empty($_POST["pass2"]) ? mb_substr($_POST["pass2"], 0, 60, "UTF-8") : "",
             "title" => "Форма регистрации",
             "errors" => "",
+            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["signup"])) {
             if ($array["username"] && $array["email"] && $array["pass1"] && $array["pass2"]) {
@@ -93,6 +94,7 @@ class UserController
             "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
             "title" => "Восстановление пароля",
             "errors" => "",
+            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["forgotPass"])) {
             if ($array["email"]) {
@@ -116,6 +118,7 @@ class UserController
             "activationCode" => !empty($activationCode) ? $activationCode : "", 
             "title" => "Форма изменения пароля",
             "errors" => "",
+            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["changePass"])) {
             if ($array["pass1"] && $array["pass2"]) {
@@ -125,7 +128,7 @@ class UserController
                         $array["errors"] .= 'Пароль не должен быть короче 6-ти символов</br>';    
                     } else {
                         $dataForUpdate = array("password" => password_hash($array["pass1"], PASSWORD_BCRYPT));
-                        Common::updateRow($dataForUpdate, $userInfo['id']);
+                        Common::updateRow($dataForUpdate, $user['id']);
                         header('Location: /user/login');
                         exit();    
                     }

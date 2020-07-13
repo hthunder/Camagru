@@ -47,12 +47,13 @@ html {
 	flex: 0 0 auto;
 	border-top: 1px solid #E6E6E6;
 	background-color: $accent-6;
-	font-size: 12px;
+	font-size: 14px;
 	color: #fff;
 	&__text {
 		padding: 15px 0;
 		margin: 0 auto;
 		text-align:center;
+		font-weight: normal;
 	}
 	&_bg_transparent {
 		background-color: transparent;
@@ -185,6 +186,19 @@ html {
 		line-height: 70px;	
 	}
 }
+@media (min-width: 768px) {
+	.logo {
+		&__img {
+			width: calc(var(--scale) * 32px);
+			height: auto;
+		}
+		&__text {
+			font-size: calc(var(--scale) * 48px);
+			line-height: calc(var(--scale) * 70px);
+		}
+	}	
+}
+
 
 .link {
 	text-decoration: none;

@@ -2,21 +2,23 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body body_bg_accent">
-        <a class="link back__link" href="/user/login">
-            Вернуться назад
-        </a>
-		<div class="login">
-            <div class="logo login__logo">
-                <img class="logo__img" src="/public/images/icons/camera_white.svg" alt="">
-                <span class="logo__text">Camagru</span>
+        <?php include(ROOT . "/views/layouts/_header/_header-unauthorized.php"); ?>
+		<div class="login main-content">
+            <div class="container">
+                <?php include(ROOT . '/views/layouts/_burger/_burger-unauthorized.php'); ?>
+                <div class="logo login__logo">
+                    <img class="logo__img" src="/public/images/icons/camera_white.svg" alt="">
+                    <span class="logo__text">Camagru</span>
+                </div>
+                <form class="login__form" method="POST" action="/user/forgotPass">
+                    <input class="input-1 login__form-login" type="text" name="email" value="{email}" placeholder="Электронный адрес">
+                    <p class="login__errors">{errors}</p>
+                    <button class="button button_bg_transparent login__form-button" type="submit" name="forgotPass">
+                        Восстановить пароль
+                    </button>
+                </form>
             </div>
-            <form class="login__form" method="POST" action="/user/forgotPass">
-                <input class="input-1 login__form-login" type="text" name="email" value="{email}" placeholder="Электронный адрес">
-                <p class="login__errors">{errors}</p>
-                <button class="button button_bg_transparent login__form-button" type="submit" name="forgotPass">
-                    Восстановить пароль
-                </button>
-            </form>
-		</div>
+        </div>
+        <?php include(ROOT . "/views/layouts/_footer-transparent.php"); ?>
 	</body>
 </html>

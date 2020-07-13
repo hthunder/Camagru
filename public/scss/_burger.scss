@@ -32,14 +32,16 @@
 	}
 	&__btn {
 		color: #fff;
-		padding: 5px;
+		//padding: 5px;
 		position: absolute;
 		right: 0px;
-		top: 22px;
+		// top: 22px;
+		top: 27px;
 		cursor: pointer;
 		transition: right .23s;
 		z-index: 2002;
-		width: 38px;
+		// width: 38px;
+		width: 28px;
 	}
 	&__hidden-checkbox:checked ~ &__hidden-list {
 		right: 0;
