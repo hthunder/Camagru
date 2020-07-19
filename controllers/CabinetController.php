@@ -22,8 +22,9 @@ class CabinetController
             "cabinet__grid" => "",
             "title" => "Кабинет пользователя",
             "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
-            "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
+            // "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
             "min_id" => null,
+            "transparency" => "",
         );
         $photosArray = Common::getRowsBy("user_id", $_SESSION["id"], "photos", "desc");
         if ($photosArray) {

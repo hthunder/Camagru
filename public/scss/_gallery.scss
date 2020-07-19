@@ -7,12 +7,20 @@
 	}
 	&__grid-link {
 		width: 49%;
+		overflow: hidden;
+		margin-bottom: 18px;
+		border-radius: 5px;
 	}
 	&__grid-item {
+		display: block;
+		object-fit: cover;
+		transition: all 0.3s ease-out;
 		width: 100%;
 		height: auto;
-		border-radius: 5px;
-		margin-bottom: 18px;
+	}
+	&__grid-item:hover {
+		
+		transform: scale(1.2);
 	}
 	&__show-more {
 		margin: 0 auto;
@@ -27,7 +35,7 @@
 		}
 		&__grid-link {
 			width: 32%;
-			margin: 0 calc(4%/6);
+			margin: 0 calc(4%/6) 18px;
 		}
 	}
 }

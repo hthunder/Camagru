@@ -2,12 +2,11 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body body_bg_accent">
-		<?php include(ROOT . "/views/layouts/_header/_header-unauthorized.php"); ?>
+		<header class="header {transparency}">
+			<?php include(ROOT . "/views/layouts/_burger/_burger-unauth.php"); ?>
+		</header>
 		<div class="login main-content">
-			<!-- <div class="top-line">
-			</div> -->
 			<div class="container">
-				<?php include(ROOT . '/views/layouts/_burger/_burger-unauthorized.php'); ?>
 				<div class="logo login__logo">
 					<img class="logo__img" src="/public/images/icons/camera_white.svg" alt="">
 					<span class="logo__text">Camagru</span>
@@ -32,5 +31,6 @@
 			</div>	
 		</div>
 		<?php include(ROOT . "/views/layouts/_footer-transparent.php"); ?>
+		<script src="/public/js/app.js"></script>
 	</body>
 </html>

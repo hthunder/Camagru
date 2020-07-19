@@ -2,12 +2,11 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
+		<header class="header {transparency}">
+			{burger}
+		</header>
 		<article class="page main-content">
-			<div class="top-line">
-			</div>
-			<?php include(ROOT . "/views/layouts/_header/_header.php"); ?>
 			<div class="container container_small">
-				<?php include(ROOT . '/views/layouts/_burger/_burger.php'); ?>
 				<div class="page__wrapper">
 					<div class="page__photo-wrapper">
 						<img class="page__photo" src="/public/images/gallery/{hostId}/{fullName}">
@@ -32,6 +31,7 @@
 			</div>
 		</article>
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
+		<script src="/public/js/app.js"></script>
 		<script src="/public/js/photo-delete.js"></script>
 		<script src='/public/js/ajax.js'></script>
 		<script src="/public/js/ajax-form-data.js"></script>

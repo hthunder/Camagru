@@ -3,11 +3,10 @@
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
 		<div class="cabinet main-content">
-			<div class="top-line top-line_cabinet">	
-			</div>
-			<?php include(ROOT . '/views/layouts/_header/_header.php') ?>
+			<header class="header {transparency}">
+				<?php include(ROOT . "/views/layouts/_burger/_burger.php"); ?>
+			</header>
 			<div class="container">
-				<?php include(ROOT . '/views/layouts/_burger/_burger.php') ?>
 				<div class="cabinet__wrapper">
 					<div class="cabinet__userinfo">
 						<img class="cabinet__avatar" src="/public/images/avatars/{avatar_src}" alt="аватар">
@@ -42,12 +41,12 @@
 					<div class="cabinet__grid">
 						{cabinet__grid}
 						<input class="button button_bg_pink cabinet__show-more" type="button" value="Показать больше" data-id="{min_id}"> 
-						<!-- //TODO repair the showmore button -->
 					</div>
 				</div>
 			</div>
 		</div>
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
+		<script src="/public/js/app.js"></script>
 		<script src="/public/js/modal.js"></script>
 		<script src="/public/js/ajax.js"></script>
 		<script src="/public/js/notifications.js"></script>

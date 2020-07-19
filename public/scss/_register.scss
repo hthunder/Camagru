@@ -24,12 +24,7 @@
 }
 
 .register {
-	// display: flex;
-	// flex-direction: column;
-    // flex-wrap: wrap;
-    // justify-content: center;
-	// align-items: center;
-	margin-bottom: 18px;
+	padding: 25px 0;
 	&__form {
 		display: flex;
 		flex-direction: column;
@@ -43,16 +38,9 @@
 		margin-bottom: 18px;
 	}
 	&__logo {
-		margin-bottom: 70px;
+		margin-bottom: 35px;
 	}
 }
-
-// .vertical-aligner {
-// 	min-height: calc(100vh - 70px);
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// }
 
 @media (min-width: 768px) {
 	.register {

@@ -46,6 +46,12 @@
 	}
 }
 
+@media (min-width: 768px) {
+	.page {
+		padding-top: 35px;	
+	}
+}
+
 @media (min-width: 576px) {
 	.page__likes-number{
 		font-size: 24px;

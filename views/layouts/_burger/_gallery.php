@@ -1,5 +1,5 @@
-<li class="burger__list-item">
-    <a class="link burger__list-link" href="/photo/gallery">
-        Галерея<img class="burger__icon" src="/public/images/icons/picture.svg" alt="Галерея">
+<li class="nav__list-item">
+    <a class="link nav__list-link" href="/photo/gallery">
+        Галерея<img class="nav__icon" src="/public/images/icons/picture.svg" alt="Галерея">
     </a>
 </li>  

@@ -2,12 +2,11 @@
 <html lang="en">
 	<?php include(ROOT . "/views/layouts/_head.php"); ?>
 	<body class="body">
+		<header class="header {transparency}">
+			<?php include(ROOT . "/views/layouts/_burger/_burger.php"); ?>
+		</header>
 		<div class="photo main-content">
-			<div class="top-line">	
-			</div>
-			<?php include(ROOT . '/views/layouts/_header/_header.php') ?>
 			<div class="container container_small">
-				<?php include(ROOT . '/views/layouts/_burger/_burger.php'); ?>
 				{errors}
 				<div class="photo__container">
 					<?php include(ROOT . '/views/layouts/_mask-control.php'); ?>
@@ -40,6 +39,7 @@
 		<!-- //TODO delete all comments -->
 		<!-- //TODO play with sizes of stikers on the make photo page -->
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
+		<script src="/public/js/app.js"></script>
 		<script src="/public/js/main.js"></script>
 		<script src="/public/js/video.js"></script>
 		<script src="/public/js/slider.js"></script>
