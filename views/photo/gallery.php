@@ -6,7 +6,7 @@
 			{burger}
 		</header>
 		<div class="gallery main-content">
-			<div class="container">
+			<div class="container container_small">
 				<div class="gallery__grid">
 					{gallery__grid}	
 				</div>
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<?php include(ROOT . '/views/layouts/_footer.php'); ?>
-		<script src="/public/js/app.js"></script>
+		<script src="/public/js/burger.js"></script>
 		<script src="/public/js/ajax.js"></script>
 	</body>
 </html>

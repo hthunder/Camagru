@@ -12,6 +12,10 @@ class UserController
     
     public function actionRegister()
     {
+        if (User::isLogged()) {
+            header("Location: /cabinet");
+            exit();
+        }
         $array = array(
             "username" => !empty($_POST["username"]) ? mb_substr($_POST["username"], 0, 30, "UTF-8") : "", 
             "email" => !empty($_POST["email"]) ? mb_substr($_POST["email"], 0, 30, "UTF-8") : "",
@@ -57,6 +61,10 @@ class UserController
      */
     public function actionLogin()
     {
+        if (User::isLogged()) {
+            header("Location: /cabinet");
+            exit();
+        }
         $array = array(
             "email_username" => !empty($_POST["email_username"]) ? $_POST["email_username"] : "",
             "password" => !empty($_POST["password"]) ? $_POST["password"] : "",
@@ -90,6 +98,10 @@ class UserController
 
     public function actionForgotPass()
     {
+        if (User::isLogged()) {
+            header("Location: /cabinet");
+            exit();
+        }
         $array = array(
             "email" => !empty($_POST["email"]) ? $_POST["email"] : "",
             "title" => "Восстановление пароля",
@@ -112,6 +124,10 @@ class UserController
 
     public function actionChangePass($activationCode)
     {
+        if (User::isLogged()) {
+            header("Location: /cabinet");
+            exit();
+        }
         $array = array(
             "pass1" => !empty($_POST["pass1"]) ? mb_substr($_POST["pass1"], 0, 60, "UTF-8") : "",
             "pass2" => !empty($_POST["pass2"]) ? mb_substr($_POST["pass2"], 0, 60, "UTF-8") : "",

@@ -1,4 +1,5 @@
 .slider {
+	max-width: 592px;
 	width: calc(225*100%/262.5);
 	overflow: hidden;
 	margin: 0 auto;
@@ -18,13 +19,6 @@
 			height: 80px;
 		}
 	}
-
-	@media (min-width: 768px) {
-		&__item {
-			height: 120px;
-		}
-	}
-
 	&__control {
 		position: absolute;
 		top: 50%;

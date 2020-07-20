@@ -36,7 +36,7 @@
 							<input class="checkbox__input" type="checkbox" id="checkbox1" {checked}>
 							<label class="checkbox__custom-element cabinet__checkbox" for="checkbox1">Уведомления</label>
 						</div>
-						<p class="edit__errors">{errors}</p>
+						<p class="cabinet__errors">{errors}</p>
 					</div>
 					<div class="cabinet__grid">
 						{cabinet__grid}
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
-		<script src="/public/js/app.js"></script>
+		<script src="/public/js/burger.js"></script>
 		<script src="/public/js/modal.js"></script>
 		<script src="/public/js/ajax.js"></script>
 		<script src="/public/js/notifications.js"></script>

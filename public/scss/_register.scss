@@ -38,18 +38,18 @@
 		margin-bottom: 18px;
 	}
 	&__logo {
-		margin-bottom: 35px;
+		margin-bottom: 20px;
 	}
 }
 
-@media (min-width: 768px) {
-	.register {
-		&__form-input,
-		&__form-button {
-			max-width: 350px;
-			width: calc(var(--scale) * 35%);
-			font-size: calc(var(--scale) * 12px);
-			padding: var(--padding);
-		}
-	}
-}
+// @media (min-width: 768px) {
+// 	.register {
+// 		&__form-input,
+// 		&__form-button {
+// 			max-width: 350px;
+// 			width: calc(var(--scale) * 35%);
+// 			font-size: calc(var(--scale) * 12px);
+// 			padding: var(--padding);
+// 		}
+// 	}
+// }

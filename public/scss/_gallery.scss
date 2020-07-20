@@ -1,6 +1,6 @@
 .gallery {
+	padding-top: 20px;
 	&__grid {
-		margin-top: 17px;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
@@ -19,7 +19,6 @@
 		height: auto;
 	}
 	&__grid-item:hover {
-		
 		transform: scale(1.2);
 	}
 	&__show-more {
@@ -37,5 +36,11 @@
 			width: 32%;
 			margin: 0 calc(4%/6) 18px;
 		}
+	}
+}
+
+@media (min-width: 768px) {
+	.gallery {
+		padding-top: 50px;
 	}
 }

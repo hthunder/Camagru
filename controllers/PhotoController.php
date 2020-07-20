@@ -32,13 +32,12 @@ class PhotoController
 			"lastPhotos" => "",
 			"errors" => !empty($_SESSION["errors"]) ? $_SESSION["errors"] : "",
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
-			// "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
 		);
 		if (isset($_SESSION["errors"]))
 			unset($_SESSION["errors"]);
 		$id = $_SESSION["id"];
 		$masks = Photo::getMasks();
-		$lastPhotos = Photo::getLastPhotos($id);
+		$lastPhotos = Photo::getUserPhotos($id);
 		foreach ($masks as $mask) {
 			if (!($mask == '.' || $mask == '..')) {
 				$array["masks"] .= Template::render(array("mask" => $mask), ROOT . '/views/layouts/_masks.php');
@@ -134,9 +133,8 @@ class PhotoController
 
 	public function actionShowMore() {
 		User::checkLogged();
-		if (!empty($_POST['id'])) {
-			$minId = $_POST['id'];
-			$photos = Photo::showMore($minId);
+		if (!empty($_SESSION["id"]) && !empty($_POST["id"])) {
+			$photos = Photo::showMore($_SESSION["id"], $_POST["id"]);
 			header('Content-Type: application/json');
 			echo json_encode($photos);
 			return true;	

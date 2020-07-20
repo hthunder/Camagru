@@ -1,4 +1,12 @@
 .cabinet {
+	&__errors {
+		color: red;
+		font-size: 12px;
+		margin-bottom: 10px;
+	}
+	&__wrapper {
+		padding-top: 20px;
+	}
 	&__form_notifications {
 		display: none;
 	}
@@ -72,7 +80,8 @@
 		cursor: pointer;
 	}
 	&__grid {
-		margin: 26px auto 0px;
+		// margin: 26px auto 0px;
+		margin: 0 auto;
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
@@ -90,12 +99,21 @@
 	&__show-more {
 		flex-basis: 100%;
 		height: 40px;
-		margin: 11px 10% 25px;
+		// margin: 11px 10% 25px;
+		margin: 0 10% 25px;
 	}
 }
 
 @media (min-width: 768px) {
 	.cabinet {
+		&__input,
+		&__avatar-message,
+		&__checkbox {
+			font-size: 12px;
+		}
+		&__checkbox {
+			margin: 15px auto;
+		}
 		&__avatar-form {
 			margin-top: 0px;
 		}
@@ -103,6 +121,7 @@
 			display: block;
 		}
 		&__wrapper {
+			padding-top: 50px;
 			display: flex;
 			flex-wrap: wrap;
 			align-items: flex-start;
@@ -110,8 +129,8 @@
 		&__avatar {
 			position: initial;
 			margin: 0 auto;
-			width: 150px;
-			height: 150px;
+			width: 100px;
+			height: 100px;
 			object-fit: cover;
 			border-radius: 1000px;
 		}
@@ -119,7 +138,7 @@
 			width: 49%;
 		}
 		&__userinfo {
-			margin-top: 26px;
+			// margin-top: 26px;
 			width: 40%;
 			order: 2;
 			padding: 0 1%;
@@ -132,7 +151,8 @@
 			margin-top: 5px;
 		}
 		&__show-more {
-			margin: 11px 20% 25px;
+			// margin: 11px 20% 25px;
+			margin: 0 20% 25px;
 		}
 	}
 }
@@ -149,7 +169,8 @@
 			width: 30%;
 		}
 		&__show-more {
-			margin: 11px 33% 25px;
+			// margin: 11px 33% 25px;
+			margin: 0 33% 25px;
 		}
 	}
 }

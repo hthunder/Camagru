@@ -30,6 +30,6 @@
 		</div>
 	</div>
 	<?php include(ROOT . "/views/layouts/_footer-transparent.php"); ?>
-	<script src="/public/js/app.js"></script>
+	<script src="/public/js/burger.js"></script>
 </body>
 </html>

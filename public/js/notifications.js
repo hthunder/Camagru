@@ -1,7 +1,8 @@
-let customElement = document.querySelector('.checkbox__custom-element');
+let customElements = document.querySelectorAll('.checkbox__custom-element');
 
-if (customElement)
-    customElement.addEventListener('click', notifications);
+for (let i = 0; i < customElements.length; i++) {
+    customElements[i].addEventListener('click', notifications);
+}
 
 function notifications(event) {
     ajax('/user/notifications', 'POST', null, {

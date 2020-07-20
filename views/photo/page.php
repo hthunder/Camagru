@@ -31,7 +31,7 @@
 			</div>
 		</article>
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
-		<script src="/public/js/app.js"></script>
+		<script src="/public/js/burger.js"></script>
 		<script src="/public/js/photo-delete.js"></script>
 		<script src='/public/js/ajax.js'></script>
 		<script src="/public/js/ajax-form-data.js"></script>

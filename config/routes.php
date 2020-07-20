@@ -5,7 +5,7 @@ return array(
 	'user/login' => 'user/login',
 	'user/logout' => 'user/logout',
 	'user/forgotPass' => 'user/forgotPass',
-	'user/changePass' => 'user/changePass',
+	'user/changePass/(\w+)' => 'user/changePass/$1',
 	'user/activation/(\w+)' => 'user/activation/$1',
 	'user/notifications' => 'user/notifications',
 	'photo/make' => 'photo/make',

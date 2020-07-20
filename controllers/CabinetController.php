@@ -21,8 +21,7 @@ class CabinetController
             "errors" => !empty($_SESSION["editErrors"]) ? $_SESSION["editErrors"] : "",
             "cabinet__grid" => "",
             "title" => "Кабинет пользователя",
-            "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
-            // "logout" => file_get_contents(ROOT . "/views/layouts/_header/_logout.php"),
+            "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
             "min_id" => null,
             "transparency" => "",
         );
@@ -49,7 +48,7 @@ class CabinetController
         if (isset($_SESSION["editErrors"]))
             unset($_SESSION["editErrors"]);
         foreach($array as $key => $value) {
-            if ($key != "cabinet__grid" && $key != "logout")
+            if ($key != "cabinet__grid" && $key != "logout" && $key != "errors")
                 $array[$key] = htmlspecialchars($value);
         }
         print(Template::render($array, ROOT . '/views/cabinet/index.php'));

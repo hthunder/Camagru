@@ -138,7 +138,7 @@ class Photo {
 
     public static function pagination($numberOfRecordsPerPage, $offset) {
         $db = Db::getConnection();
-        $sql = "SELECT * FROM photos LIMIT :offset, :photosPerPage";
+        $sql = "SELECT * FROM photos ORDER BY creation_date DESC LIMIT :offset, :photosPerPage";
         $result = $db->prepare($sql);
         $result->bindValue(":offset", $offset, PDO::PARAM_INT);
         $result->bindValue(":photosPerPage", $numberOfRecordsPerPage, PDO::PARAM_INT);
@@ -157,22 +157,24 @@ class Photo {
         return ($totalPages);
     }
 
-    public static function getAllPhotos() {
+    public static function getUserPhotos($id) {
         $db = Db::getConnection();
-        $sql = 'SELECT id, photo_src, user_id FROM photos ORDER BY creation_date DESC LIMIT 6';
+        $sql = 'SELECT * FROM photos WHERE user_id = :user_id ORDER BY creation_date DESC ';
         $result = $db->prepare($sql);
+        $result->bindValue(':user_id', $id, PDO::PARAM_INT);
         $result->execute();
         $photos = array();
         while($row = $result->fetch()) {
-            $photos[] = $row;
+            $photos[] = $row["photo_src"];
         }
         return $photos;
     }
 
-    public static function showMore($minId) {
+    public static function showMore($userId, $minId) {
         $db = Db::getConnection();
-        $sql = 'SELECT id, photo_src, user_id FROM photos WHERE id < :id ORDER BY creation_date DESC LIMIT 6';
+        $sql = 'SELECT id, photo_src, user_id FROM photos WHERE user_id = :user_id AND id < :id ORDER BY creation_date DESC LIMIT 6';
         $result = $db->prepare($sql);
+        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $result->bindParam(':id', $minId, PDO::PARAM_INT);
         $photos = array();
         if ($result->execute()) {
