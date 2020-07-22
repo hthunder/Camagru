@@ -135,6 +135,7 @@ class CabinetController
             "oldPass" => !empty($_POST["oldPass"]) ? mb_substr($_POST["oldPass"], 0, 60, "UTF-8") : "",
             "errors" => "",
             "title" => "Изменение пароля",
+            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["changePass"])) {
             if ($array["pass1"] && $array["pass2"] && $array["oldPass"]) { 
