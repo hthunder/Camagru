@@ -59,6 +59,10 @@ class PhotoController
     }
 
 	public function actionGallery($pageNum) {
+		if (strlen($pageNum) > 4) {
+			header("Location: /photo/gallery");
+			return (true);
+		}
 		$array = array(
 			"title" => "Галерея",
 			"gallery__grid" => "",
