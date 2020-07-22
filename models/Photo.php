@@ -45,10 +45,10 @@ class Photo {
         $width = imagesx($img);
         $height = imagesy($img);
         $aspectRatio = 4/3;
-        if ($width > $height)
-            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height * $aspectRatio, 'height' => $height]);
+        if ($width * 3/4 <= $height)
+            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * 3/4]);
         else
-            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $width, 'height' => $width * (1/$aspectRatio)]);
+            $croppedImg = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => $height * 4/3, 'height' => $height]);
         return($croppedImg);
     }
 
