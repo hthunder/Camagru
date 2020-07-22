@@ -101,11 +101,12 @@ class PhotoController
 			}
 			$pageNumCurrent++;
 		}
-		if ($pageNum == $totalPages)
-			$content .= Template::render(array("pageClass" => "pagination__current", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);
-		else
-			$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);
-
+		if ($totalPages != 1) {
+			if ($pageNum == $totalPages)
+				$content .= Template::render(array("pageClass" => "pagination__current", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);
+			else
+				$content .= Template::render(array("pageClass" => "pagination__link", "pageLink" => "/photo/gallery/" . $totalPages, "pageValue" => $totalPages), $template);	
+		}
 		if ($pageNum >= $totalPages)
 			$content .= Template::render(array("pageClass" => "disabled", "pageLink" => "#", "pageValue" => "&gt;"), $template);
 		else
