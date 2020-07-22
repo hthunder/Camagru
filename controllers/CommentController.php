@@ -12,7 +12,7 @@ class CommentController
 		if (!empty($_POST["comment"]) && !empty($_POST["photoOwner"]) 
 			&& !empty($_POST["photoName"])) {
 			$comment = mb_substr($_POST["comment"], 0, 45, 'UTF-8');
-			$userId = $_SESSION["id"]; // id того кто оставил фото
+			$userId = $_SESSION["id"];
 			$photoOwnerId = $_POST['photoOwner'];
 			$photoName = $_POST['photoName'];
 

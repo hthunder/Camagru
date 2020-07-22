@@ -38,8 +38,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- //TODO delete all comments -->
-		<!-- //TODO play with sizes of stikers on the make photo page -->
 		<?php include(ROOT . "/views/layouts/_footer.php"); ?>
 		<script src="/public/js/burger.js"></script>
 		<script src="/public/js/main.js"></script>

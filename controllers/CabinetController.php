@@ -31,10 +31,10 @@ class CabinetController
         if ($photosArray) {
             $counter = 0;
             while ($row = $photosArray->fetch()) {
-                if ($array["min_id"] === NULL || $row["id"] < $array["min_id"])
-				    $array["min_id"] = $row["id"];
                 if ($counter > 5)
                     break;
+                if ($array["min_id"] === NULL || $row["id"] < $array["min_id"])
+				    $array["min_id"] = $row["id"];
                 $photo_src = explode('.', $row["photo_src"])[0];
 			    $file_name = $row["photo_src"];
 			    $str = "<a class='cabinet__grid-link' href='/photo/page/{photo_userid}/{photo_src}'>

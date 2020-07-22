@@ -11,10 +11,8 @@ function showMore(srcs) {
 			link.classList.add('cabinet__grid-link');
 			link.href = "/photo/page/" + element["user_id"] + "/" + element["photo_src"];
 			link.href = (link.href.replace(/.jpe?g$/, ""));
-			// grid.appendChild(link);
 			link.appendChild(img);
 			grid.insertBefore(link, button);
-			// parentElement.insertBefore(newElement, referenceElement)
 			if (+element['id'] < +button.dataset.id)
 				button.dataset.id = element['id'];
 		}

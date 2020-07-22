@@ -22,7 +22,6 @@
  * с классом .photo__hidden-info
  */
 function formMaskInformation() {
-	//let mask = document.querySelector('.photo__container .photo__mask-img');
 	let nodeListOfMasks = document.querySelectorAll('.photo__container .photo__mask-img');
 	let info = {};
 	let maskWindow = document.querySelector('.photo__output');
@@ -41,26 +40,7 @@ function formMaskInformation() {
 			};
 		}
 		document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
-	} 
-	
-	// if (mask != null) {
-	// 	//let maskWindow = document.querySelector('.photo__output');
-	// 	let styles = window.getComputedStyle(mask);
-	// 	let windowStyles = window.getComputedStyle(maskWindow);
-	// 	// let info = {};
-	// 	if (styles != null) {
-	// 		info = {
-	// 			src: mask.src,
-	// 			width: styles.getPropertyValue("width"),
-	// 			height: styles.getPropertyValue("height"),
-	// 			top: styles.getPropertyValue("top"),
-	// 			left: styles.getPropertyValue("left"),
-	// 			windowWidth: windowStyles.getPropertyValue("width"),
-	// 			windowHeight: windowStyles.getPropertyValue("height"),
-	// 		};	
-	// 	}
-	// 	document.querySelector(".photo__hidden-info").value = JSON.stringify(info);
-	// }
+	}
 	document.querySelector('.photo__form').submit();
 }
 

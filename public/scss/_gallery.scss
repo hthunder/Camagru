@@ -27,7 +27,13 @@
 	}
 }
 
-@media (min-width: 480px) {
+@media (min-width: 768px) {
+	.gallery {
+		padding-top: 50px;
+	}
+}
+
+@media (min-width: 992px) {
 	.gallery {
 		&__grid {
 			justify-content: flex-start;
@@ -36,11 +42,5 @@
 			width: 32%;
 			margin: 0 calc(4%/6) 18px;
 		}
-	}
-}
-
-@media (min-width: 768px) {
-	.gallery {
-		padding-top: 50px;
 	}
 }

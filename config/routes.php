@@ -9,6 +9,7 @@ return array(
 	'user/activation/(\w+)' => 'user/activation/$1',
 	'user/notifications' => 'user/notifications',
 	'photo/make' => 'photo/make',
+	'photo/gallery/0' => 'photo/gallery/1',
 	'photo/gallery/(\d+)' => 'photo/gallery/$1',
 	'photo/gallery' => 'photo/gallery/1',
 	'photo/showMore' => 'photo/showMore',

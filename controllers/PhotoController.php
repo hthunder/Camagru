@@ -32,6 +32,7 @@ class PhotoController
 			"lastPhotos" => "",
 			"errors" => !empty($_SESSION["errors"]) ? $_SESSION["errors"] : "",
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
+			"transparency" => "",
 		);
 		if (isset($_SESSION["errors"]))
 			unset($_SESSION["errors"]);
@@ -151,12 +152,12 @@ class PhotoController
 			"showMore" => "",
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 			"deletePhoto" => "",
+			"transparency" => "",
 		);
 		if (User::isLogged())
 			$array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger.php");
 		else
 			$array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger-unauth.php");
-		// $array["logout"] = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
 		$guestId = $_SESSION["id"];
 		$likesNumber = Photo::getLikesNumber($name);
 		$array["likesNumber"] = $likesNumber;
