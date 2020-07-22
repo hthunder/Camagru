@@ -1,25 +1,6 @@
 /**
- * Функция formMaskInformation() - формирует информацию о наложенной
- * маске
- * 
- * Получаем объект mask - наложенную маску
- * 
- * Проверяем наложена ли маска на изображение, если наложена, 
- * то получаем объекты со стилями для маски - styles,
- * для контейнера изображения - windowStyles,
- * maskWindow - контейнер для изображения, нужен для масштабирования
- * размера и положения маски на сервере, так как по умолчанию ширина 
- * изображения 1920px, но она масштабируется под размер контейнера
- * 
- * в объекте info содержится информация для правильного
- * расположения масок на фотографии
- * src - название накладываемой маски (путь к маске), 
- * width - ширина маски, height - высота маски
- * top - смещение маски от верхнего края фотографии
- * left - смещение маски от левого края фотографии
- * 
- * Информацию о масках помещаем в скрытое поле 
- * с классом .photo__hidden-info
+ * formMaskInformation() - genereates information about
+ * the applied mask and puts it in a hidden field as JSON.
  */
 function formMaskInformation() {
 	let nodeListOfMasks = document.querySelectorAll('.photo__container .photo__mask-img');
@@ -44,22 +25,21 @@ function formMaskInformation() {
 	document.querySelector('.photo__form').submit();
 }
 
+/**
+ * The width and height of the captured photo. We will set the
+ * width to the value defined here, but the height will be
+ * calculated based on the aspect ratio of the input stream.
+ * width - We will scale the photo width to this
+ * This will be computed based on the input stream
+ * streaming - indicates whether or not we're currently streaming
+ * video from the camera. We start at false.
+ * video, canvas, startbutton - HTML elements we need to configure 
+ * or control. These will be set by the startup() function.
+ */
 (function() {
-	// The width and height of the captured photo. We will set the
-	// width to the value defined here, but the height will be
-	// calculated based on the aspect ratio of the input stream.
-
-	let width = 1920;    // We will scale the photo width to this
-	let height = 0;     // This will be computed based on the input stream
-
-	// |streaming| indicates whether or not we're currently streaming
-	// video from the camera. Obviously, we start at false.
-
+	let width = 1920;
+	let height = 0;
 	let streaming = false;
-
-	// The various HTML elements we need to configure or control. These
-	// will be set by the startup() function.
-
 	let video = null;
 	let canvas = null;
 	let startbutton = null;
@@ -82,11 +62,8 @@ function formMaskInformation() {
 		if (!streaming) {
 			height = video.videoHeight / (video.videoWidth/width);
 		
-			// Firefox currently has a bug where the height can't be read from
-			// the video, so we will make assumptions if this happens.
-		
 			if (isNaN(height)) {
-			height = width / (4/3);
+				height = width / (4/3);
 			}
 		
 			video.setAttribute('width', width);
@@ -102,12 +79,6 @@ function formMaskInformation() {
 		ev.preventDefault();
 		}, false);
 	}
-	
-	// Capture a photo by fetching the current contents of the video
-	// and drawing it into a canvas, then converting that to a PNG
-	// format data URL. By drawing it on an offscreen canvas and then
-	// drawing that to the screen, we can change its size and/or apply
-	// other changes before drawing it.
 
 	function takepicture() {
 		let context = canvas.getContext('2d');
@@ -115,13 +86,6 @@ function formMaskInformation() {
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
-			/**
-			 * метод toDataURL() возвращает data URL содержащий представление изображения
-			 * в формате определенном параметром type
-			 * encoderOptions параметр означает качество изображения для форматов,
-			 * которые используют сжатие с потерей качества (image/jpeg)
-			 * Фотографию помещаем в скрытое поле формы .photo__hidden
-			 */
 			let data = canvas.toDataURL('image/jpeg', 1);
 			document.querySelector(".photo__hidden").value = data;
 			document.querySelector('.photo__video').style.display = "none";
@@ -136,8 +100,5 @@ function formMaskInformation() {
 			document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
 		}
 	}
-
-	// Set up our event listener to run the startup process
-	// once loading is complete.
 	window.addEventListener('load', startup, false);
-	})();
+})();

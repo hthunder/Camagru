@@ -1,7 +1,5 @@
 <?php
 
-// Параметры подключения к базе данных
-
 $DB_DSN = 'mysql:dbname=Camagru;host=localhost;charset=utf8mb4';
 $DB_DSN_SETUP = 'mysql:host=localhost;charset=utf8mb4';
 $DB_USER = 'root';

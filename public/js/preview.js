@@ -1,10 +1,9 @@
 'use strict';
 
 function handleFileSelect(evt) {
-    let file = evt.target.files[0]; // FileList object
+    let file = evt.target.files[0];
     let preview = document.querySelector('.photo__preview');
     let label = document.querySelector('.custom-input__label');
-    // let labelVal = label.innerHTML;
     let fileName = this.value.split('\\').pop();
     console.log('hi');
     if (file) {
@@ -12,19 +11,15 @@ function handleFileSelect(evt) {
             preview.parentNode.remove();
         }
         document.querySelector('.photo__video').style.display = "none";
-        // Only process image files.
         if (!file.type.match('image.jpeg')) {
             alert("Загрузите пожалуйста изображение в формате jpeg");
             document.querySelector('.photo__video').style.display = 'block';
             label.innerHTML = labelVal;
         } else {
-            // customFileInput(evt);
             label.querySelector('.custom-input__span').innerHTML = fileName;
             let reader = new FileReader();
-            // Closure to capture the file information.
             reader.onload = (function(theFile) {
                 return function(e) {
-                    // Render thumbnail.
                     let div = document.createElement('div');
                     let exit = document.querySelector('.photo__exit-button');
                     
@@ -36,10 +31,8 @@ function handleFileSelect(evt) {
                     div.innerHTML = ['<img class="photo__preview" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
                     document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
                     document.querySelector(".photo__hidden").value = this.result;
-                    // formMaskInformation();
                 };
-            })(file);
-            // Read in the image file as a data URL.
+            })(file);.
             reader.readAsDataURL(file);    
         }
     }
