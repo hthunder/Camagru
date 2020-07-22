@@ -66,7 +66,6 @@ class PhotoController
 		$array = array(
 			"title" => "Галерея",
 			"gallery__grid" => "",
-			// "min_id" => null,
 			"checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "", 
 			"transparency" => "",
 		);
@@ -74,14 +73,6 @@ class PhotoController
 			$array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger.php");
 		else
 			$array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger-unauth.php");
-		// if (User::isLogged()) {
-			// $logout = file_get_contents(ROOT . "/views/layouts/_header/_logout.php");
-			// $array["header"] = Template::render(array("transparency" => "", "logout" => $logout), ROOT . "/views/layouts/_header/_header.php");
-		// } else {
-			// $array["header"] = Template::render(array("transparency" => ""), ROOT . "/views/layouts/_header/_header-unauthorized.php");
-		// }
-			
-		//$photos = Photo::getAllPhotos();
 		$numberOfRecordsPerPage = 6;
 		$offset = ($pageNum - 1) * $numberOfRecordsPerPage;
 
