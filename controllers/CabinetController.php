@@ -19,12 +19,14 @@ class CabinetController
             "email" => !empty($user["email"]) ? $user["email"] : "",
             "avatar_src" => !empty($user["avatar_src"]) ? $user["avatar_src"] : "avatar.jpg",
             "errors" => !empty($_SESSION["editErrors"]) ? $_SESSION["editErrors"] : "",
+            "errors" => !empty($_SESSION["changePassErrors"]) ? $_SESSION["changePassErrors"] : "",
             "cabinet__grid" => "",
             "title" => "Кабинет пользователя",
             "checked" => isset($_SESSION["notifications"]) && $_SESSION["notifications"] == 1 ? "checked" : "",
             "min_id" => null,
             "transparency" => "",
         );
+
         $photosArray = Common::getRowsBy("user_id", $_SESSION["id"], "photos", "desc");
         if ($photosArray) {
             $counter = 0;
@@ -47,6 +49,8 @@ class CabinetController
         }
         if (isset($_SESSION["editErrors"]))
             unset($_SESSION["editErrors"]);
+        if (isset($_SESSION["changePassErrors"]))
+            unset($_SESSION["changePassErrors"]);
         foreach($array as $key => $value) {
             if ($key != "cabinet__grid" && $key != "logout" && $key != "errors")
                 $array[$key] = htmlspecialchars($value);
@@ -134,8 +138,6 @@ class CabinetController
             "pass2" => !empty($_POST["pass2"]) ? mb_substr($_POST["pass2"], 0, 60, "UTF-8") : "",
             "oldPass" => !empty($_POST["oldPass"]) ? mb_substr($_POST["oldPass"], 0, 60, "UTF-8") : "",
             "errors" => "",
-            "title" => "Изменение пароля",
-            "transparency" => "header_bg_transparent",
         );
         if (isset($_POST["changePass"])) {
             if ($array["pass1"] && $array["pass2"] && $array["oldPass"]) { 
@@ -160,7 +162,8 @@ class CabinetController
                 $array["errors"] .= "Не все поля заполнены</br>";
             }
         }
-        print(Template::render($array, ROOT . '/views/user/changePass.php'));
+        $_SESSION["changePassErrors"] = $array["errors"];
+        header("Location: /cabinet");
         return true;
     }
 }

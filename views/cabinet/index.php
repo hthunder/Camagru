@@ -26,9 +26,9 @@
 							<div class="clearfix"></div>	
 						</div>
 						<form class="cabinet__form cabinet__form_password" method="POST" action="/cabinet/changePass">
-							<input class="cabinet__input" type="password" name="oldPass" placeholder="Ваш старый пароль">
-							<input class="cabinet__input" type="password" name="pass1" placeholder="Новый пароль">
-							<input class="cabinet__input" type="password" name="pass2" placeholder="Повторите новый пароль">
+							<input class="cabinet__input" type="password" name="oldPass" placeholder="Ваш старый пароль" required>
+							<input class="cabinet__input" type="password" name="pass1" placeholder="Новый пароль" required>
+							<input class="cabinet__input" type="password" name="pass2" placeholder="Повторите новый пароль" required>
 							<button class="cabinet__button" type="submit" name="changePass">Сохранить</button>
 							<div class="clearfix"></div>
 						</form>
