@@ -6,7 +6,7 @@
 			{burger}
 		</header>
 		<div class="gallery main-content">
-			<div class="container container_small">
+			<div class="container container_medium gallery__wrapper">
 				<div class="gallery__grid">
 					{gallery__grid}	
 				</div>

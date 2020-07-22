@@ -24,7 +24,7 @@
 }
 
 .register {
-	padding: 25px 0;
+	padding: 10vh 0;
 	&__form {
 		display: flex;
 		flex-direction: column;
@@ -39,5 +39,14 @@
 	}
 	&__logo {
 		margin-bottom: 20px;
+	}
+}
+
+@media (min-width: 768px) {
+	.register {
+		&__form-input,
+		&__form-button {
+			min-width: 280px;
+		}
 	}
 }

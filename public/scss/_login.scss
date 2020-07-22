@@ -1,5 +1,5 @@
 .login {
-	padding: 25px 0;
+	padding: 10vh 0;
 	margin: 0 auto;
     display: flex;
 	flex-wrap: wrap;
@@ -35,5 +35,15 @@
     	font-size: 15px;
     	line-height: 1.4;
     	color: #fff;
+	}
+}
+
+@media (min-width: 768px) {
+	.login {
+		&__form-login,
+		&__form-password,
+		&__form-button {
+			min-width: 280px;
+		}
 	}
 }

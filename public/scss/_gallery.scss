@@ -30,6 +30,9 @@
 @media (min-width: 768px) {
 	.gallery {
 		padding-top: 50px;
+		&__wrapper {
+			max-width: 1140px;
+		}
 	}
 }
 

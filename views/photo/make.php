@@ -6,7 +6,7 @@
 			<?php include(ROOT . "/views/layouts/_burger/_burger.php"); ?>
 		</header>
 		<div class="photo main-content">
-			<div class="container container_small photo__wrapper">
+			<div class="container container_medium photo__wrapper">
 				<div class="photo__inner-wrapper">
 					{errors}
 					<div class="photo__container">
