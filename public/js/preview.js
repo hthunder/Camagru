@@ -32,7 +32,7 @@ function handleFileSelect(evt) {
                     document.querySelector('.photo__container').insertBefore(div, document.querySelector('.photo__video'));
                     document.querySelector(".photo__hidden").value = this.result;
                 };
-            })(file);.
+            })(file);
             reader.readAsDataURL(file);    
         }
     }
