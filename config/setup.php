@@ -30,7 +30,7 @@
 	function createCommentsTable($db) {
 		$sql = "CREATE TABLE IF NOT EXISTS comments (
 			id INT NOT NULL AUTO_INCREMENT,
-			text VARCHAR(45) NOT NULL,
+			text VARCHAR(70) NOT NULL,
 			photo_id INT NOT NULL,
 			user_id INT NOT NULL,
 			creation_date DATETIME NOT NULL,

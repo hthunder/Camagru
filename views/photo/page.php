@@ -21,7 +21,7 @@
 					<section class="page__commentaries commentaries">
 						<h2 class="commentaries__heading">Комментарии</h2>
 						<form class="commentaries__form" action="/comment/add" method="POST">
-							<input class="commentaries__form-text" type="text" maxlength="45" name="comment" placeholder="Написать комментарий" required>
+							<input class="commentaries__form-text" type="text" maxlength="70" name="comment" placeholder="Написать комментарий" required>
 							<button class="commentaries__form-submit" type="submit" data-photo-owner="{hostId}" data-photo-name="{name}" data-guest-name="{guestName}">Отправить</button>
 						</form>
 						{comments}

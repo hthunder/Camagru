@@ -11,7 +11,7 @@ class CommentController
 		
 		if (!empty($_POST["comment"]) && !empty($_POST["photoOwner"]) 
 			&& !empty($_POST["photoName"])) {
-			$comment = mb_substr($_POST["comment"], 0, 45, 'UTF-8');
+			$comment = mb_substr($_POST["comment"], 0, 70, 'UTF-8');
 			$userId = $_SESSION["id"];
 			$photoOwnerId = $_POST['photoOwner'];
 			$photoName = $_POST['photoName'];
@@ -24,7 +24,7 @@ class CommentController
 				exit();
 			}
 			$photoId = $temp['id'];
-			if (mb_strlen($comment) <= 45 && mb_strlen($comment) > 0) {
+			if (mb_strlen($comment) <= 70 && mb_strlen($comment) > 0) {
 				if ($lastInserted = Common::insertRowGetLast(array("text" => $comment, "user_id" => $userId,
 				"creation_date" => $dateOfCreation, "photo_id" => $photoId), "comments")) {
 					$res = Common::getRowsBy("id", $photoOwnerId, "users")->fetch();
