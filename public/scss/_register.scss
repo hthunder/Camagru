@@ -40,6 +40,11 @@
 	&__logo {
 		margin-bottom: 20px;
 	}
+	&__errors {
+		color: $error;
+		font-size: 12px;
+		margin-bottom: 10px;
+	}
 }
 
 @media (min-width: 768px) {

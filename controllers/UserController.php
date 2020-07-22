@@ -35,6 +35,7 @@ class UserController
                         "password" => password_hash($array["pass1"], PASSWORD_BCRYPT),
                         "activation_code" => $activation_code), "users");
                     User::sendMail($array["email"], "Подтверждение регистрации", $activation_code);
+                    $_SESSION["message"] = "Письмо для подтверждения регистрации было выслано Вам на почту";
                     header('Location: /');
                     exit();
                 }

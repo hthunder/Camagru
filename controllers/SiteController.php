@@ -18,7 +18,12 @@ class SiteController
         $array = array(
             "title" => "Главная страница",
             "transparency" => "header_bg_transparent",
+            "message" => "",
         );
+        if (!empty($_SESSION["message"])) {
+            $array["message"] = $_SESSION["message"];
+            unset($_SESSION["message"]);
+        }  
         $array["burger"] = Template::prerender(ROOT . "/views/layouts/_burger/_burger-unauthorized.php");
         print(Template::render($array, ROOT . '/views/site/index.php'));
         return true;

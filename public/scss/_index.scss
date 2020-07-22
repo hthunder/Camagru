@@ -3,6 +3,11 @@
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
+	&__message {
+		width: 50%;
+		min-width: 225px;
+		color: #593e3e;
+	}
 	&__inner {
 		width: 81.25%;
 		flex-direction: column;

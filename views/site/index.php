@@ -14,6 +14,9 @@
 					<p class="index-container__text">
 						Место, где делятся миллионами эмоций
 					</p>
+					<p class=index-container__message>
+						{message}
+					</p>
 				</div>
 				<div class="index-container__buttons">
 					<a href="/user/login" class="button button_bg_transparent button_link index-container__button">
