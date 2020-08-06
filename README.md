@@ -1,2 +1,2 @@
 # Camagru
-Web application allowing you to make basic photo and video editing using your webcam and some predefined images
+Web application allowing you to make basic photo editing using your webcam and some predefined images
